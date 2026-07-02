@@ -21,11 +21,12 @@ export function PitchInvitation({ data }: { data: InvitationSection }) {
 
   const introParas = (editable.paragraphs ?? []).flatMap(splitParagraphs);
   const noteParas = splitParagraphs(prospect.note);
+  const closingParas = splitParagraphs(prospect.closing);
 
   const hasNote =
     isMeaningful(prospect.greeting) ||
     noteParas.length > 0 ||
-    isMeaningful(prospect.closing);
+    closingParas.length > 0;
 
   const hasBg = isMeaningful(tenant.backgroundImage?.src);
 
@@ -119,7 +120,9 @@ export function PitchInvitation({ data }: { data: InvitationSection }) {
                   {noteParas.map((p, i) => (
                     <p key={i}>{p}</p>
                   ))}
-                  {isMeaningful(prospect.closing) && <p>{prospect.closing}</p>}
+                  {closingParas.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
 
                   {isMeaningful(tenant.signatureImage) && (
                     // eslint-disable-next-line @next/next/no-img-element

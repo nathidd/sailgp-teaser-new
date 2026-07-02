@@ -34,12 +34,12 @@ export const defaultSiteData: SiteData = {
     tenant: {
       wordmark: { left: "SailGP", cross: "×", right: "Germany" },
       subLabel: "Presented by Germany SailGP Team",
-      logo: { src: "/assets/sailgp-logo.png", alt: "SailGP" },
+      logo: { src: "/assets/images/sailgp-logo.png", alt: "SailGP" },
       backgroundVideo: {
         src: "https://stream.mux.com/Kmii1QWVzkSORidua8j7iCyyK1HI9Jt86FOtHtAEsws.m3u8",
         muxPlaybackId: "Kmii1QWVzkSORidua8j7iCyyK1HI9Jt86FOtHtAEsws",
       },
-      backgroundImage: { src: "/assets/hero-bg.png", alt: "SailGP racing" },
+      backgroundImage: { src: "/assets/images/hero-bg.png", alt: "SailGP racing" },
       metrics: [
         { _key: "hm-fans", value: "89M", label: "Global fans" },
         { _key: "hm-viewers", value: "240M", label: "Cumulative viewers" },
@@ -170,7 +170,7 @@ export const defaultSiteData: SiteData = {
         src: "https://player.vimeo.com/video/1162298466?autoplay=1&loop=1&muted=1&controls=0&playsinline=1",
         title: "Germany SailGP Team",
       },
-      backgroundImage: { src: "/assets/crew.png", alt: "Germany SailGP crew" },
+      backgroundImage: { src: "/assets/images/crew.png", alt: "Germany SailGP crew" },
     },
     editable: {
       label: "Who we are",
@@ -211,7 +211,7 @@ export const defaultSiteData: SiteData = {
           icon: "gauge",
         },
       ],
-      backgroundImage: { src: "/assets/Catamaran.webp", alt: "SailGP F50 on foils" },
+      backgroundImage: { src: "/assets/images/Catamaran.webp", alt: "SailGP F50 on foils" },
     },
     editable: {
       label: "How we compete",
@@ -260,7 +260,7 @@ export const defaultSiteData: SiteData = {
           icon: "leaf",
         },
       ],
-      backgroundImage: { src: "/assets/Front Catamaran.webp", alt: "SailGP racing" },
+      backgroundImage: { src: "/assets/images/Front Catamaran.webp", alt: "SailGP racing" },
     },
     editable: {
       label: "How we impact",
@@ -440,9 +440,9 @@ export const defaultSiteData: SiteData = {
       contactRole: TENANT.contactRole,
       contactEmail: "dsteffens@sailgpger.com",
       contactPhone: "+49 175 67 98 004",
-      contactPortraitImage: "/assets/contact-portrait.png",
-      signatureImage: "/assets/dennis-signature.svg",
-      backgroundImage: { src: "/assets/races/sailgp-sydney.webp", alt: "SailGP at the water's edge" },
+      contactPortraitImage: "/assets/images/contact-portrait.png",
+      signatureImage: "/assets/images/dennis-signature.svg",
+      backgroundImage: { src: "/assets/images/sailgp-sydney.webp", alt: "SailGP at the water's edge" },
     },
     editable: {
       label: "Exclusive invitation",
