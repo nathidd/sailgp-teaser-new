@@ -32,10 +32,11 @@ export const exampleProspect: ProspectPayload = {
   },
 
   invitation: {
-    greeting: "Dear HONOR team,",
+    greeting: "Dear Alibaba Team,",
     note:
-      "We've followed HONOR's move from smartphone brand to global AI device ecosystem, and it's exactly the kind of ambition that deserves a stage where technology becomes visible, emotional and real.\n\nThis invitation isn't a hospitality package. It's a weekend on the inside — paddock access, tech-team briefings, and the moments between races where the real conversations happen. I'd like to host you personally.",
-    closing: "Looking forward to meeting you at the water's edge.",
+      "We've been following Alibaba's journey with great admiration. As a global force in commerce, technology, logistics and cloud infrastructure, you don't just connect markets. You shape how people, businesses and ideas move across the world.\n\nAt Germany SailGP, we share that same ambition. Our sport is built on speed, precision and innovation, powered by nature and amplified by technology. Every race pushes the limits of performance, data and teamwork on a global stage.\n\nWe are not looking for sponsors. We are looking for partners who want to create meaningful impact, reach high-value audiences and be part of one of the world's fastest-growing sports platforms.",
+    closing:
+      "We would be delighted to show you what a partnership between Alibaba and Germany SailGP Team could create.\n\nWith best regards,",
   },
 };
 
