@@ -20,8 +20,13 @@ export function PitchHero({ data }: { data: HeroSection }) {
   const fallbackImage = tenant.backgroundImage?.src;
 
   const hasOverride = isMeaningful(overrideImage);
-  const hasVideo = !hasOverride && isMeaningful(videoSrc);
-  const hasFallback = !hasOverride && !hasVideo && isMeaningful(fallbackImage);
+  // A Vimeo player URL renders as a background iframe; an HLS/mp4 src uses
+  // the <video> HeroVideo component.
+  const isEmbedVideo =
+    !hasOverride && isMeaningful(videoSrc) && videoSrc!.includes("player.vimeo.com");
+  const hasVideo = !hasOverride && !isEmbedVideo && isMeaningful(videoSrc);
+  const hasFallback =
+    !hasOverride && !isEmbedVideo && !hasVideo && isMeaningful(fallbackImage);
 
   return (
     <section
@@ -38,6 +43,20 @@ export function PitchHero({ data }: { data: HeroSection }) {
             alt={prospect.backgroundImage!.alt ?? ""}
             aria-hidden="true"
           />
+          <div className="tp-hero__video-scrim" aria-hidden="true" />
+        </>
+      )}
+      {isEmbedVideo && (
+        <>
+          <div className="tp-hero__bg-embed" aria-hidden="true">
+            <iframe
+              src={videoSrc!}
+              title="SailGP"
+              allow="autoplay; fullscreen; picture-in-picture"
+              frameBorder="0"
+              tabIndex={-1}
+            />
+          </div>
           <div className="tp-hero__video-scrim" aria-hidden="true" />
         </>
       )}

@@ -36,8 +36,7 @@ export const defaultSiteData: SiteData = {
       subLabel: "Presented by Germany SailGP Team",
       logo: { src: "/assets/images/sailgp-logo.png", alt: "SailGP" },
       backgroundVideo: {
-        src: "https://stream.mux.com/Kmii1QWVzkSORidua8j7iCyyK1HI9Jt86FOtHtAEsws.m3u8",
-        muxPlaybackId: "Kmii1QWVzkSORidua8j7iCyyK1HI9Jt86FOtHtAEsws",
+        src: "https://player.vimeo.com/video/1162298466?background=1&autoplay=1&loop=1&muted=1",
       },
       backgroundImage: { src: "/assets/images/hero-bg.png", alt: "SailGP racing" },
       metrics: [

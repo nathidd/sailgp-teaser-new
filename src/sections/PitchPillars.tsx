@@ -27,7 +27,7 @@ export function PitchPillars({ data }: { data: PillarsSection }) {
   return (
     <section
       id={SectionId.pillars}
-      className="tp-section tp-section--surface tp-pillars"
+      className="tp-section tp-pillars"
       aria-label={label}
     >
       <div className="tp-container">

@@ -580,7 +580,7 @@
   overflow: hidden;
   /* Bottom padding clears the absolutely-positioned scroll indicator
      (~80px tall + ~36px from bottom edge) on every viewport size. */
-  padding-block: clamp(120px, 14vw, 200px) clamp(240px, 24vw, 300px);
+  padding-block: clamp(120px, 14vw, 200px) clamp(150px, 16vw, 210px);
 }
 .template-sailgp-pitch .tp-hero__bg-image,
 .template-sailgp-pitch .tp-hero__bg-video {
@@ -591,6 +591,29 @@
   object-fit: cover;
   z-index: 0;
 }
+/* Vimeo background embed — the iframe is scaled to cover the hero (16:9),
+   centred, and non-interactive so it reads as a background layer. */
+.template-sailgp-pitch .tp-hero__bg-embed {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.template-sailgp-pitch .tp-hero__bg-embed iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* scale() zooms the cover video in a touch so it's cropped at the top
+     and bottom rather than showing the full frame. */
+  transform: translate(-50%, -50%) scale(1.22);
+  width: 100vw;
+  height: 56.25vw; /* 16:9 of width */
+  min-width: 177.78vh; /* 16:9 of height */
+  min-height: 100vh;
+  border: 0;
+  pointer-events: none;
+}
 .template-sailgp-pitch .tp-hero__video-scrim {
   position: absolute;
   inset: 0;
@@ -599,9 +622,9 @@
   background: linear-gradient(
     180deg,
     rgba(3, 5, 15, 0.2) 0%,
-    rgba(3, 5, 15, 0.55) 55%,
-    rgba(3, 5, 15, 0.92) 85%,
-    rgba(3, 5, 15, 1) 100%
+    rgba(3, 5, 15, 0.5) 38%,
+    rgba(3, 5, 15, 0.9) 62%,
+    rgba(3, 5, 15, 1) 82%
   );
   z-index: 1;
 }
