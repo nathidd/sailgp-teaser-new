@@ -133,16 +133,31 @@ export type HeroSection = {
 
 // ----- Section 1b — pillars (the four-field infographic) ------------------
 
+/** A race destination plotted on the globe visualization. */
+export type Destination = {
+  _key?: string;
+  city: string;
+  country: string;
+  /** Human date, e.g. "January 2026". */
+  date: string;
+  lat: number;
+  lng: number;
+};
+
 export type PillarItem = {
   _key?: string;
   /** Pillar name, e.g. "Global Scale". */
   title: string;
   /** All-caps sub-head, e.g. "HIGH-STAKES RACING IN ICONIC DESTINATIONS". */
   subtitle: string;
+  /** Optional descriptive line under the title (a plain subtitle, not a KPI). */
+  caption?: string;
   /** Icon name (see Icon.tsx), e.g. "globe". */
   icon?: string;
   /** Reference count 3–4; grid adapts. */
   stats: StatPoint[];
+  /** Optional race destinations, rendered as a pulsing-dot globe. */
+  destinations?: Destination[];
 };
 
 export type PillarsSection = {

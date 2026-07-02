@@ -75,16 +75,29 @@ export const defaultSiteData: SiteData = {
           _key: "pillar-scale",
           title: "Global Scale",
           subtitle: "High-stakes racing in iconic waterfront destinations",
+          caption:
+            "Every team races an identical F50, so team performance is the only differentiator.",
           icon: "globe",
           stats: [
             { _key: "sc1", value: "13", label: "Nations competing on a global stage" },
             { _key: "sc2", value: "13", label: "Events across 5 continents" },
-            {
-              _key: "sc3",
-              value: "1×",
-              label: "Identical F50s: team performance is the only differentiator",
-            },
           ],
+          destinations: [
+            { _key: "race1", date: "17 Jan 2026", country: "Australia", city: "Perth", lat: -31.9535, lng: 115.857 },
+            { _key: "race2", date: "14 Feb 2026", country: "New Zealand", city: "Auckland", lat: -36.8485, lng: 174.7633 },
+            { _key: "race3", date: "28 Feb 2026", country: "Australia", city: "Sydney", lat: -33.8651, lng: 151.2099 },
+            { _key: "race4", date: "11 Apr 2026", country: "Brazil", city: "Rio de Janeiro", lat: -22.9083, lng: -43.1964 },
+            { _key: "race5", date: "9 May 2026", country: "Bermuda", city: "Bermuda", lat: 32.2995, lng: -64.7903 },
+            { _key: "race6", date: "30 May 2026", country: "USA", city: "New York", lat: 40.7143, lng: -74.006 },
+            { _key: "race7", date: "20 Jun 2026", country: "Canada", city: "Halifax", lat: 44.6511, lng: -63.5827 },
+            { _key: "race8", date: "25 Jul 2026", country: "United Kingdom", city: "Portsmouth", lat: 50.8058, lng: -1.0872 },
+            { _key: "race9", date: "22 Aug 2026", country: "Germany", city: "Sassnitz", lat: 54.5157, lng: 13.6445 },
+            { _key: "race10", date: "5 Sep 2026", country: "Spain", city: "Valencia", lat: 39.4667, lng: -0.375 },
+            { _key: "race11", date: "19 Sep 2026", country: "Switzerland", city: "Geneva", lat: 46.2044, lng: 6.1432 },
+            { _key: "race12", date: "21 Nov 2026", country: "UAE", city: "Dubai", lat: 25.277, lng: 55.2962 },
+            { _key: "race13", date: "28 Nov 2026", country: "UAE", city: "Abu Dhabi", lat: 24.4667, lng: 54.3667 },
+          ],
+
         },
         {
           _key: "pillar-momentum",

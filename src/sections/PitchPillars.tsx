@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { PillarsSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
 import { CountUp } from "@/components/CountUp";
+import { RaceGlobe } from "@/components/RaceGlobe";
 import { isMeaningful, filterMeaningful } from "@/lib/render-utils";
 
 /**
@@ -97,8 +98,30 @@ export function PitchPillars({ data }: { data: PillarsSection }) {
               exit={{ opacity: 0, y: -18 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
-              {isMeaningful(current.subtitle) && (
-                <h3 className="tp-display tp-display--lg tp-pillars__title">{current.subtitle}</h3>
+              {current.destinations && current.destinations.length > 0 && (
+                <div className="tp-pillars__viz">
+                  <RaceGlobe
+                    destinations={current.destinations.map((d, i) => ({
+                      id: d._key ?? `${d.city}-${i}`,
+                      city: d.city,
+                      date: d.date,
+                      lat: d.lat,
+                      lng: d.lng,
+                    }))}
+                  />
+                </div>
+              )}
+              {(isMeaningful(current.subtitle) || isMeaningful(current.caption)) && (
+                <div className="tp-pillars__head">
+                  {isMeaningful(current.subtitle) && (
+                    <h3 className="tp-display tp-display--lg tp-pillars__title">
+                      {current.subtitle}
+                    </h3>
+                  )}
+                  {isMeaningful(current.caption) && (
+                    <p className="tp-pillars__caption">{current.caption}</p>
+                  )}
+                </div>
               )}
               {stats.length > 0 && (
                 <ul className="tp-pillars__stats">
