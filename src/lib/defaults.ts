@@ -387,7 +387,7 @@ export const defaultSiteData: SiteData = {
       contactPhone: "+49 175 67 98 004",
       contactPortraitImage: "/assets/contact-portrait.png",
       signatureImage: "/assets/dennis-signature.svg",
-      backgroundImage: { src: "/assets/races/sailgp-sydney.webp", alt: "SailGP at the water's edge" },
+      backgroundImage: { src: "/assets/images/sailgp-sydney.webp", alt: "SailGP at the water's edge" },
     },
     editable: {
       label: "Exclusive invitation",
