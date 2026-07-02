@@ -3,11 +3,15 @@ import { SectionId } from "@/lib/data";
 import { Headline } from "@/components/Headline";
 import { HeroVideo } from "@/components/HeroVideo";
 import { Reveal } from "@/components/Reveal";
+import { CountUp } from "@/components/CountUp";
 import { ScrollIndicator } from "@/components/ScrollIndicator";
-import { isMeaningful } from "@/lib/render-utils";
+import { isMeaningful, filterMeaningful } from "@/lib/render-utils";
 
 export function PitchHero({ data }: { data: HeroSection }) {
   const { editable, tenant, prospect } = data;
+  const metrics = filterMeaningful(tenant.metrics).filter(
+    (m) => isMeaningful(m.value) && isMeaningful(m.label)
+  );
 
   // Background precedence: per-prospect override → tenant loop video →
   // tenant still fallback. (Brief S1: 30s tenant hero video.)
@@ -63,7 +67,7 @@ export function PitchHero({ data }: { data: HeroSection }) {
       <div className="tp-container tp-hero__inner">
         {isMeaningful(editable.badge) && (
           <Reveal delay={1}>
-            <p className="tp-eyebrow tp-hero__badge">{editable.badge}</p>
+            <p className="tp-label tp-hero__badge">{editable.badge}</p>
           </Reveal>
         )}
         <Reveal delay={2}>
@@ -78,6 +82,18 @@ export function PitchHero({ data }: { data: HeroSection }) {
             <p className="tp-body tp-body--lg tp-body--muted tp-hero__subline">
               {editable.subheadline}
             </p>
+          </Reveal>
+        )}
+        {metrics.length > 0 && (
+          <Reveal delay={4}>
+            <ul className="tp-hero__metrics">
+              {metrics.map((m) => (
+                <li key={m._key ?? m.label} className="tp-hero__metric">
+                  <CountUp value={m.value} className="tp-hero__metric-value" />
+                  <span className="tp-hero__metric-label">{m.label}</span>
+                </li>
+              ))}
+            </ul>
           </Reveal>
         )}
       </div>

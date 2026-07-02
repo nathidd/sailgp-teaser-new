@@ -1,76 +1,114 @@
+"use client";
+
+import { useState } from "react";
 import type { ApproachSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
 import { Headline } from "@/components/Headline";
 import { Reveal } from "@/components/Reveal";
+import { Icon } from "@/components/Icon";
 import { isMeaningful, filterMeaningful, splitParagraphs } from "@/lib/render-utils";
 
 /**
- * Brief Section 6 "Partnership Approach" — the 5-stage sales funnel
- * (Awareness → Sales), each stage carrying its benefit line. Bars taper
- * toward the point; width is derived from the stage count so any count works.
+ * Brief Section 6 "Partnership Approach" — the sales funnel. Five stair-
+ * stepped stages taper toward the point; hovering/focusing a stage drives
+ * the "Now focusing" detail card on the left. (Inspired by the Lovable
+ * approach section.)
  */
 export function PitchApproach({ data }: { data: ApproachSection }) {
   const { tenant, editable } = data;
+  const label = editable.label ?? "How we partner";
   const paragraphs = (editable.paragraphs ?? []).flatMap(splitParagraphs);
   const stages = filterMeaningful(tenant.stages).filter((s) => isMeaningful(s.stage));
-  const last = Math.max(stages.length - 1, 1);
+
+  const defaultIndex = Math.max(
+    stages.findIndex((s) => s.current),
+    0
+  );
+  const [active, setActive] = useState(defaultIndex);
+
+  if (stages.length === 0) return null;
+  const current = stages[Math.min(active, stages.length - 1)];
 
   return (
     <section
       id={SectionId.approach}
       className="tp-section tp-section--surface-strong tp-approach"
-      aria-label={editable.label ?? "How we partner"}
+      aria-label={label}
     >
-      <div className="tp-container tp-approach__inner">
-        <div className="tp-section-head">
-          {isMeaningful(editable.label) && (
-            <Reveal>
-              <p className="tp-eyebrow">{editable.label}</p>
-            </Reveal>
-          )}
-          {editable.headline && (
-            <Reveal delay={1}>
-              <Headline data={editable.headline} className="tp-display tp-display--lg" />
-            </Reveal>
-          )}
-          {paragraphs.length > 0 && (
-            <Reveal delay={2} className="tp-approach__body">
-              {paragraphs.map((p, i) => (
-                <p key={i} className="tp-body tp-body--muted">
-                  {p}
-                </p>
-              ))}
-            </Reveal>
-          )}
+      <div className="tp-container">
+        <div className="tp-topbar">
+          <Reveal>
+            <p className="tp-label">{label}</p>
+          </Reveal>
+          <span className="tp-topbar__index">06 / 08</span>
         </div>
 
-        {stages.length > 0 && (
-          <ol className="tp-approach__funnel">
-            {stages.map((s, i) => {
-              // 100% at the top, tapering to ~62% at the point.
-              const width = 100 - (i / last) * 38;
-              return (
-                <Reveal
-                  key={s._key ?? s.stage}
-                  delay={(Math.min(i, 6) as 0 | 1 | 2 | 3 | 4 | 5 | 6)}
-                  className="tp-approach__stage"
-                >
-                  <div className="tp-approach__bar" style={{ width: `${width}%` }}>
-                    <span className="tp-approach__stage-name">{s.stage}</span>
-                    {isMeaningful(s.action) && (
-                      <span className="tp-approach__stage-action">{s.action}</span>
-                    )}
-                  </div>
-                  {isMeaningful(s.description) && (
-                    <p className="tp-approach__stage-desc tp-body tp-body--muted">
-                      {s.description}
-                    </p>
-                  )}
-                </Reveal>
-              );
-            })}
-          </ol>
-        )}
+        <div className="tp-approach__inner">
+          <div className="tp-approach__text">
+            {editable.headline && (
+              <Reveal delay={1}>
+                <Headline data={editable.headline} className="tp-display tp-display--lg" />
+              </Reveal>
+            )}
+            {paragraphs.length > 0 && (
+              <Reveal delay={2} className="tp-approach__body">
+                {paragraphs.map((p, i) => (
+                  <p key={i} className="tp-body tp-body--muted">
+                    {p}
+                  </p>
+                ))}
+              </Reveal>
+            )}
+
+            <Reveal delay={2} className="tp-approach__focus" aria-live="polite">
+              <p className="tp-approach__focus-label">
+                <Icon name="compass" size={16} />
+                Now focusing
+              </p>
+              <p className="tp-approach__focus-stage">{current.stage}</p>
+              {isMeaningful(current.action) && (
+                <p className="tp-approach__focus-action">{current.action}</p>
+              )}
+              {isMeaningful(current.description) && (
+                <p className="tp-approach__focus-desc tp-body tp-body--muted">
+                  {current.description}
+                </p>
+              )}
+            </Reveal>
+          </div>
+
+          <Reveal delay={1} className="tp-approach__funnel-wrap">
+            <div className="tp-approach__funnel-head">
+              <span className="tp-label tp-label--muted">Sales Funnel</span>
+              <span className="tp-approach__hint">Hover to explore</span>
+            </div>
+            <ol className="tp-approach__funnel">
+              {stages.map((s, i) => {
+                const indent = stages.length > 1 ? (i / (stages.length - 1)) * 26 : 0;
+                return (
+                  <li key={s._key ?? s.stage} className="tp-approach__stage-item">
+                    <button
+                      type="button"
+                      className={`tp-funnel-bar${i === active ? " is-active" : ""}`}
+                      style={{ marginLeft: `${indent}%`, width: `${100 - indent}%` }}
+                      onMouseEnter={() => setActive(i)}
+                      onFocus={() => setActive(i)}
+                      aria-pressed={i === active}
+                    >
+                      <span className="tp-funnel-bar__num">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="tp-funnel-bar__stage">{s.stage}</span>
+                      {isMeaningful(s.action) && (
+                        <span className="tp-funnel-bar__action">{s.action}</span>
+                      )}
+                    </button>
+                  </li>
+                );
+              })}
+            </ol>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

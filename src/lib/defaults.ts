@@ -40,17 +40,23 @@ export const defaultSiteData: SiteData = {
         muxPlaybackId: "Kmii1QWVzkSORidua8j7iCyyK1HI9Jt86FOtHtAEsws",
       },
       backgroundImage: { src: "/assets/hero-bg.png", alt: "SailGP racing" },
+      metrics: [
+        { _key: "hm-fans", value: "89M", label: "Global fans" },
+        { _key: "hm-viewers", value: "240M", label: "Cumulative viewers" },
+        { _key: "hm-nations", value: "13", label: "Nations" },
+        { _key: "hm-continents", value: "5", label: "Continents" },
+      ],
     },
     editable: {
       badge: "ABOUT SAILGP",
       headline: {
         parts: [
-          { text: "Why SailGP\n" },
+          { text: "Why SailGP " },
           { text: "matters", highlight: true },
         ],
       },
       subheadline:
-        "High-stakes racing in iconic waterfront destinations — a global sport with unstoppable momentum, a premium audience modern brands want to reach, and a platform built for positive impact.",
+        "High-stakes racing in iconic waterfront destinations. A global sport with unstoppable momentum, a premium audience modern brands want to reach, and a platform built for positive impact.",
       partnerLabel: "Exclusively prepared for",
       confidentialLabel: "Confidential",
       bannerCenterLabel: "Exclusive SailGP Partnership",
@@ -69,22 +75,23 @@ export const defaultSiteData: SiteData = {
         {
           _key: "pillar-scale",
           title: "Global Scale",
-          subtitle: "HIGH-STAKES RACING IN ICONIC WATERFRONT DESTINATIONS",
+          subtitle: "High-stakes racing in iconic waterfront destinations",
+          icon: "globe",
           stats: [
             { _key: "sc1", value: "13", label: "Nations competing on a global stage" },
             { _key: "sc2", value: "13", label: "Events across 5 continents" },
             {
               _key: "sc3",
-              value: "F50",
-              label:
-                "Identical catamarans, technology & regulations — team performance is the only differentiator",
+              value: "1×",
+              label: "Identical F50s: team performance is the only differentiator",
             },
           ],
         },
         {
           _key: "pillar-momentum",
           title: "Momentum",
-          subtitle: "A GLOBAL SPORT GAINING UNSTOPPABLE MOMENTUM",
+          subtitle: "A global sport gaining unstoppable momentum",
+          icon: "trend",
           stats: [
             { _key: "mo1", value: "89M", label: "Global fans" },
             {
@@ -98,7 +105,8 @@ export const defaultSiteData: SiteData = {
         {
           _key: "pillar-audience",
           title: "Premium Audience",
-          subtitle: "A PREMIUM AUDIENCE MODERN BRANDS WANT TO REACH",
+          subtitle: "A premium audience modern brands want to reach",
+          icon: "users",
           stats: [
             { _key: "au1", value: "$125K", label: "Average household fan income (affluent)" },
             { _key: "au2", value: "38%", label: "Owner, executive or board level (influential)" },
@@ -106,7 +114,7 @@ export const defaultSiteData: SiteData = {
               _key: "au3",
               value: "2.1×",
               label:
-                "More likely to consider sponsors — ahead of F1, UEFA, NBA & Wimbledon (engaged)",
+                "More likely to consider sponsors, ahead of F1, UEFA, NBA & Wimbledon (engaged)",
             },
             {
               _key: "au4",
@@ -119,7 +127,8 @@ export const defaultSiteData: SiteData = {
         {
           _key: "pillar-impact",
           title: "Impact Platform",
-          subtitle: "A TRUSTED PLATFORM FOR POSITIVE IMPACT",
+          subtitle: "A trusted platform for positive impact",
+          icon: "leaf",
           stats: [
             {
               _key: "im1",
@@ -146,8 +155,8 @@ export const defaultSiteData: SiteData = {
   team: {
     tenant: {
       founders: [
-        { _key: "f-vettel", name: "Sebastian Vettel", role: "Co-Founder · 4× Formula 1 World Champion" },
-        { _key: "f-riedel", name: "Thomas Riedel", role: "Co-Founder · Technology Entrepreneur" },
+        { _key: "f-vettel", name: "Sebastian Vettel", role: "Co-Founder" },
+        { _key: "f-riedel", name: "Thomas Riedel", role: "Co-Founder" },
       ],
       crewImages: [
         { src: "/assets/crew/anna-barth.png", alt: "Anna Barth" },
@@ -167,9 +176,8 @@ export const defaultSiteData: SiteData = {
       label: "Who we are",
       headline: {
         parts: [
-          { text: "Team-Engineered " },
-          { text: "Performance", highlight: true },
-          { text: " in Motion" },
+          { text: "Team-engineered performance " },
+          { text: "in motion.", highlight: true },
         ],
       },
       paragraphs: [
@@ -187,17 +195,20 @@ export const defaultSiteData: SiteData = {
         {
           _key: "mk-data",
           label: "Data",
-          description: "Turning race telemetry into learning faster than anyone on the water.",
+          description: "Real-time telemetry pipelines adopted league-wide.",
+          icon: "gauge",
         },
         {
           _key: "mk-training",
           label: "Training",
-          description: "Human performance systems that compound every single session.",
+          description: "Simulator-first onboarding & recovery protocols.",
+          icon: "gauge",
         },
         {
           _key: "mk-operations",
           label: "Operations",
-          description: "A way of working the league later adopts as standard.",
+          description: "Race-day decision frameworks now standard.",
+          icon: "gauge",
         },
       ],
       backgroundImage: { src: "/assets/Catamaran.webp", alt: "SailGP F50 on foils" },
@@ -206,8 +217,8 @@ export const defaultSiteData: SiteData = {
       label: "How we compete",
       headline: {
         parts: [
-          { text: "Learning speed", highlight: true },
-          { text: " creates the edge" },
+          { text: "Learning speed " },
+          { text: "creates the edge.", highlight: true },
         ],
       },
       paragraphs: [
@@ -226,21 +237,27 @@ export const defaultSiteData: SiteData = {
       initiatives: [
         {
           _key: "in-edna",
-          title: "eDNA Programmes",
-          description:
-            "Environmental-DNA sampling at race venues turns every event into ocean-health data.",
+          title: "eDNA Programme",
+          description: "Marine biodiversity sampling at every race venue.",
+          icon: "leaf",
         },
         {
           _key: "in-women",
-          title: "Women on the Water",
-          description:
-            "Structured pathways that put more women into elite sailing and technical roles.",
+          title: "Women Pathway",
+          description: "Structured routes to bring more women onto the water.",
+          icon: "leaf",
         },
         {
-          _key: "in-cocreation",
-          title: "Measurable Co-Creation",
-          description:
-            "Partner expertise translated into initiatives with tracked, real-world outcomes.",
+          _key: "in-league",
+          title: "Impact League",
+          description: "Every team ranked on positive-action performance.",
+          icon: "leaf",
+        },
+        {
+          _key: "in-carbon",
+          title: "Carbon Disclosure",
+          description: "First sport to disclose to CDP, with full transparency.",
+          icon: "leaf",
         },
       ],
       backgroundImage: { src: "/assets/Front Catamaran.webp", alt: "SailGP racing" },
@@ -250,12 +267,12 @@ export const defaultSiteData: SiteData = {
       headline: {
         parts: [
           { text: "Built for impact " },
-          { text: "beyond sport", highlight: true },
+          { text: "beyond sport.", highlight: true },
         ],
       },
       paragraphs: [
         "Our way of thinking goes far beyond sport. Together with our partners and their expertise, we turn performance into measurable impact.",
-        "Together with partners like Deutsche Bank, we are already building measurable initiatives — from eDNA programmes to structured pathways that put more women on the water.",
+        "Together with partners like Deutsche Bank, we are already building measurable initiatives, from eDNA programmes to structured pathways that put more women on the water.",
       ],
       statement: "This is a system still evolving, built to shape what comes next.",
     },
@@ -290,7 +307,7 @@ export const defaultSiteData: SiteData = {
         ],
       },
       paragraphs: [
-        "Germany SailGP brings partners into a high-value environment for decision makers — connecting leaders from finance, technology and industry through one of Europe's most powerful business networks.",
+        "Germany SailGP brings partners into a high-value environment for decision makers, connecting leaders from finance, technology and industry through one of Europe's most powerful business networks.",
         "Race weekends become the meeting point: where relationships are built, ideas are exchanged and conversations move beyond the boardroom.",
       ],
     },
@@ -300,11 +317,37 @@ export const defaultSiteData: SiteData = {
   approach: {
     tenant: {
       stages: [
-        { _key: "st-awareness", stage: "Awareness", action: "Increase your Reach" },
-        { _key: "st-image", stage: "Image", action: "Recharge your Brand" },
-        { _key: "st-activation", stage: "Activation", action: "Engage your Stakeholders" },
-        { _key: "st-consideration", stage: "Consideration", action: "Demonstrate your Technology" },
-        { _key: "st-sales", stage: "Sales", action: "Grow your Network" },
+        {
+          _key: "st-awareness",
+          stage: "Awareness",
+          action: "Increase your Reach",
+          description: "Premium global visibility through a tier-one sports platform.",
+          current: true,
+        },
+        {
+          _key: "st-image",
+          stage: "Image",
+          action: "Recharge your Brand",
+          description: "Borrow equity from a fast-rising, intelligent challenger brand.",
+        },
+        {
+          _key: "st-activation",
+          stage: "Activation",
+          action: "Engage your Stakeholders",
+          description: "Turn fans, clients and team into participants through real experiences.",
+        },
+        {
+          _key: "st-consideration",
+          stage: "Consideration",
+          action: "Demonstrate your Technology",
+          description: "Prove your capabilities in the most demanding performance environment.",
+        },
+        {
+          _key: "st-sales",
+          stage: "Sales",
+          action: "Grow your Network",
+          description: "Executive access and hospitality that opens doors cold outreach never could.",
+        },
       ],
     },
     editable: {
@@ -312,11 +355,11 @@ export const defaultSiteData: SiteData = {
       headline: {
         parts: [
           { text: "Aligned with your " },
-          { text: "business goals", highlight: true },
+          { text: "business goals.", highlight: true },
         ],
       },
       paragraphs: [
-        "We operate partnerships as performance systems — built to evolve, innovate, and set new standards across sport and business.",
+        "We operate partnerships as performance systems, built to evolve, innovate and set new standards across sport and business.",
         "Every partnership is built to deliver measurable, KPI-driven value, enabled by the flexibility and creative freedom of a young property.",
       ],
     },
@@ -330,28 +373,38 @@ export const defaultSiteData: SiteData = {
           _key: "op-reach",
           title: "Increase Your Reach",
           description: "Generate premium global visibility through a tier-one sports platform.",
+          short: "increase reach",
+          icon: "globe",
         },
         {
           _key: "op-brand",
           title: "Recharge Your Brand",
           description: "Borrow equity from a fast-rising, intelligent challenger brand.",
+          short: "recharge brand",
+          icon: "sparkle",
         },
         {
           _key: "op-stakeholders",
           title: "Engage Your Stakeholders",
           description:
             "Turn fans, clients and team into participants through real experiences and content.",
+          short: "engage stakeholders",
+          icon: "users",
         },
         {
           _key: "op-tech",
           title: "Demonstrate Your Technology",
           description: "Prove your capabilities in the most demanding performance environment.",
+          short: "demonstrate technology",
+          icon: "gauge",
         },
         {
           _key: "op-network",
           title: "Grow Your Network",
           description:
             "Gain executive access and hospitality that opens doors cold outreach never could.",
+          short: "grow network",
+          icon: "sitemap",
         },
       ],
     },
@@ -364,12 +417,14 @@ export const defaultSiteData: SiteData = {
       headline: {
         parts: [
           { text: "Five ways your brand " },
-          { text: "sets sail", highlight: true },
+          { text: "sets sail.", highlight: true },
         ],
       },
       paragraphs: [
-        "Choose your course. Each route maps to a business goal — and every partnership is shaped around the ones that matter most to you.",
+        "Tap to build your course. Each route maps to a business goal. Combine the ones that matter most and we'll shape the partnership around them.",
       ],
+      ctaLabel: "Discuss this course",
+      ctaHref: `#${SectionId.invitation}`,
     },
   },
 

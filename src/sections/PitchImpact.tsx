@@ -2,89 +2,79 @@ import type { ImpactSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
 import { Headline } from "@/components/Headline";
 import { Reveal } from "@/components/Reveal";
+import { Icon } from "@/components/Icon";
 import { isMeaningful, filterMeaningful, splitParagraphs } from "@/lib/render-utils";
 
 /** Brief Section 4 "Impact" — co-creation beyond sport (Deutsche Bank et al). */
 export function PitchImpact({ data }: { data: ImpactSection }) {
   const { tenant, editable } = data;
+  const label = editable.label ?? "How we impact";
   const paragraphs = (editable.paragraphs ?? []).flatMap(splitParagraphs);
   const initiatives = filterMeaningful(tenant.initiatives).filter((it) =>
     isMeaningful(it.title)
   );
-  const partner = tenant.partnerExample;
+  const imgSrc = tenant.backgroundImage?.src;
+  const hasImage = isMeaningful(imgSrc);
 
   return (
     <section
       id={SectionId.impact}
       className="tp-section tp-section--surface tp-impact"
-      aria-label={editable.label ?? "How we impact"}
+      aria-label={label}
     >
-      <div className="tp-container tp-impact__inner">
-        <div className="tp-impact__lead">
-          {isMeaningful(editable.label) && (
-            <Reveal>
-              <p className="tp-eyebrow">{editable.label}</p>
-            </Reveal>
-          )}
-          {editable.headline && (
-            <Reveal delay={1}>
-              <Headline data={editable.headline} className="tp-display tp-display--lg" />
-            </Reveal>
-          )}
-          {paragraphs.length > 0 && (
-            <Reveal delay={2} className="tp-impact__body">
-              {paragraphs.map((p, i) => (
-                <p key={i} className="tp-body tp-body--muted">
-                  {p}
-                </p>
-              ))}
-            </Reveal>
-          )}
-          {partner && isMeaningful(partner.name) && (
-            <Reveal delay={3} className="tp-impact__partner">
-              <span className="tp-impact__partner-label">In co-creation with</span>
-              {isMeaningful(partner.logo?.src) ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={partner.logo!.src}
-                  alt={partner.logo!.alt ?? partner.name}
-                  className="tp-impact__partner-logo"
-                />
-              ) : (
-                <strong className="tp-impact__partner-name">{partner.name}</strong>
-              )}
-            </Reveal>
-          )}
+      <div className="tp-container">
+        <div className="tp-topbar">
+          <Reveal>
+            <p className="tp-label">{label}</p>
+          </Reveal>
+          <span className="tp-topbar__index">04 / 08</span>
         </div>
 
-        {initiatives.length > 0 && (
-          <ul className="tp-impact__grid">
-            {initiatives.map((it, i) => (
-              <Reveal
-                key={it._key ?? it.title}
-                delay={(Math.min(i + 1, 3) as 1 | 2 | 3)}
-                className="tp-impact__card"
-              >
-                {isMeaningful(it.image?.src) && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={it.image!.src}
-                    alt={it.image!.alt ?? it.title}
-                    className="tp-impact__card-img"
-                  />
-                )}
-                <div className="tp-impact__card-body">
-                  <h3 className="tp-display tp-display--sm tp-impact__card-title">
-                    {it.title}
-                  </h3>
-                  {isMeaningful(it.description) && (
-                    <p className="tp-body tp-body--muted">{it.description}</p>
-                  )}
-                </div>
+        <div className="tp-impact__inner">
+          {hasImage && (
+            <Reveal className="tp-impact__media">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={imgSrc} alt={tenant.backgroundImage?.alt ?? ""} />
+            </Reveal>
+          )}
+
+          <div className="tp-impact__content">
+            {editable.headline && (
+              <Reveal delay={1}>
+                <Headline data={editable.headline} className="tp-display tp-display--lg" />
               </Reveal>
-            ))}
-          </ul>
-        )}
+            )}
+            {paragraphs.length > 0 && (
+              <Reveal delay={2} className="tp-impact__body">
+                {paragraphs.map((p, i) => (
+                  <p key={i} className="tp-body tp-body--muted">
+                    {p}
+                  </p>
+                ))}
+              </Reveal>
+            )}
+
+            {initiatives.length > 0 && (
+              <ul className="tp-impact__grid">
+                {initiatives.map((it, i) => (
+                  <Reveal
+                    key={it._key ?? it.title}
+                    delay={(Math.min(i + 1, 4) as 1 | 2 | 3 | 4)}
+                    className="tp-impact__card"
+                  >
+                    <span className="tp-impact__card-head">
+                      <Icon name={it.icon} size={18} className="tp-impact__card-icon" />
+                      <span className="tp-impact__card-title">{it.title}</span>
+                    </span>
+                    {isMeaningful(it.description) && (
+                      <p className="tp-body tp-body--muted">{it.description}</p>
+                    )}
+                  </Reveal>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
       </div>
 
       {isMeaningful(editable.statement) && (

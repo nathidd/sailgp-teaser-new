@@ -100,6 +100,12 @@ export type HeroSection = {
     backgroundVideo?: PropertyVideo;
     /** Still fallback when no video / on reduced-data. */
     backgroundImage?: Asset;
+    /**
+     * A few headline facts pulled forward from the pillars, shown as a
+     * compact metric row under the hero copy (brief S1: "wenige Fakten
+     * aus der Infografik vorziehen"). Reference count 4; row wraps.
+     */
+    metrics?: StatPoint[];
   };
   editable: {
     /** Eyebrow tag above the headline, e.g. "ABOUT SAILGP". */
@@ -133,6 +139,8 @@ export type PillarItem = {
   title: string;
   /** All-caps sub-head, e.g. "HIGH-STAKES RACING IN ICONIC DESTINATIONS". */
   subtitle: string;
+  /** Icon name (see Icon.tsx), e.g. "globe". */
+  icon?: string;
   /** Reference count 3–4; grid adapts. */
   stats: StatPoint[];
 };
@@ -182,6 +190,8 @@ export type PositioningMarker = {
   /** e.g. "Data", "Training", "Operations". */
   label: string;
   description?: string;
+  /** Icon name (see Icon.tsx), e.g. "gauge". */
+  icon?: string;
 };
 
 export type PositioningSection = {
@@ -209,6 +219,8 @@ export type ImpactInitiative = {
   title: string;
   description: string;
   image?: Asset;
+  /** Icon name (see Icon.tsx), e.g. "leaf". */
+  icon?: string;
 };
 
 export type ImpactSection = {
@@ -258,7 +270,10 @@ export type FunnelStage = {
   stage: string;
   /** Benefit line, e.g. "Increase your Reach". */
   action: string;
+  /** Revealed on hover/focus. */
   description?: string;
+  /** Flags the stage this pitch is currently focused on ("Now focusing"). */
+  current?: boolean;
 };
 
 export type ApproachSection = {
@@ -280,6 +295,10 @@ export type OpportunityItem = {
   /** e.g. "Increase Your Reach". */
   title: string;
   description: string;
+  /** Short verb phrase for the "build your course" summary, e.g. "increase reach". */
+  short?: string;
+  /** Icon name (see Icon.tsx), e.g. "globe". */
+  icon?: string;
 };
 
 export type OpportunitiesSection = {
@@ -296,6 +315,9 @@ export type OpportunitiesSection = {
     label?: string;
     headline?: HighlightedHeadline;
     paragraphs?: string[];
+    /** "Discuss this course" CTA on the interactive builder. */
+    ctaLabel?: string;
+    ctaHref?: string;
   };
 };
 
