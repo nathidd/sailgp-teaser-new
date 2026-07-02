@@ -58,6 +58,30 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(
   return { ref, visible };
 }
 
+/**
+ * Fraction of the page scrolled, 0 at the top and 1 at the very bottom.
+ * Drives the top-banner progress line.
+ */
+export function useScrollProgress() {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      setProgress(max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+  return progress;
+}
+
 export function useScrolledPast(thresholdPx: number) {
   const [past, setPast] = useState(false);
   useEffect(() => {

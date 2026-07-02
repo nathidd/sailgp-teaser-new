@@ -54,8 +54,6 @@
   --tp-font-display: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
   --tp-font-body: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
   --tp-font-nav: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
-  /* Editorial serif — italic accent word in display headlines only. */
-  --tp-font-serif: var(--font-serif), "Instrument Serif", Georgia, serif;
 
   /* ---------- Layout tokens ---------- */
   --tp-container-max: 1280px;
@@ -199,14 +197,10 @@
 .template-sailgp-pitch .tp-highlight {
   color: var(--tp-color-accent);
 }
-/* In display headlines the accent word is set in an upright editorial
-   serif, solid acid. */
+/* Headlines are white throughout — the highlight span carries no accent
+   colour (kept as a hook for future emphasis). */
 .template-sailgp-pitch .tp-display .tp-highlight {
-  font-family: var(--tp-font-serif);
-  font-style: normal;
-  font-weight: 400;
-  letter-spacing: 0;
-  color: var(--tp-color-accent);
+  color: var(--tp-color-text);
 }
 
 /* ---------- Buttons ---------- */
@@ -314,9 +308,33 @@
     );
   -webkit-backdrop-filter: blur(14px) saturate(140%);
           backdrop-filter: blur(14px) saturate(140%);
-  border-top: 2px solid var(--tp-color-accent);
+  border-top: none;
   border-bottom: 1px solid var(--tp-color-border);
   transition: background 0.25s ease, border-color 0.25s ease;
+}
+/* Scroll-progress line at the very top: faint track + accent fill that
+   grows to full width as the page scrolls (complete at the bottom). */
+.template-sailgp-pitch .tp-top-banner__track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(231, 255, 0, 0.16);
+  z-index: 4;
+  overflow: hidden;
+}
+.template-sailgp-pitch .tp-top-banner__progress {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--tp-color-accent);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.08s linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  .template-sailgp-pitch .tp-top-banner__progress { transition: none; }
 }
 .template-sailgp-pitch .tp-top-banner::before {
   content: "";
@@ -400,7 +418,7 @@
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--tp-color-accent);
+  color: var(--tp-color-text);
   text-align: center;
 }
 
@@ -434,10 +452,21 @@
 .template-sailgp-pitch .tp-top-banner__prepared {
   justify-self: end;
   text-align: right;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
 }
 .template-sailgp-pitch .tp-top-banner__prepared-name {
   color: inherit;
   font-weight: inherit;
+}
+/* Partner logo lockup in the "prepared for" row (white wordmark on dark). */
+.template-sailgp-pitch .tp-top-banner__prepared-logo {
+  height: 16px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
 }
 
 @media (max-width: 760px) {
@@ -507,8 +536,8 @@
 .template-sailgp-pitch .tp-dot-nav__dot.is-active .tp-dot-nav__pip {
   width: 9px;
   height: 9px;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 0 8px 3px rgba(255, 255, 255, 0.2);
+  background: var(--tp-color-accent);
+  box-shadow: 0 0 8px 3px rgba(231, 255, 0, 0.25);
 }
 .template-sailgp-pitch .tp-dot-nav__dot:hover .tp-dot-nav__pip {
   background: rgba(255, 255, 255, 0.55);
@@ -516,17 +545,25 @@
 .template-sailgp-pitch .tp-dot-nav__label {
   font-family: var(--tp-font-nav);
   font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  color: var(--tp-color-text-muted);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
   white-space: nowrap;
   opacity: 0;
   transform: translateX(4px);
   transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
   pointer-events: none;
 }
-.template-sailgp-pitch .tp-dot-nav__dot:hover .tp-dot-nav__label,
+/* The active section's label is always visible, in green. */
 .template-sailgp-pitch .tp-dot-nav__dot.is-active .tp-dot-nav__label {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--tp-color-accent);
+}
+/* Hovering the sidebar reveals every label; the active one stays green,
+   the rest are white-transparent. On mouse-leave only the active remains. */
+.template-sailgp-pitch .tp-dot-nav:hover .tp-dot-nav__label {
   opacity: 1;
   transform: translateX(0);
 }
@@ -582,8 +619,8 @@
   text-align: center;
   text-wrap: balance;
 }
-/* Hero highlight inherits the shared serif-italic acid treatment
-   (.tp-display .tp-highlight) — no gradient override here. */
+/* Hero highlight inherits the shared acid treatment
+   (.tp-display .tp-highlight). */
 .template-sailgp-pitch .tp-hero__subline {
   max-width: 60ch;
   text-align: center;
@@ -2726,7 +2763,7 @@
   flex-direction: column;
   gap: 6px;
   padding-left: 18px;
-  border-left: 2px solid var(--tp-color-accent);
+  border-left: 2px solid var(--tp-color-border-strong);
 }
 .template-sailgp-pitch .tp-network__dp-value {
   font-family: var(--tp-font-display);
@@ -2734,10 +2771,7 @@
   font-size: clamp(32px, 4vw, 52px);
   letter-spacing: -0.045em;
   line-height: 1;
-  background: var(--tp-gradient);
-  -webkit-background-clip: text;
-          background-clip: text;
-  color: transparent;
+  color: var(--tp-color-text);
 }
 .template-sailgp-pitch .tp-network__dp-suffix { font-size: 0.55em; }
 .template-sailgp-pitch .tp-network__dp-label {
@@ -2760,9 +2794,9 @@
   overflow: visible;
 }
 .template-sailgp-pitch .tp-network__spoke {
-  stroke: var(--tp-color-accent);
+  stroke: rgba(255, 255, 255, 0.25);
   stroke-width: 0.5;
-  opacity: 0.4;
+  opacity: 0.6;
   stroke-dasharray: 2 5;
   animation: tp-network-flow 3.4s linear infinite;
 }
@@ -2772,7 +2806,7 @@
 }
 .template-sailgp-pitch .tp-network__hub-ring {
   fill: none;
-  stroke: var(--tp-color-accent);
+  stroke: rgba(255, 255, 255, 0.3);
   stroke-width: 0.4;
   opacity: 0.5;
   transform-origin: 50px 50px;
@@ -2796,14 +2830,14 @@
   height: clamp(96px, 24%, 128px);
   border-radius: 999px;
   padding: 10px;
-  background: radial-gradient(circle at 50% 35%, rgba(231, 255, 0, 0.28), rgba(13, 23, 43, 0.95));
-  border: 1px solid var(--tp-color-accent);
+  background: radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.12), rgba(13, 23, 43, 0.95));
+  border: 1px solid var(--tp-color-border-strong);
   font-family: var(--tp-font-display);
   font-weight: 700;
   font-size: 13px;
   letter-spacing: -0.01em;
   line-height: 1.15;
-  box-shadow: 0 0 40px -8px rgba(231, 255, 0, 0.5);
+  box-shadow: 0 0 40px -12px rgba(0, 0, 0, 0.6);
 }
 .template-sailgp-pitch .tp-network__node {
   position: absolute;
@@ -3292,7 +3326,7 @@
   font-size: clamp(28px, 3.4vw, 46px);
   letter-spacing: -0.045em;
   line-height: 1;
-  color: var(--tp-color-accent);
+  color: var(--tp-color-text);
   font-variant-numeric: tabular-nums;
 }
 .template-sailgp-pitch .tp-hero__metric-label {
@@ -3464,7 +3498,7 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--tp-color-accent);
+  color: var(--tp-color-text-muted);
 }
 .template-sailgp-pitch .tp-course-builder__value {
   font-family: var(--tp-font-display);
@@ -3518,12 +3552,10 @@
   white-space: nowrap;
 }
 
-/* ---------- Shared: statement quote (upright serif) ---------- */
+/* ---------- Shared: statement quote ---------- */
 .template-sailgp-pitch .tp-quote {
-  border-left: 2px solid var(--tp-color-accent);
+  border-left: 2px solid var(--tp-color-border-strong);
   padding-left: 20px;
-  font-family: var(--tp-font-serif);
-  font-style: normal;
   font-size: clamp(19px, 1.9vw, 26px);
   line-height: 1.35;
   color: var(--tp-color-text);
@@ -3580,10 +3612,10 @@
 }
 .template-sailgp-pitch .tp-pillar-tab:hover { border-color: var(--tp-color-border-strong); }
 .template-sailgp-pitch .tp-pillar-tab.is-active {
-  border-color: var(--tp-color-accent);
-  background: linear-gradient(180deg, rgba(231, 255, 0, 0.12), var(--tp-color-surface-strong));
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.05);
 }
-.template-sailgp-pitch .tp-pillar-tab__icon { color: var(--tp-color-accent); flex-shrink: 0; }
+.template-sailgp-pitch .tp-pillar-tab__icon { color: rgba(255, 255, 255, 0.5); flex-shrink: 0; }
 .template-sailgp-pitch .tp-pillar-tab__text { display: flex; flex-direction: column; gap: 3px; flex: 1; }
 .template-sailgp-pitch .tp-pillar-tab__index {
   font-size: 11px;
@@ -3598,7 +3630,7 @@
   text-transform: uppercase;
 }
 .template-sailgp-pitch .tp-pillar-tab__arrow {
-  color: var(--tp-color-accent);
+  color: rgba(255, 255, 255, 0.5);
   opacity: 0;
   transform: translateX(-4px);
   transition: opacity 0.25s ease, transform 0.25s ease;
@@ -3620,7 +3652,7 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--tp-color-accent);
+  color: var(--tp-color-text-muted);
   margin-bottom: clamp(16px, 2vw, 24px);
 }
 .template-sailgp-pitch .tp-pillar-panel__title {
@@ -3643,7 +3675,7 @@
   font-size: clamp(34px, 4vw, 52px);
   letter-spacing: -0.045em;
   line-height: 1;
-  color: var(--tp-color-accent);
+  color: var(--tp-color-text);
   font-variant-numeric: tabular-nums;
 }
 .template-sailgp-pitch .tp-pillar-panel__label { font-size: 14px; line-height: 1.45; color: var(--tp-color-text-muted); }
@@ -3728,7 +3760,7 @@
   text-transform: uppercase;
 }
 .template-sailgp-pitch .tp-innovation__desc { font-size: 14px; color: var(--tp-color-text-muted); }
-.template-sailgp-pitch .tp-innovation__icon { color: var(--tp-color-accent); justify-self: end; }
+.template-sailgp-pitch .tp-innovation__icon { color: rgba(255, 255, 255, 0.5); justify-self: end; }
 .template-sailgp-pitch .tp-positioning__media {
   position: relative;
   border-radius: 18px;
@@ -3746,9 +3778,9 @@
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--tp-color-accent);
+  color: var(--tp-color-text);
   background: rgba(3, 5, 15, 0.8);
-  border: 1px solid var(--tp-color-accent);
+  border: 1px solid var(--tp-color-border-strong);
   border-radius: 999px;
   padding: 8px 14px;
   -webkit-backdrop-filter: blur(6px);
@@ -3789,7 +3821,7 @@
   background: var(--tp-color-surface-strong);
 }
 .template-sailgp-pitch .tp-impact__card-head { display: flex; align-items: center; gap: 10px; }
-.template-sailgp-pitch .tp-impact__card-icon { color: var(--tp-color-accent); flex-shrink: 0; }
+.template-sailgp-pitch .tp-impact__card-icon { color: rgba(255, 255, 255, 0.5); flex-shrink: 0; }
 .template-sailgp-pitch .tp-impact__card-title {
   font-family: var(--tp-font-display);
   font-weight: 700;
@@ -3809,9 +3841,9 @@
 .template-sailgp-pitch .tp-approach__body { display: flex; flex-direction: column; gap: 14px; max-width: 48ch; }
 .template-sailgp-pitch .tp-approach__focus {
   padding: clamp(20px, 2.4vw, 30px);
-  border: 1px solid var(--tp-color-accent);
+  border: 1px solid var(--tp-color-border-strong);
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(231, 255, 0, 0.1), rgba(13, 23, 43, 0.9));
+  background: rgba(255, 255, 255, 0.04);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -3824,7 +3856,7 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--tp-color-accent);
+  color: var(--tp-color-text-muted);
 }
 .template-sailgp-pitch .tp-approach__focus-stage {
   font-family: var(--tp-font-display);
@@ -3832,7 +3864,7 @@
   font-size: clamp(24px, 2.6vw, 32px);
   letter-spacing: -0.02em;
 }
-.template-sailgp-pitch .tp-approach__focus-action { color: var(--tp-color-accent); font-weight: 600; }
+.template-sailgp-pitch .tp-approach__focus-action { color: var(--tp-color-text); font-weight: 600; }
 .template-sailgp-pitch .tp-approach__focus-desc { margin-top: 4px; }
 .template-sailgp-pitch .tp-approach__funnel-wrap {
   border: 1px solid var(--tp-color-border);
@@ -3875,9 +3907,8 @@
   transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 .template-sailgp-pitch .tp-funnel-bar.is-active {
-  border-color: var(--tp-color-accent);
-  background: linear-gradient(180deg, rgba(231, 255, 0, 0.18), rgba(13, 23, 43, 0.9));
-  box-shadow: 0 0 40px -14px rgba(231, 255, 0, 0.6);
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.06);
 }
 .template-sailgp-pitch .tp-funnel-bar__num { font-family: var(--tp-font-display); font-weight: 700; font-size: 12px; color: var(--tp-color-text-muted); }
 .template-sailgp-pitch .tp-funnel-bar__stage {
@@ -3907,7 +3938,7 @@
   font-size: 13px;
   color: var(--tp-color-text-muted);
 }
-.template-sailgp-pitch .tp-opportunities__hint svg { color: var(--tp-color-accent); }
+.template-sailgp-pitch .tp-opportunities__hint svg { color: rgba(255, 255, 255, 0.5); }
 .template-sailgp-pitch .tp-course-cards {
   list-style: none;
   display: grid;
@@ -3935,7 +3966,7 @@
 .template-sailgp-pitch .tp-course-card:hover { border-color: var(--tp-color-border-strong); transform: translateY(-3px); }
 .template-sailgp-pitch .tp-course-card:focus-visible { outline: 2px solid var(--tp-color-accent); outline-offset: 3px; }
 .template-sailgp-pitch .tp-course-card__top { display: flex; align-items: center; justify-content: space-between; }
-.template-sailgp-pitch .tp-course-card__icon { color: var(--tp-color-accent); }
+.template-sailgp-pitch .tp-course-card__icon { color: rgba(255, 255, 255, 0.5); }
 .template-sailgp-pitch .tp-course-card__toggle {
   width: 28px;
   height: 28px;
@@ -3962,20 +3993,17 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--tp-color-accent);
+  color: var(--tp-color-text-muted);
 }
 .template-sailgp-pitch .tp-course-card.is-selected {
-  background: var(--tp-color-accent);
-  border-color: var(--tp-color-accent);
-  color: var(--tp-color-bg);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.5);
 }
-.template-sailgp-pitch .tp-course-card.is-selected .tp-course-card__icon,
-.template-sailgp-pitch .tp-course-card.is-selected .tp-course-card__desc,
-.template-sailgp-pitch .tp-course-card.is-selected .tp-course-card__route { color: var(--tp-color-bg); }
+/* Small accent check is the only green on a selected card. */
 .template-sailgp-pitch .tp-course-card.is-selected .tp-course-card__toggle {
-  background: var(--tp-color-bg);
-  color: var(--tp-color-accent);
-  border-color: var(--tp-color-bg);
+  background: var(--tp-color-accent);
+  color: var(--tp-color-bg);
+  border-color: var(--tp-color-accent);
 }
 .template-sailgp-pitch .tp-course-builder {
   display: flex;
@@ -3993,7 +4021,7 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--tp-color-accent);
+  color: var(--tp-color-text-muted);
 }
 .template-sailgp-pitch .tp-course-builder__pips { display: inline-flex; gap: 6px; }
 .template-sailgp-pitch .tp-course-builder__pip {
@@ -4003,7 +4031,7 @@
   background: rgba(255, 255, 255, 0.14);
   transition: background 0.25s ease;
 }
-.template-sailgp-pitch .tp-course-builder__pip.is-on { background: var(--tp-color-accent); }
+.template-sailgp-pitch .tp-course-builder__pip.is-on { background: rgba(255, 255, 255, 0.85); }
 .template-sailgp-pitch .tp-course-builder__value {
   flex: 1;
   min-width: 200px;

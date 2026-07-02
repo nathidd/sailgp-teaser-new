@@ -50,13 +50,6 @@ export function PitchOpportunities({ data }: { data: OpportunitiesSection }) {
       aria-label={label}
     >
       <div className="tp-container">
-        <div className="tp-topbar">
-          <Reveal>
-            <p className="tp-eyebrow">{label}</p>
-          </Reveal>
-          <span className="tp-topbar__index">07 / 08</span>
-        </div>
-
         <div className="tp-opportunities__head">
           {editable.headline && (
             <Reveal delay={1}>

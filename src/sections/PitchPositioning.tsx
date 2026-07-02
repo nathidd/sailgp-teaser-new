@@ -21,13 +21,6 @@ export function PitchPositioning({ data }: { data: PositioningSection }) {
       aria-label={label}
     >
       <div className="tp-container">
-        <div className="tp-topbar">
-          <Reveal>
-            <p className="tp-eyebrow">{label}</p>
-          </Reveal>
-          <span className="tp-topbar__index">03 / 08</span>
-        </div>
-
         <div className="tp-positioning__inner">
           <div className="tp-positioning__text">
             {editable.headline && (

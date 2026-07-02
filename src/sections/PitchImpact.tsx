@@ -23,13 +23,6 @@ export function PitchImpact({ data }: { data: ImpactSection }) {
       aria-label={label}
     >
       <div className="tp-container">
-        <div className="tp-topbar">
-          <Reveal>
-            <p className="tp-eyebrow">{label}</p>
-          </Reveal>
-          <span className="tp-topbar__index">04 / 08</span>
-        </div>
-
         <div className="tp-impact__inner">
           {hasImage && (
             <Reveal className="tp-impact__media">

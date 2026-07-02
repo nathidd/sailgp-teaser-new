@@ -3,42 +3,48 @@
  *
  * `defaults.ts` keeps every prospect field as a {{PLACEHOLDER}} token; that
  * is the contract handed to Forge and it must stay that way. This file is
- * the other half: a worked example payload (Alibaba) so the prototype can
+ * the other half: a worked example payload (hansgrohe) so the prototype can
  * be viewed with realistic content instead of raw tokens.
  *
- * This narrative deck personalizes a small surface: the partner name (top
- * banner) and the personal note (invitation). At runtime Forge produces a
- * `ProspectPayload` and the platform overlays it on the tenant/editable
- * defaults, exactly what `mergeProspect` does below. When Forge is wired
- * up, delete this file (or swap `exampleProspect` for the real Forge call);
+ * This narrative deck personalizes a small surface: the partner name/logo
+ * (top banner) and the personal note (invitation). At runtime Forge produces
+ * a `ProspectPayload` and the platform overlays it on the tenant/editable
+ * defaults, exactly what `mergeProspect` does below. When Forge is wired up,
+ * delete this file (or swap `exampleProspect` for the real Forge call);
  * `data.ts`, `defaults.ts`, and every component stay untouched.
  */
 
 import type { ProspectPayload, SiteData } from "./data";
 import { defaultSiteData } from "./defaults";
 
+// NOTE: placeholder wordmark — swap public/assets/images/hansgrohe-logo.svg
+// with the official asset (same path) and it appears in the top banner.
+const PARTNER_LOGO = { src: "/assets/images/hansgrohe-logo.svg", alt: "hansgrohe" };
+
 export const exampleProspect: ProspectPayload = {
   hero: {
-    partnerName: "Alibaba",
+    partnerName: "hansgrohe",
+    partnerLogo: PARTNER_LOGO,
   },
 
   opportunities: {
-    partnerName: "Alibaba",
+    partnerName: "hansgrohe",
+    partnerLogo: PARTNER_LOGO,
   },
 
   invitation: {
-    greeting: "Dear Alibaba Team,",
+    greeting: "Dear hansgrohe Team,",
     note:
-      "We've been following Alibaba's journey with great admiration. As a global force in commerce, technology, logistics and cloud infrastructure, you don't just connect markets. You shape how people, businesses and ideas move across the world.\n\nAt Germany SailGP, we share that same ambition. Our sport is built on speed, precision and innovation, powered by nature and amplified by technology. Every race pushes the limits of performance, data and teamwork on a global stage.\n\nWe are not looking for sponsors. We are looking for partners who want to create meaningful impact, reach high-value audiences and be part of one of the world's fastest-growing sports platforms.",
+      "Few brands understand water like hansgrohe. For over a century you've turned engineering precision into design people feel every day, and led on efficiency and responsibility.\n\nWater is our arena too. SailGP wins the way you build: through learning speed, precision and a team with no ego on board. And like you, we're not looking for a sponsor. We want a partner to create measurable impact with a premium, global audience.",
     closing:
-      "We would be delighted to show you what a partnership between Alibaba and Germany SailGP Team could create.\n\nWith best regards,",
+      "I'd be glad to host you at a race weekend and show you what hansgrohe and SailGP Germany could set in motion.\n\nWith best regards,",
   },
 };
 
 /**
  * Overlay a prospect payload onto the tenant/editable defaults. This is the
  * runtime model Forge follows: only the small per-prospect surface (partner
- * name, personal note) changes per pitch; everything else echoes the
+ * name/logo, personal note) changes per pitch; everything else echoes the
  * tenant/editable defaults.
  */
 export function mergeProspect(
@@ -53,7 +59,7 @@ export function mergeProspect(
   };
 }
 
-/** `defaultSiteData` with the Alibaba example payload overlaid. */
+/** `defaultSiteData` with the hansgrohe example payload overlaid. */
 export const exampleSiteData: SiteData = mergeProspect(
   defaultSiteData,
   exampleProspect

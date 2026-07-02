@@ -1,0 +1,7 @@
+<!-- PLACEHOLDER wordmark. Swap with the official hansgrohe logo SVG/PNG
+     at this same path (public/assets/images/hansgrohe-logo.svg) and it will
+     appear automatically in the top banner. White for the dark banner. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 232 44" role="img" aria-label="hansgrohe">
+  <text x="0" y="33" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="38" font-weight="500" letter-spacing="0.3" fill="#ffffff">hansgrohe</text>
+</svg>

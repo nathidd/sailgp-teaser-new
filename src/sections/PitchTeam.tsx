@@ -20,13 +20,6 @@ export function PitchTeam({ data }: { data: TeamSection }) {
       aria-label={label}
     >
       <div className="tp-container">
-        <div className="tp-topbar">
-          <Reveal>
-            <p className="tp-eyebrow">{label}</p>
-          </Reveal>
-          <span className="tp-topbar__index">02 / 08</span>
-        </div>
-
         <div className="tp-team__inner">
           <Reveal className="tp-team__media">
             {hasImage && (

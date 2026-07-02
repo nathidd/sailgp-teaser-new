@@ -65,11 +65,6 @@ export function PitchHero({ data }: { data: HeroSection }) {
       )}
 
       <div className="tp-container tp-hero__inner">
-        {isMeaningful(editable.badge) && (
-          <Reveal delay={1}>
-            <p className="tp-eyebrow tp-hero__badge">{editable.badge}</p>
-          </Reveal>
-        )}
         <Reveal delay={2}>
           <Headline
             data={editable.headline}

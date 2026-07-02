@@ -36,13 +36,6 @@ export function PitchApproach({ data }: { data: ApproachSection }) {
       aria-label={label}
     >
       <div className="tp-container">
-        <div className="tp-topbar">
-          <Reveal>
-            <p className="tp-eyebrow">{label}</p>
-          </Reveal>
-          <span className="tp-topbar__index">06 / 08</span>
-        </div>
-
         <div className="tp-approach__inner">
           <div className="tp-approach__text">
             {editable.headline && (
@@ -79,7 +72,6 @@ export function PitchApproach({ data }: { data: ApproachSection }) {
 
           <Reveal delay={1} className="tp-approach__funnel-wrap">
             <div className="tp-approach__funnel-head">
-              <span className="tp-eyebrow tp-eyebrow--muted">Sales Funnel</span>
               <span className="tp-approach__hint">Hover to explore</span>
             </div>
             <ol className="tp-approach__funnel">

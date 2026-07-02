@@ -1,6 +1,6 @@
 "use client";
 
-import { useScrolledPast } from "@/lib/animations";
+import { useScrolledPast, useScrollProgress } from "@/lib/animations";
 import type { HeroSection } from "@/lib/data";
 import { isMeaningful } from "@/lib/render-utils";
 
@@ -16,6 +16,7 @@ import { isMeaningful } from "@/lib/render-utils";
  */
 export function TopBanner({ data }: { data: HeroSection }) {
   const past = useScrolledPast(40);
+  const progress = useScrollProgress();
   const { tenant, prospect, editable } = data;
 
   const showConfidential = isMeaningful(editable.confidentialLabel);
@@ -25,8 +26,20 @@ export function TopBanner({ data }: { data: HeroSection }) {
     isMeaningful(editable.partnerLabel) && isMeaningful(prospect.partnerName);
   const showBottomRow = showConfidential || showPrepared;
 
+  // Render the partner logo when it's a real asset path; unresolved
+  // {{PLACEHOLDER}} tokens fall back to the partner name text.
+  const logoSrc = prospect.partnerLogo?.src;
+  const hasPartnerLogo =
+    !!logoSrc && (logoSrc.startsWith("/") || logoSrc.startsWith("http"));
+
   return (
     <header className={`tp-top-banner${past ? " is-scrolled" : ""}`}>
+      <span className="tp-top-banner__track" aria-hidden="true">
+        <span
+          className="tp-top-banner__progress"
+          style={{ transform: `scaleX(${progress})` }}
+        />
+      </span>
       <div className="tp-container tp-top-banner__inner">
         <div className="tp-top-banner__row tp-top-banner__row--top">
           <a
@@ -70,9 +83,18 @@ export function TopBanner({ data }: { data: HeroSection }) {
                 <span className="tp-top-banner__prepared-label">
                   {editable.partnerLabel}
                 </span>{" "}
-                <strong className="tp-top-banner__prepared-name">
-                  {prospect.partnerName}
-                </strong>
+                {hasPartnerLogo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={logoSrc}
+                    alt={prospect.partnerName}
+                    className="tp-top-banner__prepared-logo"
+                  />
+                ) : (
+                  <strong className="tp-top-banner__prepared-name">
+                    {prospect.partnerName}
+                  </strong>
+                )}
               </span>
             )}
           </div>

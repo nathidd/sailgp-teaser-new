@@ -38,11 +38,6 @@ export function PitchNetwork({ data }: { data: NetworkSection }) {
       <div className="tp-container tp-network__inner">
         <div className="tp-network__text">
           <div className="tp-section-head">
-            {isMeaningful(editable.label) && (
-              <Reveal>
-                <p className="tp-eyebrow">{editable.label}</p>
-              </Reveal>
-            )}
             {editable.headline && (
               <Reveal delay={1}>
                 <Headline data={editable.headline} className="tp-display tp-display--lg" />

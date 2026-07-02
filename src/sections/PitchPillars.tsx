@@ -3,7 +3,6 @@
 import { useState } from "react";
 import type { PillarsSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
-import { Reveal } from "@/components/Reveal";
 import { CountUp } from "@/components/CountUp";
 import { Icon } from "@/components/Icon";
 import { isMeaningful, filterMeaningful } from "@/lib/render-utils";
@@ -32,13 +31,6 @@ export function PitchPillars({ data }: { data: PillarsSection }) {
       aria-label={label}
     >
       <div className="tp-container">
-        <div className="tp-topbar">
-          <Reveal>
-            <p className="tp-eyebrow">{label}</p>
-          </Reveal>
-          <span className="tp-topbar__index">01 / 08</span>
-        </div>
-
         <div className="tp-pillars__layout">
           <ol className="tp-pillars__tabs" role="tablist" aria-label={label}>
             {items.map((pillar, i) => (

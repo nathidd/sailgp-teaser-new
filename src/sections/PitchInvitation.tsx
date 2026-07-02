@@ -50,9 +50,6 @@ export function PitchInvitation({ data }: { data: InvitationSection }) {
       )}
 
       <div className="tp-container tp-invitation__inner">
-        {isMeaningful(editable.label) && (
-          <p className="tp-eyebrow tp-invitation__eyebrow">{editable.label}</p>
-        )}
         {editable.headline && (
           <Headline
             data={editable.headline}
