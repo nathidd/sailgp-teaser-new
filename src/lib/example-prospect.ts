@@ -1,34 +1,29 @@
 /*
  * EXAMPLE PROSPECT PAYLOAD — disposable preview content.
  *
- * `defaults.ts` keeps every prospect field as a {{PLACEHOLDER}} token —
- * that is the contract handed to Forge and it must stay that way. This
- * file is the other half: a worked example payload (HONOR) so the
- * prototype can be viewed with realistic content instead of raw tokens.
+ * `defaults.ts` keeps every prospect field as a {{PLACEHOLDER}} token; that
+ * is the contract handed to Forge and it must stay that way. This file is
+ * the other half: a worked example payload (Alibaba) so the prototype can
+ * be viewed with realistic content instead of raw tokens.
  *
- * This narrative deck personalizes a small surface, so the payload is
- * small: the partner logo (hero + course) and the personal note. At
- * runtime Forge produces a `ProspectPayload` and the platform overlays it
- * on the tenant/editable defaults — exactly what `mergeProspect` does
- * below. When Forge is wired up, delete this file (or swap `exampleProspect`
- * for the real Forge call); `data.ts`, `defaults.ts`, and every component
- * stay untouched.
+ * This narrative deck personalizes a small surface: the partner name (top
+ * banner) and the personal note (invitation). At runtime Forge produces a
+ * `ProspectPayload` and the platform overlays it on the tenant/editable
+ * defaults, exactly what `mergeProspect` does below. When Forge is wired
+ * up, delete this file (or swap `exampleProspect` for the real Forge call);
+ * `data.ts`, `defaults.ts`, and every component stay untouched.
  */
 
 import type { ProspectPayload, SiteData } from "./data";
 import { defaultSiteData } from "./defaults";
 
-const PARTNER_LOGO = { src: "/assets/Partner Logo White.png", alt: "HONOR" };
-
 export const exampleProspect: ProspectPayload = {
   hero: {
-    partnerName: "HONOR",
-    partnerLogo: PARTNER_LOGO,
+    partnerName: "Alibaba",
   },
 
   opportunities: {
-    partnerName: "HONOR",
-    partnerLogo: PARTNER_LOGO,
+    partnerName: "Alibaba",
   },
 
   invitation: {
@@ -41,10 +36,10 @@ export const exampleProspect: ProspectPayload = {
 };
 
 /**
- * Overlay a prospect payload onto the tenant/editable defaults. This is
- * the runtime model Forge follows — only the small per-prospect surface
- * (partner logo, personal note) changes per pitch; everything else echoes
- * the tenant/editable defaults.
+ * Overlay a prospect payload onto the tenant/editable defaults. This is the
+ * runtime model Forge follows: only the small per-prospect surface (partner
+ * name, personal note) changes per pitch; everything else echoes the
+ * tenant/editable defaults.
  */
 export function mergeProspect(
   base: SiteData,
@@ -58,7 +53,7 @@ export function mergeProspect(
   };
 }
 
-/** `defaultSiteData` with the HONOR example payload overlaid. */
+/** `defaultSiteData` with the Alibaba example payload overlaid. */
 export const exampleSiteData: SiteData = mergeProspect(
   defaultSiteData,
   exampleProspect

@@ -23,7 +23,7 @@ export function PitchPositioning({ data }: { data: PositioningSection }) {
       <div className="tp-container">
         <div className="tp-topbar">
           <Reveal>
-            <p className="tp-label">{label}</p>
+            <p className="tp-eyebrow">{label}</p>
           </Reveal>
           <span className="tp-topbar__index">03 / 08</span>
         </div>
