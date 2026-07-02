@@ -5,13 +5,14 @@ import { SectionId } from "@/lib/data";
 
 const SECTIONS = [
   { id: SectionId.hero, label: "Intro" },
-  { id: SectionId.stats, label: "About" },
-  { id: SectionId.brandStory, label: "Why We Fit" },
-  { id: SectionId.matchCards, label: "How we match" },
-  { id: SectionId.experienceActivations, label: "Experiences & Activations" },
-  { id: SectionId.keyRights, label: "Partnership Structure" },
-  { id: SectionId.nextSteps, label: "Pricing Packages" },
-  { id: SectionId.motivationLetter, label: "Letter" },
+  { id: SectionId.pillars, label: "Why SailGP" },
+  { id: SectionId.team, label: "Who we are" },
+  { id: SectionId.positioning, label: "How we compete" },
+  { id: SectionId.impact, label: "How we impact" },
+  { id: SectionId.network, label: "Who we connect" },
+  { id: SectionId.approach, label: "How we partner" },
+  { id: SectionId.opportunities, label: "Your course" },
+  { id: SectionId.invitation, label: "Invitation" },
 ];
 
 export function SectionDotNav() {

@@ -7,17 +7,25 @@ import { ScrollIndicator } from "@/components/ScrollIndicator";
 import { isMeaningful } from "@/lib/render-utils";
 
 export function PitchHero({ data }: { data: HeroSection }) {
-  const { prospect, tenant } = data;
-  const hasBgImage = isMeaningful(prospect.backgroundImage?.src);
+  const { editable, tenant, prospect } = data;
+
+  // Background precedence: per-prospect override → tenant loop video →
+  // tenant still fallback. (Brief S1: 30s tenant hero video.)
+  const overrideImage = prospect.backgroundImage?.src;
   const videoSrc = tenant.backgroundVideo?.src;
-  const hasBgVideo = !hasBgImage && isMeaningful(videoSrc);
+  const fallbackImage = tenant.backgroundImage?.src;
+
+  const hasOverride = isMeaningful(overrideImage);
+  const hasVideo = !hasOverride && isMeaningful(videoSrc);
+  const hasFallback = !hasOverride && !hasVideo && isMeaningful(fallbackImage);
+
   return (
     <section
       id={SectionId.hero}
       className="tp-section tp-hero"
       aria-label="Pitch hero"
     >
-      {hasBgImage && (
+      {hasOverride && (
         <>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -29,7 +37,7 @@ export function PitchHero({ data }: { data: HeroSection }) {
           <div className="tp-hero__video-scrim" aria-hidden="true" />
         </>
       )}
-      {hasBgVideo && (
+      {hasVideo && (
         <>
           <HeroVideo
             src={videoSrc!}
@@ -39,25 +47,44 @@ export function PitchHero({ data }: { data: HeroSection }) {
           <div className="tp-hero__video-scrim" aria-hidden="true" />
         </>
       )}
+      {hasFallback && (
+        <>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="tp-hero__bg-image"
+            src={tenant.backgroundImage!.src}
+            alt={tenant.backgroundImage!.alt ?? ""}
+            aria-hidden="true"
+          />
+          <div className="tp-hero__video-scrim" aria-hidden="true" />
+        </>
+      )}
+
       <div className="tp-container tp-hero__inner">
+        {isMeaningful(editable.badge) && (
+          <Reveal delay={1}>
+            <p className="tp-eyebrow tp-hero__badge">{editable.badge}</p>
+          </Reveal>
+        )}
         <Reveal delay={2}>
           <Headline
-            data={prospect.headline}
+            data={editable.headline}
             as="h1"
             className="tp-display tp-display--xxl tp-hero__headline"
           />
         </Reveal>
-        {isMeaningful(prospect.subheadline) && (
+        {isMeaningful(editable.subheadline) && (
           <Reveal delay={3}>
             <p className="tp-body tp-body--lg tp-body--muted tp-hero__subline">
-              {prospect.subheadline}
+              {editable.subheadline}
             </p>
           </Reveal>
         )}
       </div>
+
       <ScrollIndicator
-        href={`#${SectionId.stats}`}
-        label="Scroll to watch video"
+        href={`#${SectionId.pillars}`}
+        label="Why it matters"
         className="tp-hero__scroll"
         ariaLabel="Scroll to next section"
       />

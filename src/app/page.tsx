@@ -2,25 +2,23 @@ import { TopBanner } from "@/components/TopBanner";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
 import { SectionDotNav } from "@/components/SectionDotNav";
 import { PitchHero } from "@/sections/PitchHero";
-import { PitchStats } from "@/sections/PitchStats";
-import { PitchBrandStory } from "@/sections/PitchBrandStory";
-import { PitchMatchCards } from "@/sections/PitchMatchCards";
-import { PitchActivations } from "@/sections/PitchActivations";
-import { PitchKeyRights } from "@/sections/PitchKeyRights";
-import { PitchNextSteps } from "@/sections/PitchNextSteps";
-import { PitchMotivationLetter } from "@/sections/PitchMotivationLetter";
-import { PitchPioneers } from "@/sections/PitchPioneers";
+import { PitchPillars } from "@/sections/PitchPillars";
+import { PitchTeam } from "@/sections/PitchTeam";
+import { PitchPositioning } from "@/sections/PitchPositioning";
+import { PitchImpact } from "@/sections/PitchImpact";
+import { PitchNetwork } from "@/sections/PitchNetwork";
+import { PitchApproach } from "@/sections/PitchApproach";
+import { PitchOpportunities } from "@/sections/PitchOpportunities";
+import { PitchInvitation } from "@/sections/PitchInvitation";
 import { defaultSiteData } from "@/lib/defaults";
 import { exampleSiteData } from "@/lib/example-prospect";
-import { SectionId } from "@/lib/data";
 
 /*
  * true  → renders the HONOR example payload (realistic preview).
  * false → renders the raw {{PLACEHOLDER}} contract from defaults.ts.
  *
- * `valueMatch` and `matchPoints` stay in the schema but are NOT rendered
- * here — see pitch-deck-template-brief.md §4.6. They remain available for
- * a future pitch cockpit.
+ * This narrative deck is mostly tenant/editable copy; the toggle only
+ * swaps the small per-prospect surface (partner logo + personal note).
  */
 const USE_EXAMPLE_PROSPECT = true;
 
@@ -32,24 +30,14 @@ export default function Page() {
       <TopBanner data={data.hero} />
       <main>
         <PitchHero data={data.hero} />
-        <PitchStats data={data.stats} />
-        <PitchBrandStory data={data.brandStory} />
-        <PitchMatchCards
-          data={data.matchCards}
-          sailgpLogo={data.hero.tenant.logo}
-          partnerLogo={data.hero.prospect.partnerLogo}
-          partnerName={data.hero.prospect.partnerName}
-          nextSectionId={SectionId.experienceActivations}
-        />
-        <PitchActivations data={data.experienceActivations} nextSectionId={SectionId.keyRights} />
-        <PitchKeyRights
-          data={data.keyRights}
-          partnerLogo={data.hero.prospect.partnerLogo}
-          partnerName={data.hero.prospect.partnerName}
-        />
-        <PitchNextSteps data={data.nextSteps} />
-        <PitchMotivationLetter data={data.motivationLetter} />
-        <PitchPioneers data={data.pioneersTimeline} />
+        <PitchPillars data={data.pillars} />
+        <PitchTeam data={data.team} />
+        <PitchPositioning data={data.positioning} />
+        <PitchImpact data={data.impact} />
+        <PitchNetwork data={data.network} />
+        <PitchApproach data={data.approach} />
+        <PitchOpportunities data={data.opportunities} />
+        <PitchInvitation data={data.invitation} />
       </main>
       <NoiseOverlay />
       <SectionDotNav />
