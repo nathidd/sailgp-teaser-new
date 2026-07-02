@@ -10,8 +10,6 @@ export function PitchTeam({ data }: { data: TeamSection }) {
   const label = editable.label ?? "Who we are";
   const paragraphs = (editable.paragraphs ?? []).flatMap(splitParagraphs);
   const founders = filterMeaningful(tenant.founders).filter((f) => isMeaningful(f.name));
-  const imgSrc = tenant.backgroundImage?.src;
-  const hasImage = isMeaningful(imgSrc);
 
   return (
     <section
@@ -21,29 +19,27 @@ export function PitchTeam({ data }: { data: TeamSection }) {
     >
       <div className="tp-container">
         <div className="tp-team__inner">
-          <Reveal className="tp-team__media">
-            {hasImage && (
-              <>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={imgSrc}
-                  alt={tenant.backgroundImage?.alt ?? ""}
-                  className="tp-team__media-img"
-                />
-                <div className="tp-team__media-scrim" aria-hidden="true" />
-              </>
-            )}
-            {founders.length > 0 && (
-              <ul className="tp-team__credits">
-                {founders.map((f) => (
-                  <li key={f._key ?? f.name} className="tp-team__credit">
+          {founders.length > 0 && (
+            <Reveal className="tp-team__photos">
+              {founders.map((f) => (
+                <div key={f._key ?? f.name} className="tp-team__photo">
+                  {isMeaningful(f.image?.src) && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={f.image?.src}
+                      alt={f.image?.alt ?? f.name}
+                      className="tp-team__photo-img"
+                    />
+                  )}
+                  <div className="tp-team__photo-scrim" aria-hidden="true" />
+                  <div className="tp-team__photo-credit">
                     <strong>{f.name}</strong>
                     {isMeaningful(f.role) && <span>{f.role}</span>}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </Reveal>
+                  </div>
+                </div>
+              ))}
+            </Reveal>
+          )}
 
           <div className="tp-team__text">
             {editable.headline && (

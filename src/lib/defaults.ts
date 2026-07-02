@@ -155,8 +155,18 @@ export const defaultSiteData: SiteData = {
   team: {
     tenant: {
       founders: [
-        { _key: "f-vettel", name: "Sebastian Vettel", role: "Co-Founder" },
-        { _key: "f-riedel", name: "Thomas Riedel", role: "Co-Founder" },
+        {
+          _key: "f-vettel",
+          name: "Sebastian Vettel",
+          role: "Co-Founder",
+          image: { src: "/assets/images/Sebastian V.webp", alt: "Sebastian Vettel" },
+        },
+        {
+          _key: "f-riedel",
+          name: "Thomas Riedel",
+          role: "Co-Founder",
+          image: { src: "/assets/images/Thomas Riedel.webp", alt: "Thomas Riedel" },
+        },
       ],
       crewImages: [
         { src: "/assets/crew/anna-barth.png", alt: "Anna Barth" },
@@ -170,7 +180,6 @@ export const defaultSiteData: SiteData = {
         src: "https://player.vimeo.com/video/1162298466?autoplay=1&loop=1&muted=1&controls=0&playsinline=1",
         title: "Germany SailGP Team",
       },
-      backgroundImage: { src: "/assets/images/crew.png", alt: "Germany SailGP crew" },
     },
     editable: {
       label: "Who we are",
@@ -260,7 +269,7 @@ export const defaultSiteData: SiteData = {
           icon: "leaf",
         },
       ],
-      backgroundImage: { src: "/assets/images/Front Catamaran.webp", alt: "SailGP racing" },
+      backgroundImage: { src: "/assets/images/Frauen Gruppenfoto.webp", alt: "Women SailGP sailors" },
     },
     editable: {
       label: "How we impact",
@@ -440,7 +449,7 @@ export const defaultSiteData: SiteData = {
       contactRole: TENANT.contactRole,
       contactEmail: "dsteffens@sailgpger.com",
       contactPhone: "+49 175 67 98 004",
-      contactPortraitImage: "/assets/images/contact-portrait.png",
+      contactPortraitImage: "/assets/images/Denis2.webp",
       signatureImage: "/assets/images/dennis-signature.svg",
       backgroundImage: { src: "/assets/images/sailgp-sydney.webp", alt: "SailGP at the water's edge" },
     },
