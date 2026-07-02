@@ -145,15 +145,29 @@ export const defaultSiteData: SiteData = {
           stats: [
             {
               _key: "im1",
+              tag: "Transparent",
               value: "1st",
               label: "Sport to disclose to the Carbon Disclosure Project (CDP)",
             },
             {
               _key: "im2",
+              tag: "Accountable",
               value: "1st",
               label: "World impact league tracking the positive actions teams take",
             },
-            { _key: "im3", value: "100%", label: "Teams racing with female athletes onboard" },
+            {
+              _key: "im3",
+              tag: "Inclusive",
+              value: "100%",
+              label: "Teams racing with female athletes onboard",
+            },
+          ],
+          image: { src: "/assets/images/Teamwork.webp", alt: "Germany SailGP teamwork" },
+          // Dot positions (x,y as % of the image) — tweak to sit on people.
+          spots: [
+            { x: 32, y: 48 },
+            { x: 54, y: 40 },
+            { x: 70, y: 56 },
           ],
         },
       ],
