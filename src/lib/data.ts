@@ -161,6 +161,7 @@ export type Founder = {
   _key?: string;
   name: string;
   role: string;
+  image?: Asset;
 };
 
 export type TeamSection = {
@@ -170,8 +171,6 @@ export type TeamSection = {
     crewImages?: Asset[];
     /** Cinematic reel (Vimeo, sound-enabled via AboutVideo). */
     video?: EmbedVideo;
-    /** Still fallback when no video. */
-    backgroundImage?: Asset;
   };
   editable: {
     label?: string;

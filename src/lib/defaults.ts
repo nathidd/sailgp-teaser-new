@@ -155,8 +155,18 @@ export const defaultSiteData: SiteData = {
   team: {
     tenant: {
       founders: [
-        { _key: "f-vettel", name: "Sebastian Vettel", role: "Co-Founder" },
-        { _key: "f-riedel", name: "Thomas Riedel", role: "Co-Founder" },
+        {
+          _key: "f-vettel",
+          name: "Sebastian Vettel",
+          role: "Co-Founder",
+          image: { src: "/assets/images/Sebastian V.webp", alt: "Sebastian Vettel" },
+        },
+        {
+          _key: "f-riedel",
+          name: "Thomas Riedel",
+          role: "Co-Founder",
+          image: { src: "/assets/images/Thomas Riedel.webp", alt: "Thomas Riedel" },
+        },
       ],
       crewImages: [
         { src: "/assets/crew/anna-barth.png", alt: "Anna Barth" },
@@ -170,7 +180,6 @@ export const defaultSiteData: SiteData = {
         src: "https://player.vimeo.com/video/1162298466?autoplay=1&loop=1&muted=1&controls=0&playsinline=1",
         title: "Germany SailGP Team",
       },
-      backgroundImage: { src: "/assets/images/crew.png", alt: "Germany SailGP crew" },
     },
     editable: {
       label: "Who we are",
