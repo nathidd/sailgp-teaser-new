@@ -103,7 +103,7 @@ export function PitchHero({ data }: { data: HeroSection }) {
             <ul className="tp-hero__metrics">
               {metrics.map((m) => (
                 <li key={m._key ?? m.label} className="tp-hero__metric">
-                  <CountUp value={m.value} className="tp-hero__metric-value" />
+                  <CountUp value={m.value} className="tp-hero__metric-value" immediate />
                   <span className="tp-hero__metric-label">{m.label}</span>
                 </li>
               ))}

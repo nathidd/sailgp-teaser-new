@@ -47,10 +47,13 @@ export function CountUp({
   value,
   className,
   durationMs = 1400,
+  immediate = false,
 }: {
   value: string;
   className?: string;
   durationMs?: number;
+  /** Animate on mount instead of waiting to scroll into view. */
+  immediate?: boolean;
 }) {
   // Memoized so its identity is stable across the re-renders the
   // animation loop itself triggers — otherwise the effect below sees a
@@ -58,13 +61,14 @@ export function CountUp({
   // `started` guard then blocks it from ever restarting.
   const parsed = useMemo(() => parse(value), [value]);
   const { ref, visible } = useReveal<HTMLSpanElement>({ threshold: 0.4 });
+  const play = immediate || visible;
   const [display, setDisplay] = useState<string>(() =>
     parsed ? format(0, parsed.decimals, parsed.useGrouping) : value
   );
   const started = useRef(false);
 
   useEffect(() => {
-    if (!parsed || !visible || started.current) return;
+    if (!parsed || !play || started.current) return;
     started.current = true;
 
     const finalStr = format(parsed.target, parsed.decimals, parsed.useGrouping);
@@ -88,7 +92,7 @@ export function CountUp({
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [parsed, visible, durationMs]);
+  }, [parsed, play, durationMs]);
 
   if (!parsed) {
     return <span className={className}>{value}</span>;

@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { PillarsSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
-import { CountUp } from "@/components/CountUp";
 import { RaceGlobe } from "@/components/RaceGlobe";
 import { isMeaningful, filterMeaningful } from "@/lib/render-utils";
 
@@ -18,6 +17,7 @@ export function PitchPillars({ data }: { data: PillarsSection }) {
   const items = filterMeaningful(data.tenant.items).filter((p) => isMeaningful(p.title));
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
+  const [hoveredSpot, setHoveredSpot] = useState<number | null>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -29,6 +29,7 @@ export function PitchPillars({ data }: { data: PillarsSection }) {
       const p = total > 0 ? scrolled / total : 0;
       const idx = Math.min(items.length - 1, Math.max(0, Math.floor(p * items.length)));
       setActive(idx);
+      setHoveredSpot(null);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -111,6 +112,45 @@ export function PitchPillars({ data }: { data: PillarsSection }) {
                   />
                 </div>
               )}
+              {!current.destinations?.length &&
+                isMeaningful(current.image?.src) &&
+                (current.spots?.length ?? 0) > 0 && (
+                  <div className="tp-pillars__viz">
+                    <div className="tp-pillars__crowd">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={current.image!.src}
+                        alt={current.image!.alt ?? ""}
+                        className="tp-pillars__crowd-img"
+                      />
+                      <div className="tp-pillars__crowd-scrim" aria-hidden="true" />
+                      {current.spots!.map((sp, i) => {
+                        const tag = stats[i]?.tag;
+                        const dim = hoveredSpot !== null && hoveredSpot !== i;
+                        return (
+                          <button
+                            key={i}
+                            type="button"
+                            className={`tp-pillars__spot${dim ? " is-dim" : ""}`}
+                            style={{ left: `${sp.x}%`, top: `${sp.y}%` }}
+                            onMouseEnter={() => setHoveredSpot(i)}
+                            onMouseLeave={() => setHoveredSpot(null)}
+                            onFocus={() => setHoveredSpot(i)}
+                            onBlur={() => setHoveredSpot(null)}
+                            aria-label={tag}
+                          >
+                            <span className="tp-pillars__spot-pulse" />
+                            <span className="tp-pillars__spot-pulse tp-pillars__spot-pulse--2" />
+                            <span className="tp-pillars__spot-dot" />
+                            {isMeaningful(tag) && (
+                              <span className="tp-pillars__spot-label">{tag}</span>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               {(isMeaningful(current.subtitle) || isMeaningful(current.caption)) && (
                 <div className="tp-pillars__head">
                   {isMeaningful(current.subtitle) && (
@@ -125,11 +165,14 @@ export function PitchPillars({ data }: { data: PillarsSection }) {
               )}
               {stats.length > 0 && (
                 <ul className="tp-pillars__stats">
-                  {stats.map((s) => (
-                    <li key={s._key ?? s.label} className="tp-pillars__stat">
-                      <span className="tp-pillars__value">
-                        <CountUp value={s.value} />
-                      </span>
+                  {stats.map((s, i) => (
+                    <li
+                      key={s._key ?? s.label}
+                      className={`tp-pillars__stat${
+                        hoveredSpot !== null && hoveredSpot !== i ? " is-dim" : ""
+                      }`}
+                    >
+                      <span className="tp-pillars__value">{s.value}</span>
                       <span className="tp-pillars__label">{s.label}</span>
                     </li>
                   ))}

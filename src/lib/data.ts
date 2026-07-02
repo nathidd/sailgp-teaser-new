@@ -84,6 +84,8 @@ export type StatPoint = {
   value: string;
   suffix?: string;
   label: string;
+  /** Optional short lead-in above the label, e.g. "Affluent". */
+  tag?: string;
   /** Optional finer-grained note/source. */
   source?: string;
 };
@@ -158,6 +160,10 @@ export type PillarItem = {
   stats: StatPoint[];
   /** Optional race destinations, rendered as a pulsing-dot globe. */
   destinations?: Destination[];
+  /** Optional viz background image (e.g. a crowd photo). */
+  image?: Asset;
+  /** Pulsing-dot positions on `image`, as {x,y} percentages (0–100). */
+  spots?: { x: number; y: number }[];
 };
 
 export type PillarsSection = {

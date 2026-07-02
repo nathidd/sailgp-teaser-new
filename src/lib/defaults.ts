@@ -43,7 +43,7 @@ export const defaultSiteData: SiteData = {
         { _key: "hm-fans", value: "89M", label: "Global fans" },
         { _key: "hm-viewers", value: "240M", label: "Cumulative viewers" },
         { _key: "hm-nations", value: "13", label: "Nations" },
-        { _key: "hm-continents", value: "5", label: "Continents" },
+        { _key: "hm-events", value: "13", label: "Events" },
       ],
     },
     editable: {
@@ -120,20 +120,21 @@ export const defaultSiteData: SiteData = {
           subtitle: "A premium audience modern brands want to reach",
           icon: "users",
           stats: [
-            { _key: "au1", value: "$125K", label: "Average household fan income (affluent)" },
-            { _key: "au2", value: "38%", label: "Owner, executive or board level (influential)" },
+            { _key: "au1", tag: "Affluent", value: "$125K", label: "average household fan income" },
+            { _key: "au2", tag: "Influential", value: "38%", label: "owner, executive, or board level" },
             {
               _key: "au3",
+              tag: "Engaged",
               value: "2.1×",
-              label:
-                "More likely to consider sponsors, ahead of F1, UEFA, NBA & Wimbledon (engaged)",
+              label: "more likely to consider sponsors",
             },
-            {
-              _key: "au4",
-              // TODO(tenant): replace "xx%" with the confirmed figure.
-              value: "xx%",
-              label: "Sponsorship growth, Season 4 → 5 (attracted)",
-            },
+          ],
+          image: { src: "/assets/images/crowd 4.webp", alt: "SailGP crowd" },
+          // Dot positions (x,y as % of the image) — tweak to sit on people.
+          spots: [
+            { x: 30, y: 52 },
+            { x: 52, y: 42 },
+            { x: 71, y: 58 },
           ],
         },
         {
