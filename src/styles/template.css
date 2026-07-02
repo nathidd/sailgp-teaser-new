@@ -1,0 +1,2335 @@
+/*
+ * Pitch-deck template styles — SailGP brand.
+ * All styles scoped under .template-sailgp-pitch. Tailwind preflight
+ * (loaded via globals.css) handles the reset.
+ *
+ * ── Brand (SailGP) ──
+ *   Background : single deep navy (#051629)
+ *   Accent     : gold (#C3A26D)
+ *   Type       : Helvetica Neue only — hierarchy comes from weight,
+ *                size and letter-spacing, not from a font contrast.
+ *
+ * Token NAMES are unchanged from the original template.css so existing
+ * components keep working. Only the VALUES were re-skinned for SailGP.
+ * --tp-color-pink / --tp-color-blue / --tp-color-purple keep their
+ * names but now hold the SailGP gold — nothing renders pink/purple.
+ *
+ * ── FONT WIRING ──
+ * --tp-font-display and --tp-font-body both resolve to a Helvetica
+ * Neue stack. No next/font webfont is loaded; layout.tsx no longer
+ * imports Days One / Roboto. See the updated layout.tsx.
+ *
+ * Breakpoints (mobile-first):
+ *   mobile           <= 600px
+ *   tablet           601 - 1024px
+ *   tablet-landscape 1025 - 1100px
+ *   desktop          >= 1101px
+ *
+ * Layouts must survive content regen: never depend on a fixed item
+ * count, never depend on a maximum text length. See brief section 4.
+ */
+
+.template-sailgp-pitch {
+  /* ---------- Color tokens ---------- */
+  --tp-color-bg: #03050F;
+  --tp-color-surface: #080E1E;
+  --tp-color-surface-strong: #0D172B;
+  --tp-color-text: #ffffff;
+  --tp-color-text-muted: rgba(255, 255, 255, 0.5);
+  --tp-color-accent: #C3A26D;
+  --tp-color-border: rgba(255, 255, 255, 0.08);
+  --tp-color-border-strong: rgba(255, 255, 255, 0.2);
+  --tp-gradient: linear-gradient(90deg, #C3A26D, #F8E3C2);
+
+  /* Original token names retained for component back-compat.
+     All now hold the SailGP gold — nothing renders pink/purple/blue. */
+  --tp-color-blue: #C3A26D;
+  --tp-color-pink: #C3A26D;
+  --tp-color-purple: #C3A26D;
+
+  /* ---------- Typography tokens ----------
+     Plus Jakarta Sans everywhere (wired via next/font in layout.tsx).
+     --tp-font-nav is preserved as a token for any future surface that
+     needs to opt out, but currently resolves to the same stack.       */
+  --tp-font-display: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+  --tp-font-body: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+  --tp-font-nav: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+
+  /* ---------- Layout tokens ---------- */
+  --tp-container-max: 1280px;
+  --tp-gutter: clamp(20px, 5vw, 56px);
+  --tp-section-y: clamp(80px, 12vw, 160px);
+
+  /* ---------- Base ---------- */
+  min-height: 100vh;
+  background: var(--tp-color-bg);
+  color: var(--tp-color-text);
+  font-family: var(--tp-font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  position: relative;
+  overflow-x: clip;
+}
+
+.template-sailgp-pitch ::selection {
+  background: var(--tp-color-accent);
+  color: #ffffff;
+}
+
+/* ---------- Container ---------- */
+.template-sailgp-pitch .tp-container {
+  max-width: var(--tp-container-max);
+  margin-inline: auto;
+  padding-inline: var(--tp-gutter);
+  width: 100%;
+}
+
+/* ---------- Section shell ---------- */
+.template-sailgp-pitch .tp-section {
+  padding-block: var(--tp-section-y);
+  position: relative;
+}
+.template-sailgp-pitch .tp-section--surface {
+  background: var(--tp-color-surface);
+}
+.template-sailgp-pitch .tp-section--surface-strong {
+  background: var(--tp-color-surface-strong);
+}
+
+.template-sailgp-pitch .tp-section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: clamp(36px, 5vw, 72px);
+  max-width: 720px;
+}
+
+/* ---------- Typographic primitives ---------- */
+.template-sailgp-pitch .tp-eyebrow {
+  font-family: var(--tp-font-body);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.72);
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 4px 12px;
+  position: relative;
+  overflow: hidden;
+}
+.template-sailgp-pitch .tp-eyebrow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.18) 50%, transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 0.55s ease;
+  pointer-events: none;
+}
+.template-sailgp-pitch .tp-eyebrow:hover::after {
+  transform: translateX(100%);
+}
+.template-sailgp-pitch .tp-eyebrow--muted {
+  color: var(--tp-color-text-muted);
+}
+
+/* ------------------------------------------------------------
+ * Type scale — editorial / restrained.
+ * Three display sizes only, one body size. The previous five
+ * display variants collapse onto these three; --xxl/--xl share
+ * one rule, --md/--sm share another. Old class names are kept as
+ * aliases so components don't need editing.
+ * ------------------------------------------------------------ */
+.template-sailgp-pitch .tp-display {
+  font-family: var(--tp-font-display);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.12;
+  color: var(--tp-color-text);
+  text-wrap: balance;
+}
+
+/* 1 — Display (hero). --xxl and --xl both map here. */
+.template-sailgp-pitch .tp-display--xxl,
+.template-sailgp-pitch .tp-display--xl {
+  font-size: clamp(40px, 5.4vw, 84px);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1.06;
+}
+
+/* 2 — Heading (section heads). */
+.template-sailgp-pitch .tp-display--lg {
+  font-size: clamp(28px, 3.4vw, 44px);
+  letter-spacing: -0.04em;
+}
+
+/* 3 — Subheading (card titles, etc). --md and --sm both map here. */
+.template-sailgp-pitch .tp-display--md,
+.template-sailgp-pitch .tp-display--sm {
+  font-size: clamp(20px, 2.2vw, 26px);
+  letter-spacing: -0.03em;
+}
+
+/* Body — one size. Emphasis comes from colour + space, not size.
+   --lg is kept as an alias of the single body size. */
+.template-sailgp-pitch .tp-body,
+.template-sailgp-pitch .tp-body--lg {
+  font-family: var(--tp-font-body);
+  font-weight: 400;
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.6;
+  color: var(--tp-color-text);
+}
+.template-sailgp-pitch .tp-body--muted {
+  color: var(--tp-color-text-muted);
+}
+
+/* ---------- Highlight span (signature treatment) ---------- */
+.template-sailgp-pitch .tp-highlight {
+  color: var(--tp-color-accent);
+}
+
+/* ---------- Buttons ---------- */
+.template-sailgp-pitch .tp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 14px 24px;
+  font-family: var(--tp-font-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.25s ease, transform 0.2s ease;
+  background: transparent;
+  color: var(--tp-color-text);
+}
+.template-sailgp-pitch .tp-btn:focus-visible {
+  outline: 2px solid var(--tp-color-accent);
+  outline-offset: 3px;
+}
+.template-sailgp-pitch .tp-btn--primary {
+  background: var(--tp-color-accent);
+  color: var(--tp-color-bg);
+}
+.template-sailgp-pitch .tp-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px -10px rgba(255, 89, 0, 0.5);
+}
+.template-sailgp-pitch .tp-btn--primary:active {
+  transform: translateY(0);
+}
+.template-sailgp-pitch .tp-btn--ghost {
+  border-color: var(--tp-color-border-strong);
+  color: var(--tp-color-text);
+}
+.template-sailgp-pitch .tp-btn--ghost:hover {
+  border-color: var(--tp-color-accent);
+  color: var(--tp-color-accent);
+}
+
+/* ---------- Reveal-on-scroll (driven by lib/animations.ts) ---------- */
+.template-sailgp-pitch .tp-reveal {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.template-sailgp-pitch .tp-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.template-sailgp-pitch .tp-reveal[data-delay="1"] { transition-delay: 0.08s; }
+.template-sailgp-pitch .tp-reveal[data-delay="2"] { transition-delay: 0.16s; }
+.template-sailgp-pitch .tp-reveal[data-delay="3"] { transition-delay: 0.24s; }
+.template-sailgp-pitch .tp-reveal[data-delay="4"] { transition-delay: 0.32s; }
+.template-sailgp-pitch .tp-reveal[data-delay="5"] { transition-delay: 0.4s; }
+.template-sailgp-pitch .tp-reveal[data-delay="6"] { transition-delay: 0.48s; }
+@media (prefers-reduced-motion: reduce) {
+  .template-sailgp-pitch .tp-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Noise overlay (signature texture) ---------- */
+.template-sailgp-pitch .tp-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.025;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.85'/></svg>");
+}
+
+/* ============================================================
+ * Top banner — sticky three-column header
+ *   row 1: logo · center label · CTA
+ *   row 2: confidential · "exclusively prepared for [PROSPECT]"
+ * ============================================================ */
+.template-sailgp-pitch .tp-top-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  overflow: hidden;
+  /* Layered metallic finish: vertical depth gradient on top of the dark
+     navy base, with a moving diagonal shimmer added via ::before. */
+  background:
+    linear-gradient(
+      180deg,
+      rgba(3, 5, 15, 0.88) 0%,
+      rgba(8, 14, 30, 0.82) 100%
+    );
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+          backdrop-filter: blur(14px) saturate(140%);
+  border-top: 2px solid var(--tp-color-accent);
+  border-bottom: 1px solid var(--tp-color-border);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.template-sailgp-pitch .tp-top-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 42%,
+    rgba(255, 255, 255, 0.04) 50%,
+    rgba(195, 162, 109, 0.025) 55%,
+    transparent 62%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  animation: tp-banner-shimmer 14s ease-in-out infinite;
+}
+@keyframes tp-banner-shimmer {
+  0%   { background-position: -120% 0; }
+  60%  { background-position: 220% 0; }
+  100% { background-position: 220% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .template-sailgp-pitch .tp-top-banner::before {
+    animation: none;
+  }
+}
+.template-sailgp-pitch .tp-top-banner__inner,
+.template-sailgp-pitch .tp-top-banner__row {
+  position: relative;
+  z-index: 1;
+}
+.template-sailgp-pitch .tp-top-banner.is-scrolled {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(3, 5, 15, 0.96) 0%,
+      rgba(8, 14, 30, 0.92) 100%
+    );
+  border-bottom-color: var(--tp-color-border-strong);
+}
+.template-sailgp-pitch .tp-top-banner__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-block: 12px 10px;
+}
+
+.template-sailgp-pitch .tp-top-banner__row {
+  display: grid;
+  align-items: center;
+  gap: 16px;
+  grid-template-columns: 1fr auto 1fr;
+}
+.template-sailgp-pitch .tp-top-banner__row--bottom {
+  grid-template-columns: 1fr 1fr;
+}
+
+.template-sailgp-pitch .tp-top-banner__brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  min-height: 32px;
+  justify-self: start;
+}
+.template-sailgp-pitch .tp-top-banner__logo {
+  height: 32px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+}
+
+.template-sailgp-pitch .tp-top-banner__center {
+  margin: 0;
+  justify-self: center;
+  font-family: var(--tp-font-nav);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tp-color-accent);
+  text-align: center;
+}
+
+.template-sailgp-pitch .tp-top-banner__cta {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--tp-font-nav);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tp-color-text);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.template-sailgp-pitch .tp-top-banner__cta:hover {
+  color: var(--tp-color-accent);
+}
+
+.template-sailgp-pitch .tp-top-banner__confidential,
+.template-sailgp-pitch .tp-top-banner__prepared {
+  font-family: var(--tp-font-nav);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tp-color-text-muted);
+}
+.template-sailgp-pitch .tp-top-banner__prepared {
+  justify-self: end;
+  text-align: right;
+}
+.template-sailgp-pitch .tp-top-banner__prepared-name {
+  color: inherit;
+  font-weight: inherit;
+}
+
+@media (max-width: 760px) {
+  .template-sailgp-pitch .tp-top-banner__center {
+    display: none;
+  }
+  .template-sailgp-pitch .tp-top-banner__row {
+    grid-template-columns: 1fr auto;
+  }
+  .template-sailgp-pitch .tp-top-banner__cta {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+  }
+  .template-sailgp-pitch .tp-top-banner__confidential,
+  .template-sailgp-pitch .tp-top-banner__prepared {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+  }
+}
+@media (max-width: 480px) {
+  .template-sailgp-pitch .tp-top-banner__logo {
+    height: 26px;
+  }
+}
+
+/* ============================================================
+ * Section dot nav
+ * ============================================================ */
+.template-sailgp-pitch .tp-dot-nav {
+  display: none;
+}
+@media (min-width: 1101px) {
+  .template-sailgp-pitch .tp-dot-nav {
+    display: block;
+    position: fixed;
+    right: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 200;
+  }
+}
+.template-sailgp-pitch .tp-dot-nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-end;
+}
+.template-sailgp-pitch .tp-dot-nav__dot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.template-sailgp-pitch .tp-dot-nav__pip {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  flex-shrink: 0;
+  transition: background 0.3s ease, width 0.3s ease, height 0.3s ease, box-shadow 0.3s ease;
+}
+.template-sailgp-pitch .tp-dot-nav__dot.is-active .tp-dot-nav__pip {
+  width: 9px;
+  height: 9px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 0 8px 3px rgba(255, 255, 255, 0.2);
+}
+.template-sailgp-pitch .tp-dot-nav__dot:hover .tp-dot-nav__pip {
+  background: rgba(255, 255, 255, 0.55);
+}
+.template-sailgp-pitch .tp-dot-nav__label {
+  font-family: var(--tp-font-nav);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--tp-color-text-muted);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  pointer-events: none;
+}
+.template-sailgp-pitch .tp-dot-nav__dot:hover .tp-dot-nav__label,
+.template-sailgp-pitch .tp-dot-nav__dot.is-active .tp-dot-nav__label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ============================================================
+ * Hero
+ * ============================================================ */
+.template-sailgp-pitch .tp-hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  overflow: hidden;
+  /* Bottom padding clears the absolutely-positioned scroll indicator
+     (~80px tall + ~36px from bottom edge) on every viewport size. */
+  padding-block: clamp(120px, 14vw, 200px) clamp(240px, 24vw, 300px);
+}
+.template-sailgp-pitch .tp-hero__bg-image,
+.template-sailgp-pitch .tp-hero__bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.template-sailgp-pitch .tp-hero__video-scrim {
+  position: absolute;
+  inset: 0;
+  /* --tp-color-bg = #03050F (rgb 3,5,15). Subtle at top, fully opaque at
+     the bottom so the hero blends seamlessly into the next section. */
+  background: linear-gradient(
+    180deg,
+    rgba(3, 5, 15, 0.2) 0%,
+    rgba(3, 5, 15, 0.55) 55%,
+    rgba(3, 5, 15, 0.92) 85%,
+    rgba(3, 5, 15, 1) 100%
+  );
+  z-index: 1;
+}
+.template-sailgp-pitch .tp-hero__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(18px, 2.4vw, 28px);
+}
+.template-sailgp-pitch .tp-hero__headline {
+  max-width: 22ch;
+  text-align: center;
+  text-wrap: balance;
+}
+/* Hero highlight uses the premium gold gradient (same treatment as the
+   HONOR × SAILGP lockup in PitchPioneers). Scoped here so other
+   highlight spans elsewhere on the page keep the flat accent colour. */
+.template-sailgp-pitch .tp-hero__headline .tp-highlight {
+  background: var(--tp-gradient);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+.template-sailgp-pitch .tp-hero__subline {
+  max-width: 60ch;
+  text-align: center;
+}
+/* Generic scroll-cue used by both Hero and Activations.
+   Positioning is the caller's job — Hero pins it absolutely, Activations
+   lets parent layout place it. */
+.template-sailgp-pitch .tp-scroll-indicator {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--tp-color-text-muted);
+  transition: color 0.2s ease;
+}
+.template-sailgp-pitch .tp-scroll-indicator:hover,
+.template-sailgp-pitch .tp-scroll-indicator:focus-visible {
+  color: var(--tp-color-text);
+}
+.template-sailgp-pitch .tp-scroll-indicator__label {
+  font-family: var(--tp-font-body);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.template-sailgp-pitch .tp-scroll-indicator__line {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+}
+.template-sailgp-pitch .tp-scroll-indicator__line-inner {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--tp-color-accent);
+  animation: tp-scroll-indicator-pulse 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+@keyframes tp-scroll-indicator-pulse {
+  0%   { transform: translateY(0); }
+  60%  { transform: translateY(200%); }
+  100% { transform: translateY(200%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .template-sailgp-pitch .tp-scroll-indicator__line-inner {
+    animation: none;
+    transform: translateY(50%);
+  }
+}
+
+/* Hero-specific positioning wrapper for the scroll cue. */
+.template-sailgp-pitch .tp-hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(20px, 3vw, 36px);
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+/* ============================================================
+ * About — full-bleed video + looping stats banner
+ * ============================================================ */
+.template-sailgp-pitch .tp-about {
+  padding-block: 0;
+  background: var(--tp-color-bg);
+}
+.template-sailgp-pitch .tp-about__video {
+  position: relative;
+  width: 100vw;
+  aspect-ratio: 17 / 9;
+  overflow: hidden;
+  background: #000;
+}
+.template-sailgp-pitch .tp-about__video iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+/* When the wrapper itself is fullscreened, override aspect-ratio so it
+   fills the screen and the iframe sizes against the viewport. The
+   ::backdrop pseudo paints the area behind the fullscreen element —
+   force it (and the iframe) black so letterbox bars don't show white.
+   The iframe is anchored at top:0/left:0 (no centering transform)
+   because the wrapper IS the viewport in fullscreen. */
+.template-sailgp-pitch .tp-about__video:fullscreen {
+  aspect-ratio: auto;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+}
+.template-sailgp-pitch .tp-about__video:fullscreen::backdrop {
+  background: #000;
+}
+.template-sailgp-pitch .tp-about__video:fullscreen iframe {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  aspect-ratio: auto;
+  transform: none;
+  background: #000;
+}
+
+/* Custom control bar (play/pause • mute • fullscreen) — pinned to the
+   bottom-center of the video, above the iframe. */
+.template-sailgp-pitch .tp-about__controls {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(8px, 1.2vw, 14px);
+  transform: translateX(-50%);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 999px;
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+          backdrop-filter: blur(8px) saturate(140%);
+}
+.template-sailgp-pitch .tp-about__ctrl {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--tp-color-text);
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: var(--tp-font-body);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.template-sailgp-pitch .tp-about__ctrl:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+.template-sailgp-pitch .tp-about__ctrl:focus-visible {
+  outline: 2px solid var(--tp-color-accent);
+  outline-offset: 2px;
+}
+.template-sailgp-pitch .tp-about__ctrl--round {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  padding: 0;
+}
+.template-sailgp-pitch .tp-about__ctrl--sound {
+  height: 36px;
+  border-radius: 999px;
+  padding: 0 16px;
+}
+.template-sailgp-pitch .tp-about__ctrl--sound.is-muted {
+  background: rgba(195, 162, 109, 0.18);
+  border-color: var(--tp-color-accent);
+  color: var(--tp-color-accent);
+}
+.template-sailgp-pitch .tp-about__ctrl--sound.is-muted:hover {
+  background: rgba(195, 162, 109, 0.28);
+}
+.template-sailgp-pitch .tp-about__banner {
+  overflow: hidden;
+  border-block: 1px solid var(--tp-color-border-strong);
+  padding-block: clamp(16px, 1.8vw, 24px);
+  background: var(--tp-color-surface);
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+}
+.template-sailgp-pitch .tp-about__track {
+  display: flex;
+  gap: clamp(32px, 4vw, 56px);
+  width: max-content;
+  animation: tp-about-scroll 40s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .template-sailgp-pitch .tp-about__track {
+    animation-duration: 0s;
+  }
+}
+.template-sailgp-pitch .tp-about__item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.template-sailgp-pitch .tp-about__item + .tp-about__item::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--tp-color-accent);
+  margin-right: clamp(32px, 4vw, 56px);
+  align-self: center;
+}
+.template-sailgp-pitch .tp-about__value {
+  font-family: var(--tp-font-display);
+  font-weight: 700;
+  font-size: clamp(22px, 2.4vw, 32px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--tp-color-text);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+}
+.template-sailgp-pitch .tp-about__suffix {
+  font-size: 0.7em;
+  color: var(--tp-color-accent);
+}
+.template-sailgp-pitch .tp-about__label {
+  font-family: var(--tp-font-body);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tp-color-text-muted);
+}
+@keyframes tp-about-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ============================================================
+ * Calendar grid
+ * ============================================================ */
+.template-sailgp-pitch .tp-calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.template-sailgp-pitch .tp-calendar__card {
+  background: var(--tp-color-surface);
+  border: 1px solid var(--tp-color-border);
+  border-radius: 12px;
+  padding: clamp(20px, 2.4vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.template-sailgp-pitch .tp-calendar__card.is-highlighted {
+  border-color: var(--tp-color-accent);
+  box-shadow: 0 20px 60px -32px rgba(255, 89, 0, 0.4);
+}
+.template-sailgp-pitch .tp-calendar__date {
+  font-family: var(--tp-font-body);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tp-color-accent);
+  margin: 0;
+}
+.template-sailgp-pitch .tp-calendar__city {
+  font-family: var(--tp-font-display);
+  font-weight: 700;
+  font-size: clamp(20px, 2.2vw, 26px);
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+.template-sailgp-pitch .tp-calendar__country {
+  font-size: 13px;
+  color: var(--tp-color-text-muted);
+  margin: 0;
+}
+.template-sailgp-pitch .tp-calendar__note {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--tp-color-text);
+  margin: 8px 0 0;
+}
+
+/* ============================================================
+ * Brand story — Partnership editorial layout
+ * ============================================================ */
+.template-sailgp-pitch .tp-partnership-section {
+  background-image:
+    linear-gradient(to bottom, #010101 0%, transparent 42%),
+    url('/assets/Arri.webp');
+  background-size: cover;
+  background-position: center;
+}
+.template-sailgp-pitch .tp-partnership__container {
+  max-width: 760px;
+  overflow: visible;
+}
+.template-sailgp-pitch .tp-partnership__card {
+  background: rgba(8, 10, 18, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: clamp(40px, 5vw, 64px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+@keyframes tp-card-shrink {
+  from {
+    margin-inline: -25%;
+    border-radius: 0px;
+  }
+  to {
+    margin-inline: 0px;
+    border-radius: 20px;
+  }
+}
+
+@keyframes tp-label-pop {
+  from { opacity: 0; scale: 0.75; }
+  to   { opacity: 1; scale: 1;    }
+}
+
+@supports (animation-timeline: scroll()) {
+  .template-sailgp-pitch .tp-partnership__card {
+    view-timeline: --card-view block;
+    timeline-scope: --card-view;
+    animation: tp-card-shrink linear both;
+    animation-timeline: view(block);
+    animation-range: entry 0% entry 80%;
+  }
+  .template-sailgp-pitch .tp-phone-label {
+    animation: tp-label-pop linear both;
+    animation-timeline: --card-view;
+  }
+  .template-sailgp-pitch .tp-phone-ui .tp-phone-label:nth-child(2) { animation-range: entry 80% entry 85%; }
+  .template-sailgp-pitch .tp-phone-ui .tp-phone-label:nth-child(3) { animation-range: entry 83% entry 88%; }
+  .template-sailgp-pitch .tp-phone-ui .tp-phone-label:nth-child(4) { animation-range: entry 86% entry 91%; }
+  .template-sailgp-pitch .tp-phone-ui .tp-phone-label:nth-child(5) { animation-range: entry 89% entry 94%; }
+  .template-sailgp-pitch .tp-phone-ui .tp-phone-label:nth-child(6) { animation-range: entry 92% entry 97%; }
+}
+.template-sailgp-pitch .tp-partnership__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(8px, 1vw, 12px);
+  padding: clamp(28px, 3.5vw, 44px) clamp(32px, 4vw, 52px) clamp(20px, 2vw, 28px);
+  /* pin content to the card's final (contained) width so text never reflows during the expand animation */
+  width: 100%;
+  max-width: calc(760px - 2 * clamp(20px, 5vw, 56px));
+  margin-inline: auto;
+  box-sizing: border-box;
+}
+.template-sailgp-pitch .tp-partnership__header-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.4vw, 18px);
+  padding-bottom: clamp(32px, 4vw, 52px);
+}
+.template-sailgp-pitch .tp-partnership__header-image {
+  flex-shrink: 0;
+  width: clamp(300px, 41vw, 552px);
+  align-self: flex-end;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.template-sailgp-pitch .tp-phone-ui {
+  position: relative;
+  width: 100%;
+}
+.template-sailgp-pitch .tp-phone-ui::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 65% 50% at 52% 32%, rgba(160, 140, 115, 0.35) 0%, transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+.template-sailgp-pitch .tp-partnership__phone {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  object-position: bottom;
+  transform-origin: bottom center;
+  transition: transform 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+.template-sailgp-pitch .tp-partnership__card:hover .tp-partnership__phone {
+  transform: scale(1.07);
+}
+.template-sailgp-pitch .tp-phone-label {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  pointer-events: none;
+  translate: 0 -50%;
+}
+.template-sailgp-pitch .tp-phone-label--left {
+  left: 0;
+}
+.template-sailgp-pitch .tp-phone-label--right {
+  right: 0;
+}
+.template-sailgp-pitch .tp-phone-label__text {
+  font-family: var(--tp-font-body);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(30, 20, 10, 0.6);
+  background: rgba(242, 235, 224, 0.75);
+  padding: 3px 6px;
+  border-radius: 2px;
+  backdrop-filter: blur(2px);
+}
+.template-sailgp-pitch .tp-partnership__headline {
+  margin: 0;
+  font-size: clamp(22px, 2.4vw, 34px);
+}
+.template-sailgp-pitch .tp-partnership__headline.tp-partnership__headline--dark {
+  color: #ffffff;
+}
+.template-sailgp-pitch .tp-partnership__subline {
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.6;
+  color: var(--tp-color-text);
+  margin: 0;
+}
+.template-sailgp-pitch .tp-partnership__subline--dark {
+  color: rgba(255, 255, 255, 0.72);
+}
+.template-sailgp-pitch .tp-eyebrow--dark {
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.template-sailgp-pitch .tp-partnership__prose {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.6vw, 18px);
+  padding: 0 clamp(32px, 4vw, 52px) clamp(32px, 4vw, 52px);
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  margin-top: clamp(12px, 1.5vw, 16px);
+  padding-top: clamp(16px, 2vw, 22px);
+}
+.template-sailgp-pitch .tp-partnership__para {
+  margin: 0;
+  font-size: clamp(13px, 0.85vw, 14px);
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.7;
+}
+
+/* ============================================================
+ * Brand story — "Pioneers of Innovation" two-card layout (legacy)
+ * ============================================================ */
+.template-sailgp-pitch .tp-pioneers__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+  margin-bottom: clamp(48px, 6vw, 80px);
+}
+
+.template-sailgp-pitch .tp-pioneers__headline {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.template-sailgp-pitch .tp-pioneers__subhead {
+  margin: 0;
+  max-width: 60ch;
+}
+
+.template-sailgp-pitch .tp-pioneers__cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(20px, 3vw, 36px);
+}
+@media (min-width: 900px) {
+  .template-sailgp-pitch .tp-pioneers__cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Card shell */
+.template-sailgp-pitch .tp-pioneers__card {
+  position: relative;
+  background: var(--tp-color-surface);
+  border: 1px solid var(--tp-color-border);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Image area */
+.template-sailgp-pitch .tp-pioneers__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--tp-color-surface-strong);
+  overflow: hidden;
+}
+.template-sailgp-pitch .tp-pioneers__media.is-empty {
+  background: linear-gradient(
+    135deg,
+    var(--tp-color-surface-strong) 0%,
+    var(--tp-color-surface) 100%
+  );
+}
+.template-sailgp-pitch .tp-pioneers__media-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.template-sailgp-pitch .tp-pioneers__media-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(3, 5, 15, 0.0) 0%,
+    rgba(3, 5, 15, 0.45) 70%,
+    rgba(3, 5, 15, 0.95) 100%
+  );
+}
+
+/* Year/location badge inside the media */
+.template-sailgp-pitch .tp-pioneers__badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  background: rgba(3, 5, 15, 0.85);
+  padding: 10px 14px;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1;
+}
+.template-sailgp-pitch .tp-pioneers__badge-year {
+  margin: 0;
+  font-family: var(--tp-font-display);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--tp-color-text);
+}
+.template-sailgp-pitch .tp-pioneers__badge-loc {
+  margin: 0;
+  font-family: var(--tp-font-body);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tp-color-text-muted);
+}
+
+/* Card body */
+.template-sailgp-pitch .tp-pioneers__body {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vw, 22px);
+  padding: clamp(24px, 3vw, 36px);
+  flex-grow: 1;
+}
+.template-sailgp-pitch .tp-pioneers__title {
+  margin: 0;
+  font-weight: 700;
+}
+.template-sailgp-pitch .tp-pioneers__paragraphs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.template-sailgp-pitch .tp-pioneers__paragraphs .tp-body {
+  font-size: clamp(13px, 0.9vw, 14px);
+  line-height: 1.6;
+}
+
+/* Stats row */
+.template-sailgp-pitch .tp-pioneers__stats {
+  list-style: none;
+  margin: auto 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--tp-color-border);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 16px;
+}
+.template-sailgp-pitch .tp-pioneers__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.template-sailgp-pitch .tp-pioneers__stat-value {
+  font-family: var(--tp-font-display);
+  font-weight: 700;
+  font-size: clamp(18px, 2vw, 24px);
+  letter-spacing: -0.02em;
+  color: var(--tp-color-accent);
+}
+.template-sailgp-pitch .tp-pioneers__stat-label {
+  font-family: var(--tp-font-body);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tp-color-text-muted);
+}
+
+/* ============================================================
+ * Venn / Shared Values (Match) section
+ * ============================================================ */
+.template-sailgp-pitch .tp-venn-section {
+  position: relative;
+  background: var(--tp-color-surface);
+}
+.template-sailgp-pitch .tp-venn-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+/* Three rows: header (top), venn (centered in 1fr), dots (bottom).
+   Top padding clears the fixed banner; bottom padding gives the dots
+   some breathing room from the viewport edge. */
+.template-sailgp-pitch .tp-venn-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+  height: 100%;
+  padding-block: clamp(96px, 9vw, 128px) clamp(28px, 4vw, 56px);
+}
+.template-sailgp-pitch .tp-venn-container > .tp-venn {
+  align-self: center;
+}
+.template-sailgp-pitch .tp-venn__header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.template-sailgp-pitch .tp-venn__header h2 {
+  margin: 0;
+}
+
+/* ── Venn: size tokens live here so logos row can share them ── */
+.template-sailgp-pitch .tp-venn {
+  --sz: clamp(280px, 40vw, 520px);
+  --ov: clamp(56px, 8vw, 104px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(28px, 3.2vw, 44px);
+}
+
+/* ── Circle rings (purely decorative — no content inside) ── */
+.template-sailgp-pitch .tp-venn__circles {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.template-sailgp-pitch .tp-venn__circle {
+  width: var(--sz);
+  height: calc(var(--sz) * 0.75);
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--tp-color-accent);
+  background: rgba(195, 162, 109, 0.05);
+  position: relative;
+}
+.template-sailgp-pitch .tp-venn__circle--left {
+  margin-right: calc(-1 * var(--ov));
+}
+.template-sailgp-pitch .tp-venn__circle--right {
+  margin-left: calc(-1 * var(--ov));
+}
+
+/* ── Text overlays: absolutely positioned over each non-overlap zone ── */
+.template-sailgp-pitch .tp-venn__text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  /* width = 70% of non-overlap zone minus inner breathing room */
+  width: calc((var(--sz) - var(--ov) - clamp(24px, 3.5vw, 44px)) * 0.7);
+  text-align: center;
+}
+.template-sailgp-pitch .tp-venn__text--left {
+  left: clamp(12px, 1.8vw, 22px);
+}
+.template-sailgp-pitch .tp-venn__text--right {
+  right: clamp(12px, 1.8vw, 22px);
+}
+.template-sailgp-pitch .tp-venn__side-text {
+  font-size: clamp(11px, 1.1vw, 14px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.84);
+  margin: 0;
+}
+
+/* ── Center overlap label ── */
+.template-sailgp-pitch .tp-venn__center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  pointer-events: none;
+  text-align: center;
+  width: calc(var(--ov) * 1.8);
+}
+.template-sailgp-pitch .tp-venn__shared-value {
+  font-family: var(--tp-font-display);
+  font-weight: 700;
+  font-size: clamp(14px, 1.8vw, 22px);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  background: var(--tp-gradient);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  text-transform: capitalize;
+  display: block;
+  word-break: break-word;
+}
+
+/* ── Logo inside each circle, top-centered ── */
+.template-sailgp-pitch .tp-venn__circle-logo {
+  position: absolute;
+  top: clamp(18px, 2.8vw, 34px);
+  left: 50%;
+  transform: translateX(-50%);
+  height: clamp(18px, 2.4vw, 28px);
+  width: auto;
+  max-width: clamp(80px, 11vw, 120px);
+  object-fit: contain;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* ── Tagline below logos ── */
+.template-sailgp-pitch .tp-venn__tagline {
+  font-size: clamp(16px, 1.8vw, 22px);
+  color: var(--tp-color-text-muted);
+  text-align: center;
+  max-width: 560px;
+  margin: 0;
+  line-height: 1.65;
+}
+
+/* ── Progress dots ── */
+.template-sailgp-pitch .tp-venn__dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+.template-sailgp-pitch .tp-venn__next {
+  display: flex;
+  justify-content: center;
+  padding-top: clamp(40px, 5vw, 64px);
+}
+.template-sailgp-pitch .tp-venn__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 0;
+  cursor: pointer;
+  transition: width 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+.template-sailgp-pitch .tp-venn__dot:hover {
+  background: rgba(255, 255, 255, 0.45);
+  border-color: var(--tp-color-accent);
+}
+.template-sailgp-pitch .tp-venn__dot.is-active {
+  width: 24px;
+  background: var(--tp-color-accent);
+  border-color: var(--tp-color-accent);
+}
+
+@media (max-width: 600px) {
+  .template-sailgp-pitch .tp-venn {
+    --sz: clamp(220px, 72vw, 360px);
+    --ov: clamp(88px, 24vw, 140px);
+    /* Open up the gap between the circles and the tagline. */
+    gap: clamp(36px, 8vw, 60px);
+  }
+  /* More breathing room between major elements: heading → circles →
+     tagline → dots. */
+  .template-sailgp-pitch .tp-venn-container {
+    gap: clamp(20px, 5vw, 36px);
+  }
+  .template-sailgp-pitch .tp-venn__header {
+    margin-bottom: clamp(36px, 9vw, 64px);
+  }
+  .template-sailgp-pitch .tp-venn__dots {
+    display: none;
+  }
+  /* Desktop sets section height to N × 100vh for the scroll-driven item
+     cycle. On mobile we collapse it to a single viewport so the whole
+     Venn fits without scrolling. (Only the first match item is shown
+     since the dots are hidden.) */
+  .template-sailgp-pitch .tp-venn-section {
+    height: 100vh !important;
+  }
+  /* Tagline smaller so the click-to-continue indicator stays in view. */
+  .template-sailgp-pitch .tp-venn__tagline {
+    font-size: 13px;
+    line-height: 1.5;
+    max-width: 30ch;
+  }
+  .template-sailgp-pitch .tp-venn__next {
+    padding-top: clamp(16px, 3vw, 28px);
+  }
+  /* On mobile, stack the two Venn circles vertically: SailGP (--left) on
+     top, prospect (--right) on bottom, overlap created by negative
+     margin-bottom on the top circle. */
+  .template-sailgp-pitch .tp-venn__circles {
+    flex-direction: column;
+  }
+  .template-sailgp-pitch .tp-venn__circle {
+    /* True circles on mobile (the desktop variant is an ellipse). */
+    height: var(--sz);
+  }
+  /* Mobile order: HONOR on top, SailGP on bottom. */
+  .template-sailgp-pitch .tp-venn__circle--right {
+    margin-left: 0;
+    margin-bottom: calc(-1 * var(--ov));
+    order: 2;
+  }
+  .template-sailgp-pitch .tp-venn__circle--left {
+    margin-right: 0;
+    order: 3;
+  }
+  /* Side text sits INSIDE its corresponding circle. Absolute-positioned
+     within the .tp-venn__circles container at the vertical centre of
+     each circle's non-overlap area: top circle for sailgpSide, bottom
+     circle for prospectSide. */
+  .template-sailgp-pitch .tp-venn__text {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(var(--sz) * 0.72);
+    max-width: none;
+    margin: 0;
+    z-index: 2;
+  }
+  /* prospectSide (--right) now sits in the TOP circle (HONOR);
+     sailgpSide (--left) sits in the BOTTOM circle (SailGP). */
+  .template-sailgp-pitch .tp-venn__text--right {
+    top: calc((var(--sz) - var(--ov)) / 2 + var(--ov) * 0.25);
+    right: auto;
+  }
+  .template-sailgp-pitch .tp-venn__text--left {
+    top: calc((3 * var(--sz) - var(--ov)) / 2 - var(--ov) * 0.25);
+    right: auto;
+  }
+  .template-sailgp-pitch .tp-venn__side-text {
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  /* Center label stays in the visual middle — which is now the
+     vertical overlap between the two circles. */
+  .template-sailgp-pitch .tp-venn__center {
+    width: calc(var(--ov) * 2.4);
+  }
+  /* SailGP is the bottom circle on mobile; the top of that circle sits
+     inside the overlap zone, so anchoring its logo at top would push
+     it into the overlap. Flip the SailGP logo to the bottom of its
+     circle instead. */
+  .template-sailgp-pitch .tp-venn__circle--left .tp-venn__circle-logo {
+    top: auto;
+    bottom: clamp(20px, 5vw, 36px);
+  }
+
+}
+
+/* ============================================================
+ * Experiences & Activations — sticky scroll + circular gallery
+ * ============================================================ */
+.template-sailgp-pitch .tp-activations {
+  position: relative;
+  background: var(--tp-color-surface);
+}
+.template-sailgp-pitch .tp-activations-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+}
+.template-sailgp-pitch .tp-activations__inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: clamp(92px, 9.5vw, 116px);
+  padding-bottom: clamp(20px, 2.5vw, 32px);
+  gap: clamp(6px, 0.85vw, 11px);
+}
+.template-sailgp-pitch .tp-activations__header {
+  flex-shrink: 0;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  align-items: center;
+}
+.template-sailgp-pitch .tp-activations__description {
+  max-width: 56ch;
+  margin: 0 auto;
+}
+.template-sailgp-pitch .tp-activations__next {
+  flex-shrink: 0;
+  text-align: center;
+  padding-top: clamp(6px, 1vw, 12px);
+}
+
+.template-sailgp-pitch .tp-circ-gallery {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  perspective: 2000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.template-sailgp-pitch .tp-circ-gallery__scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+.template-sailgp-pitch .tp-circ-gallery__card {
+  position: absolute;
+  width: clamp(220px, 18vw, 280px);
+  height: clamp(290px, 24vw, 370px);
+  left: 50%;
+  top: 50%;
+  margin-left: calc(clamp(220px, 18vw, 280px) / -2);
+  margin-top: calc(clamp(290px, 24vw, 370px) / -2);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--tp-color-surface-strong);
+  border: 1px solid var(--tp-color-border);
+  transition: opacity 0.3s linear;
+}
+.template-sailgp-pitch .tp-circ-gallery__card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom;
+}
+.template-sailgp-pitch .tp-circ-gallery__card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: clamp(60px, 6vw, 90px) clamp(14px, 1.6vw, 22px) clamp(14px, 1.6vw, 22px);
+  background: linear-gradient(to top, rgba(3, 5, 15, 1) 0%, rgba(3, 5, 15, 0.85) 40%, rgba(3, 5, 15, 0.4) 70%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.template-sailgp-pitch .tp-circ-gallery__card-eyebrow {
+  margin: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  overflow: visible;
+}
+.template-sailgp-pitch .tp-circ-gallery__card-eyebrow::after {
+  display: none;
+}
+.template-sailgp-pitch .tp-circ-gallery__card-title {
+  font-family: var(--tp-font-display);
+  font-size: clamp(14px, 1.2vw, 17px);
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1.25;
+}
+.template-sailgp-pitch .tp-circ-gallery__card-pill {
+  position: absolute;
+  top: clamp(10px, 1vw, 14px);
+  right: clamp(10px, 1vw, 14px);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: clamp(9px, 0.75vw, 11px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.template-sailgp-pitch .tp-circ-gallery__card-detail {
+  font-size: clamp(10px, 0.85vw, 12px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 5px 0 0;
+}
+
+/* ============================================================
+ * Brand visibility (placements)
+ * ============================================================ */
+.template-sailgp-pitch .tp-visibility__description {
+  max-width: 60ch;
+  margin: 0 0 clamp(28px, 4vw, 56px);
+}
+.template-sailgp-pitch .tp-visibility__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.template-sailgp-pitch .tp-visibility__card {
+  border: 1px solid var(--tp-color-border);
+  border-radius: 12px;
+  padding: clamp(22px, 2.4vw, 32px);
+  background: var(--tp-color-surface-strong);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ============================================================
+ * Partnership Structure (replaces former Key Rights bullet list)
+ * Tier rows: [tier name] [slot grid]. Slots flex to fill the row;
+ * grid-template-columns adapts to slot count via --slot-count.
+ * ============================================================ */
+.template-sailgp-pitch .tp-partnership__head {
+  margin-inline: auto;
+  text-align: center;
+  align-items: center;
+  max-width: none;
+}
+.template-sailgp-pitch .tp-partnership__headline {
+  white-space: nowrap;
+  text-wrap: nowrap;
+  color: var(--tp-color-text);
+}
+.template-sailgp-pitch .tp-partnership__headline .tp-highlight {
+  color: var(--tp-color-text);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+.template-sailgp-pitch .tp-partnership__tiers {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.template-sailgp-pitch .tp-partnership__tier-inner {
+  display: grid;
+  grid-template-columns: minmax(140px, 200px) 1fr;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 32px);
+}
+.template-sailgp-pitch .tp-partnership__tier-name {
+  font-family: var(--tp-font-body);
+  font-weight: 500;
+  font-size: clamp(15px, 1.2vw, 18px);
+  color: var(--tp-color-text);
+  opacity: 0.55;
+  letter-spacing: -0.01em;
+}
+.template-sailgp-pitch .tp-partnership__slots {
+  display: grid;
+  grid-template-columns: repeat(var(--slot-count, 1), minmax(0, 1fr));
+  gap: 10px;
+}
+.template-sailgp-pitch .tp-partnership__slot {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(72px, 8vw, 92px);
+  padding: 16px 20px;
+  background: var(--tp-color-surface-strong);
+  border-radius: 6px;
+  text-align: center;
+}
+.template-sailgp-pitch .tp-partnership__slot-logo {
+  max-height: 22px;
+  max-width: 70%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+.template-sailgp-pitch .tp-partnership__slot-name {
+  font-family: var(--tp-font-body);
+  font-weight: 500;
+  font-size: clamp(15px, 1.1vw, 18px);
+  color: var(--tp-color-text);
+  letter-spacing: -0.01em;
+}
+.template-sailgp-pitch .tp-partnership__slot--open {
+  background: var(--tp-color-surface);
+  color: var(--tp-color-text-muted);
+  font-family: var(--tp-font-body);
+  font-weight: 400;
+  font-size: clamp(14px, 1vw, 16px);
+}
+.template-sailgp-pitch .tp-partnership__slot--prospect {
+  /* Premium gold base + diagonal sheen. ::after carries an animated
+     shimmer streak that slowly sweeps across — same idea as the top
+     banner but a touch more visible because this is the highlighted
+     slot. Anchor variant adds hover lift so it reads as clickable. */
+  background:
+    linear-gradient(
+      135deg,
+      #b58e57 0%,
+      #d9b87a 35%,
+      #f4e1b4 50%,
+      #d9b87a 65%,
+      #b58e57 100%
+    );
+  box-shadow: 0 6px 24px -12px rgba(195, 162, 109, 0.55);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.template-sailgp-pitch a.tp-partnership__slot--prospect:hover,
+.template-sailgp-pitch a.tp-partnership__slot--prospect:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px rgba(195, 162, 109, 0.7);
+}
+.template-sailgp-pitch a.tp-partnership__slot--prospect:focus-visible {
+  outline: 2px solid var(--tp-color-text);
+  outline-offset: 3px;
+}
+.template-sailgp-pitch .tp-partnership__slot--prospect::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 42%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 58%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  animation: tp-prospect-shimmer 4.5s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+@keyframes tp-prospect-shimmer {
+  0%   { background-position: -120% 0; }
+  55%  { background-position: 220% 0; }
+  100% { background-position: 220% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .template-sailgp-pitch .tp-partnership__slot--prospect::after {
+    animation: none;
+  }
+}
+.template-sailgp-pitch .tp-partnership__slot--prospect .tp-partnership__slot-name {
+  position: relative;
+  z-index: 1;
+  color: var(--tp-color-bg);
+  font-weight: 600;
+}
+.template-sailgp-pitch .tp-partnership__slot--prospect .tp-partnership__slot-logo {
+  position: relative;
+  z-index: 1;
+  /* Most partner logos are designed for dark backgrounds; over the gold
+     tile the light marks become invisible. Tint to bg colour to match the
+     screenshot's silhouette treatment without requiring a second logo. */
+  filter: brightness(0) saturate(100%) invert(8%) sepia(15%) saturate(2000%)
+    hue-rotate(200deg) brightness(0.3);
+}
+
+@media (max-width: 700px) {
+  .template-sailgp-pitch .tp-partnership__tier-inner {
+    grid-template-columns: 1fr;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .template-sailgp-pitch .tp-partnership__tier-name {
+    color: var(--tp-color-accent);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+  }
+}
+
+/* ============================================================
+ * Pricing Packages (replaces former Next Steps numbered list)
+ * Two side-by-side cards: tier name, headline price, contract/scaling
+ * meta, included rights list, and a cost breakdown table.
+ * ============================================================ */
+.template-sailgp-pitch .tp-pricing__head {
+  margin-inline: auto;
+  text-align: center;
+  align-items: center;
+}
+.template-sailgp-pitch .tp-pricing__grid {
+  display: grid;
+  grid-template-columns: repeat(
+    var(--pkg-count, 2),
+    minmax(0, 1fr)
+  );
+  gap: clamp(18px, 2.4vw, 32px);
+  align-items: stretch;
+}
+@media (max-width: 900px) {
+  .template-sailgp-pitch .tp-pricing__grid {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}
+.template-sailgp-pitch .tp-pricing__grid > * {
+  display: flex;
+}
+.template-sailgp-pitch .tp-pricing__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.6vw, 20px);
+  background: var(--tp-color-surface-strong);
+  border: 1px solid var(--tp-color-border);
+  border-radius: 14px;
+  padding: clamp(20px, 2.4vw, 30px);
+  width: 100%;
+}
+@media (max-width: 900px) {
+  .template-sailgp-pitch .tp-pricing__card {
+    padding-block: clamp(30px, 7vw, 44px);
+  }
+}
+.template-sailgp-pitch .tp-pricing__card--recommended {
+  border-color: var(--tp-color-accent);
+  box-shadow: 0 24px 60px -28px rgba(195, 162, 109, 0.45);
+}
+.template-sailgp-pitch .tp-pricing__badge {
+  position: absolute;
+  top: -14px;
+  left: clamp(20px, 2vw, 28px);
+  display: inline-block;
+  padding: 5px 12px;
+  font-family: var(--tp-font-body);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tp-color-bg);
+  background: var(--tp-color-accent);
+  border-radius: 999px;
+}
+.template-sailgp-pitch .tp-pricing__card-head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  /* Leave room for the absolutely-positioned pills in the top-right
+     so the package name doesn't run under them. On mobile the pills
+     move above the title (handled below) so this padding is reset. */
+  padding-right: clamp(0px, 22vw, 200px);
+}
+@media (max-width: 900px) {
+  .template-sailgp-pitch .tp-pricing__card-head {
+    padding-right: 0;
+    /* Push title below the pill row at the top of the card. */
+    margin-top: clamp(28px, 7vw, 42px);
+  }
+}
+.template-sailgp-pitch .tp-pricing__name {
+  font-family: var(--tp-font-display);
+  font-weight: 700;
+  font-size: clamp(22px, 2.4vw, 30px);
+  letter-spacing: -0.025em;
+  margin: 0;
+  color: var(--tp-color-text);
+}
+.template-sailgp-pitch .tp-pricing__tagline {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--tp-color-text-muted);
+  margin: 0;
+}
+.template-sailgp-pitch .tp-pricing__value {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  border-block: 1px solid var(--tp-color-border);
+  padding-block: clamp(10px, 1.4vw, 16px);
+}
+.template-sailgp-pitch .tp-pricing__value-amount {
+  font-family: var(--tp-font-display);
+  font-weight: 700;
+  font-size: clamp(32px, 3.6vw, 48px);
+  letter-spacing: -0.035em;
+  line-height: 1;
+  background: var(--tp-gradient);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+.template-sailgp-pitch .tp-pricing__value-suffix {
+  font-family: var(--tp-font-body);
+  font-weight: 500;
+  font-size: clamp(13px, 1.05vw, 16px);
+  color: var(--tp-color-text-muted);
+}
+/* Term / scaling icon pills — absolutely positioned at the top-right
+   of the card so they don't push other content down. */
+.template-sailgp-pitch .tp-pricing__pills {
+  position: absolute;
+  top: clamp(16px, 1.8vw, 22px);
+  right: clamp(16px, 1.8vw, 22px);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  z-index: 1;
+}
+.template-sailgp-pitch .tp-pricing__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--tp-color-border);
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: var(--tp-color-text);
+}
+.template-sailgp-pitch .tp-pricing__pill svg {
+  color: var(--tp-color-accent);
+  flex-shrink: 0;
+}
+.template-sailgp-pitch .tp-pricing__pill-value {
+  font-weight: 600;
+}
+.template-sailgp-pitch .tp-pricing__block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.template-sailgp-pitch .tp-pricing__block-label {
+  font-family: var(--tp-font-body);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tp-color-accent);
+  margin: 0;
+}
+.template-sailgp-pitch .tp-pricing__rights {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.template-sailgp-pitch .tp-pricing__rights li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--tp-color-text);
+}
+.template-sailgp-pitch .tp-pricing__rights-bullet {
+  color: var(--tp-color-text);
+  opacity: 0.45;
+  flex-shrink: 0;
+  line-height: 1.55;
+}
+.template-sailgp-pitch .tp-pricing__breakdown {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.template-sailgp-pitch .tp-pricing__breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 10px;
+  border-top: 1px solid var(--tp-color-border);
+  font-size: 14px;
+}
+.template-sailgp-pitch .tp-pricing__breakdown-row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.template-sailgp-pitch .tp-pricing__breakdown-row dt {
+  color: var(--tp-color-text-muted);
+}
+.template-sailgp-pitch .tp-pricing__breakdown-row dd {
+  margin: 0;
+  color: var(--tp-color-text);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.template-sailgp-pitch .tp-pricing__breakdown-row--total {
+  border-top: 1px solid var(--tp-color-border-strong);
+  margin-top: 4px;
+  padding-top: 14px;
+  font-weight: 700;
+}
+.template-sailgp-pitch .tp-pricing__breakdown-row--total dt,
+.template-sailgp-pitch .tp-pricing__breakdown-row--total dd {
+  color: var(--tp-color-text);
+  font-size: 15px;
+}
+
+/* Swap area between Rights ↔ Breakdown.
+   AnimatePresence mode="wait" keeps only one block in the DOM at a
+   time, so the swap can use natural document flow — no absolute
+   positioning, no fixed min-height. Card simply grows to fit whichever
+   view is currently active. */
+.template-sailgp-pitch .tp-pricing__swap {
+  display: flex;
+  flex-direction: column;
+}
+.template-sailgp-pitch .tp-pricing__swap > .tp-pricing__block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+/* Tab-pill: two-segment switch between Included Rights ↔ Price Breakdown. */
+.template-sailgp-pitch .tp-pricing__tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--tp-color-border);
+  border-radius: 999px;
+}
+.template-sailgp-pitch .tp-pricing__tab {
+  padding: 8px 14px;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--tp-font-body);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tp-color-text-muted);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.template-sailgp-pitch .tp-pricing__tab:hover {
+  color: var(--tp-color-text);
+}
+.template-sailgp-pitch .tp-pricing__tab.is-active {
+  background: var(--tp-color-accent);
+  color: var(--tp-color-bg);
+}
+.template-sailgp-pitch .tp-pricing__tab.is-active:hover {
+  color: var(--tp-color-bg);
+}
+
+/* ============================================================
+ * Motivation letter
+ * ============================================================ */
+.template-sailgp-pitch .tp-letter {
+  background: var(--tp-color-surface);
+}
+.template-sailgp-pitch .tp-letter__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 28px);
+  text-align: center;
+}
+.template-sailgp-pitch .tp-letter__eyebrow {
+  text-align: center;
+}
+.template-sailgp-pitch .tp-letter__heading {
+  text-align: center;
+  margin: 0 0 clamp(24px, 4vw, 56px);
+}
+
+/* ── Avatar trigger ── */
+.template-sailgp-pitch .tp-letter__trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 8px;
+}
+.template-sailgp-pitch .tp-letter__trigger-ring {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  border: 2px solid var(--tp-color-accent);
+  opacity: 0.5;
+  animation: tp-letter-pulse 2.2s ease-in-out infinite;
+}
+.template-sailgp-pitch .tp-letter__trigger-ring--2 {
+  inset: -20px;
+  opacity: 0.2;
+  animation-delay: 0.7s;
+}
+@keyframes tp-letter-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.06); opacity: 0.15; }
+}
+.template-sailgp-pitch .tp-letter__trigger-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--tp-color-accent);
+  position: relative;
+  z-index: 1;
+}
+.template-sailgp-pitch .tp-letter__trigger-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  background: var(--tp-color-accent);
+  color: var(--tp-color-bg);
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* ── Letter card ── */
+.template-sailgp-pitch .tp-letter__card {
+  position: relative;
+  background: var(--tp-color-surface);
+  border: 1px solid var(--tp-color-border-strong);
+  border-radius: 16px;
+  padding: clamp(28px, 4vw, 48px);
+  max-width: 680px;
+  width: 100%;
+  text-align: left;
+}
+.template-sailgp-pitch .tp-letter__card-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  background: var(--tp-color-surface-strong);
+  border: 1px solid var(--tp-color-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--tp-color-text-muted);
+  transition: color 0.15s, background 0.15s;
+}
+.template-sailgp-pitch .tp-letter__card-close:hover {
+  color: var(--tp-color-text);
+  background: var(--tp-color-border-strong);
+}
+.template-sailgp-pitch .tp-letter__card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.template-sailgp-pitch .tp-letter__card-body p {
+  margin: 0;
+  font-size: clamp(14px, 1.5vw, 16px);
+  line-height: 1.7;
+  color: var(--tp-color-text);
+}
+.template-sailgp-pitch .tp-letter__values {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.template-sailgp-pitch .tp-letter__values li {
+  border-left: 2px solid var(--tp-color-accent);
+  padding: 5px 0 5px 14px;
+  font-size: clamp(13px, 1.4vw, 15px);
+  color: var(--tp-color-text);
+  line-height: 1.6;
+}
+.template-sailgp-pitch .tp-letter__pitch-line {
+  font-style: italic;
+  color: var(--tp-color-accent) !important;
+  font-size: clamp(14px, 1.5vw, 16px) !important;
+  border-left: 3px solid var(--tp-color-accent);
+  padding-left: 14px;
+  margin: 4px 0 !important;
+}
+.template-sailgp-pitch .tp-letter__signature-img {
+  height: 48px;
+  width: auto;
+  margin-top: 4px;
+  opacity: 0.85;
+  filter: invert(1);
+}
+.template-sailgp-pitch .tp-letter__contact {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 16px;
+  border-top: 1px solid var(--tp-color-border);
+  margin-top: 4px;
+}
+.template-sailgp-pitch .tp-letter__contact-portrait {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.template-sailgp-pitch .tp-letter__contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+  color: var(--tp-color-text-muted);
+  line-height: 1.5;
+}
+.template-sailgp-pitch .tp-letter__contact-info strong {
+  color: var(--tp-color-text);
+  font-weight: 600;
+  font-size: 14px;
+}
+.template-sailgp-pitch .tp-letter__contact-info a {
+  color: var(--tp-color-accent);
+  text-decoration: none;
+}
+.template-sailgp-pitch .tp-letter__contact-info a:hover {
+  text-decoration: underline;
+}
+.template-sailgp-pitch .tp-letter__cta {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 12px 24px;
+  background: var(--tp-gradient);
+  color: var(--tp-color-bg);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  border-radius: 8px;
+  text-decoration: none;
+  width: max-content;
+  transition: opacity 0.15s;
+}
+.template-sailgp-pitch .tp-letter__cta:hover {
+  opacity: 0.88;
+}
+
+/* ============================================================
+ * Pioneers timeline
+ * ============================================================ */
+.template-sailgp-pitch .tp-pioneers {
+  text-align: center;
+  padding-block: clamp(60px, 9vw, 120px);
+}
+.template-sailgp-pitch .tp-pioneers__lockup {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px clamp(16px, 3vw, 32px);
+  font-family: var(--tp-font-display);
+  font-weight: 700;
+  font-size: clamp(40px, 5.4vw, 84px);
+  letter-spacing: -0.045em;
+  line-height: 1.06;
+  text-transform: uppercase;
+}
+.template-sailgp-pitch .tp-pioneers__brand {
+  background: var(--tp-gradient);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+.template-sailgp-pitch .tp-pioneers__cross {
+  color: var(--tp-color-text);
+}
+.template-sailgp-pitch .tp-pioneers__caption {
+  margin-top: clamp(28px, 3vw, 44px);
+  color: var(--tp-color-text-muted);
+}
