@@ -4128,3 +4128,130 @@
   .template-sailgp-pitch .tp-course-builder { flex-direction: column; align-items: stretch; }
   .template-sailgp-pitch .tp-course-builder__cta { justify-content: center; }
 }
+
+/* ============================================================
+ * Pillars — scroll-driven tab section (Sports & Series)
+ * Tall section (1 viewport per pillar) + sticky stage; a full-width
+ * tab bar auto-advances on scroll and the active pillar's title + KPIs
+ * render below.
+ * ============================================================ */
+.template-sailgp-pitch .tp-pillars__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.template-sailgp-pitch .tp-pillars__stage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 6vh, 72px);
+}
+/* Long tab bar of transparent tabs */
+.template-sailgp-pitch .tp-pillars__tabbar {
+  position: relative;
+  display: flex;
+  border-top: 1px solid var(--tp-color-border);
+  border-bottom: 1px solid var(--tp-color-border);
+}
+.template-sailgp-pitch .tp-pillars__tab {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: clamp(14px, 2vh, 24px) clamp(12px, 1.4vw, 22px);
+  background: transparent;
+  border: none;
+  border-left: 1px solid var(--tp-color-border);
+  color: var(--tp-color-text-muted);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+.template-sailgp-pitch .tp-pillars__tab:first-child { border-left: none; }
+.template-sailgp-pitch .tp-pillars__tab:hover { color: rgba(255, 255, 255, 0.8); }
+.template-sailgp-pitch .tp-pillars__tab.is-active {
+  color: var(--tp-color-text);
+  background: rgba(255, 255, 255, 0.03);
+}
+.template-sailgp-pitch .tp-pillars__tab:focus-visible {
+  outline: 2px solid var(--tp-color-accent);
+  outline-offset: -2px;
+}
+.template-sailgp-pitch .tp-pillars__tab-num {
+  font-family: var(--tp-font-display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+.template-sailgp-pitch .tp-pillars__tab-name {
+  font-family: var(--tp-font-display);
+  font-weight: 700;
+  font-size: clamp(12px, 1.1vw, 15px);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Active-tab indicator slides along the bar as the pillar changes. */
+.template-sailgp-pitch .tp-pillars__tab-fill {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--tp-color-accent);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Active pillar content */
+.template-sailgp-pitch .tp-pillars__content { min-height: 0; }
+.template-sailgp-pitch .tp-pillars__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tp-color-text-muted);
+  margin-bottom: clamp(14px, 2vh, 26px);
+}
+.template-sailgp-pitch .tp-pillars__title {
+  max-width: none;
+  font-size: clamp(22px, 2.8vw, 38px);
+  margin-bottom: clamp(24px, 4vh, 52px);
+}
+.template-sailgp-pitch .tp-pillars__stats {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: clamp(20px, 3vw, 48px);
+}
+.template-sailgp-pitch .tp-pillars__stat { display: flex; flex-direction: column; gap: 10px; }
+.template-sailgp-pitch .tp-pillars__value {
+  font-family: var(--tp-font-display);
+  font-weight: 700;
+  font-size: clamp(30px, 3.8vw, 56px);
+  letter-spacing: -0.045em;
+  line-height: 1;
+  color: var(--tp-color-text);
+  font-variant-numeric: tabular-nums;
+}
+.template-sailgp-pitch .tp-pillars__label {
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.5;
+  color: var(--tp-color-text-muted);
+  max-width: 28ch;
+}
+@media (max-width: 700px) {
+  /* Numbers-only tabs on narrow screens (the content kicker names the pillar). */
+  .template-sailgp-pitch .tp-pillars__tab-name { display: none; }
+  .template-sailgp-pitch .tp-pillars__tab { justify-content: center; }
+}

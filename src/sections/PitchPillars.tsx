@@ -1,86 +1,119 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import type { PillarsSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
 import { CountUp } from "@/components/CountUp";
-import { Icon } from "@/components/Icon";
 import { isMeaningful, filterMeaningful } from "@/lib/render-utils";
 
 /**
- * Brief Section 1 "Sports & Series" — a tabbed infographic. The four
- * pillars (Global Scale · Momentum · Premium Audience · Impact Platform)
- * live as tabs on the left; the active pillar's stats fill the panel on
- * the right, with animated count-up numbers.
+ * Brief Section 1 "Sports & Series" — a scroll-driven tabbed infographic.
+ * The section is tall (one viewport per pillar) with a sticky stage: a
+ * full-width tab bar auto-advances as you scroll, and the active pillar's
+ * title + KPIs render below (count-up re-fires on each tab).
  */
 export function PitchPillars({ data }: { data: PillarsSection }) {
   const items = filterMeaningful(data.tenant.items).filter((p) => isMeaningful(p.title));
+  const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || items.length === 0) return;
+    const onScroll = () => {
+      const rect = el.getBoundingClientRect();
+      const total = el.offsetHeight - window.innerHeight;
+      const scrolled = Math.min(Math.max(-rect.top, 0), Math.max(total, 1));
+      const p = total > 0 ? scrolled / total : 0;
+      const idx = Math.min(items.length - 1, Math.max(0, Math.floor(p * items.length)));
+      setActive(idx);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [items.length]);
+
   if (items.length === 0) return null;
 
-  const label = data.editable.label ?? "Sports & Series";
   const current = items[Math.min(active, items.length - 1)];
   const stats = filterMeaningful(current.stats).filter(
     (s) => isMeaningful(s.value) && isMeaningful(s.label)
   );
 
+  // Clicking a tab scrolls to the start of that pillar's scroll band.
+  const jumpTo = (i: number) => {
+    const el = ref.current;
+    if (!el) return;
+    const sectionTop = el.getBoundingClientRect().top + window.scrollY;
+    const total = el.offsetHeight - window.innerHeight;
+    window.scrollTo({ top: sectionTop + (i / items.length) * total + 8, behavior: "smooth" });
+  };
+
   return (
     <section
       id={SectionId.pillars}
+      ref={ref}
       className="tp-section tp-pillars"
-      aria-label={label}
+      aria-label={data.editable.label ?? "Sports & Series"}
+      style={{ height: `${items.length * 100}vh`, padding: 0 }}
     >
-      <div className="tp-container">
-        <div className="tp-pillars__layout">
-          <ol className="tp-pillars__tabs" role="tablist" aria-label={label}>
-            {items.map((pillar, i) => (
-              <li key={pillar._key ?? pillar.title}>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={i === active}
-                  className={`tp-pillar-tab${i === active ? " is-active" : ""}`}
-                  onClick={() => setActive(i)}
-                  onMouseEnter={() => setActive(i)}
-                >
-                  <Icon name={pillar.icon} className="tp-pillar-tab__icon" />
-                  <span className="tp-pillar-tab__text">
-                    <span className="tp-pillar-tab__index">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="tp-pillar-tab__title">{pillar.title}</span>
-                  </span>
-                  <span className="tp-pillar-tab__arrow" aria-hidden="true">
-                    <Icon name="arrow" size={18} />
-                  </span>
-                </button>
-              </li>
+      <div className="tp-pillars__sticky">
+        <div className="tp-container tp-pillars__stage">
+          <div className="tp-pillars__tabbar" role="tablist" aria-label={data.editable.label ?? "Sports & Series"}>
+            {items.map((p, i) => (
+              <button
+                key={p._key ?? p.title}
+                type="button"
+                role="tab"
+                aria-selected={i === active}
+                className={`tp-pillars__tab${i === active ? " is-active" : ""}`}
+                onClick={() => jumpTo(i)}
+              >
+                <span className="tp-pillars__tab-num">{String(i + 1).padStart(2, "0")}</span>
+                <span className="tp-pillars__tab-name">{p.title}</span>
+              </button>
             ))}
-          </ol>
-
-          <div className="tp-pillars__panel" role="tabpanel">
-            <p className="tp-pillar-panel__eyebrow">
-              <Icon name={current.icon} size={18} />
-              {current.title}
-            </p>
-            {isMeaningful(current.subtitle) && (
-              <h3 className="tp-display tp-display--lg tp-pillar-panel__title">
-                {current.subtitle}
-              </h3>
-            )}
-            {stats.length > 0 && (
-              <ul className="tp-pillar-panel__stats">
-                {stats.map((s) => (
-                  <li key={s._key ?? s.label} className="tp-pillar-panel__stat">
-                    <span className="tp-pillar-panel__value">
-                      <CountUp value={s.value} />
-                    </span>
-                    <span className="tp-pillar-panel__label">{s.label}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <span
+              className="tp-pillars__tab-fill"
+              style={{
+                width: `${100 / items.length}%`,
+                transform: `translateX(${active * 100}%)`,
+              }}
+              aria-hidden="true"
+            />
           </div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current._key ?? active}
+              className="tp-pillars__content"
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -18 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {isMeaningful(current.subtitle) && (
+                <h3 className="tp-display tp-display--lg tp-pillars__title">{current.subtitle}</h3>
+              )}
+              {stats.length > 0 && (
+                <ul className="tp-pillars__stats">
+                  {stats.map((s) => (
+                    <li key={s._key ?? s.label} className="tp-pillars__stat">
+                      <span className="tp-pillars__value">
+                        <CountUp value={s.value} />
+                      </span>
+                      <span className="tp-pillars__label">{s.label}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </section>
