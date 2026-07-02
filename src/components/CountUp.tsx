@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useReveal } from "@/lib/animations";
 
 /**
@@ -52,7 +52,11 @@ export function CountUp({
   className?: string;
   durationMs?: number;
 }) {
-  const parsed = parse(value);
+  // Memoized so its identity is stable across the re-renders the
+  // animation loop itself triggers — otherwise the effect below sees a
+  // "new" dependency on every tick, cancels its own rAF, and the
+  // `started` guard then blocks it from ever restarting.
+  const parsed = useMemo(() => parse(value), [value]);
   const { ref, visible } = useReveal<HTMLSpanElement>({ threshold: 0.4 });
   const [display, setDisplay] = useState<string>(() =>
     parsed ? format(0, parsed.decimals, parsed.useGrouping) : value

@@ -260,7 +260,7 @@ export const defaultSiteData: SiteData = {
           icon: "leaf",
         },
       ],
-      backgroundImage: { src: "/assets/images/Front Catamaran.webp", alt: "SailGP racing" },
+      backgroundImage: { src: "/assets/images/Frauen Gruppenfoto.webp", alt: "Women SailGP sailors" },
     },
     editable: {
       label: "How we impact",
@@ -440,7 +440,7 @@ export const defaultSiteData: SiteData = {
       contactRole: TENANT.contactRole,
       contactEmail: "dsteffens@sailgpger.com",
       contactPhone: "+49 175 67 98 004",
-      contactPortraitImage: "/assets/images/contact-portrait.png",
+      contactPortraitImage: "/assets/images/Denis2.webp",
       signatureImage: "/assets/images/dennis-signature.svg",
       backgroundImage: { src: "/assets/images/sailgp-sydney.webp", alt: "SailGP at the water's edge" },
     },

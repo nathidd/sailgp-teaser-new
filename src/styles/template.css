@@ -199,13 +199,13 @@
 .template-sailgp-pitch .tp-highlight {
   color: var(--tp-color-accent);
 }
-/* In display headlines the accent word is set in an upright editorial
-   serif, solid acid. */
+/* In display headlines the accent word stays in the display font,
+   solid acid. */
 .template-sailgp-pitch .tp-display .tp-highlight {
-  font-family: var(--tp-font-serif);
+  font-family: var(--tp-font-display);
   font-style: normal;
-  font-weight: 400;
-  letter-spacing: 0;
+  font-weight: 500;
+  letter-spacing: -0.04em;
   color: var(--tp-color-accent);
 }
 
