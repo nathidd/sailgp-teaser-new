@@ -58,7 +58,7 @@ export const defaultSiteData: SiteData = {
         "High-stakes racing in iconic waterfront destinations. A global sport with unstoppable momentum, a premium audience modern brands want to reach, and a platform built for positive impact.",
       partnerLabel: "Exclusively prepared for",
       confidentialLabel: "Confidential",
-      bannerCenterLabel: "SailGP Teaser",
+      bannerCenterLabel: "SailGP x {partner} Teaser",
       cta: { label: "Come inside", href: `#${SectionId.invitation}` },
     },
     prospect: {
