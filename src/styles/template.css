@@ -100,9 +100,15 @@
 }
 /* Full-viewport sections align to the very top (their own top padding
    already clears the banner) — no extra offset. */
-.template-sailgp-pitch .tp-hero,
-.template-sailgp-pitch .tp-pillars {
+.template-sailgp-pitch .tp-hero {
   scroll-margin-top: 0;
+}
+/* Pillars is a tall sticky-scroll section: cancel the 92px scroll-padding with
+   a negative margin so an anchor jump lands just inside it (sticky pinned,
+   first tab centered) instead of before the pin, where the stage padding would
+   push everything down and clip the content. */
+.template-sailgp-pitch .tp-pillars {
+  scroll-margin-top: -100px;
 }
 .template-sailgp-pitch .tp-section--surface {
   background: var(--tp-color-surface);
@@ -3985,10 +3991,23 @@
 .template-sailgp-pitch .tp-approach {
   position: relative;
   overflow: hidden;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+}
+/* Desktop: vertically centre these two sections in the viewport, and land an
+   anchor jump at the section's very top (cancelling the 92px scroll-padding) so
+   the centred content ends up viewport-centred rather than pushed 92px down.
+   Mobile keeps normal top-aligned flow so tall content isn't clipped. */
+@media (min-width: 701px) {
+  .template-sailgp-pitch .tp-approach,
+  .template-sailgp-pitch .tp-opportunities,
+  .template-sailgp-pitch .tp-impact,
+  .template-sailgp-pitch .tp-positioning,
+  .template-sailgp-pitch .tp-network {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    scroll-margin-top: -92px;
+  }
 }
 /* Per-stage backdrop images cross-fade behind the funnel on hover. */
 .template-sailgp-pitch .tp-approach__bg {
