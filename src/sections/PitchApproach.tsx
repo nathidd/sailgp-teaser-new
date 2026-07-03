@@ -5,7 +5,6 @@ import type { ApproachSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
 import { Headline } from "@/components/Headline";
 import { Reveal } from "@/components/Reveal";
-import { Icon } from "@/components/Icon";
 import { isMeaningful, filterMeaningful, splitParagraphs } from "@/lib/render-utils";
 
 /**
@@ -54,10 +53,6 @@ export function PitchApproach({ data }: { data: ApproachSection }) {
             )}
 
             <Reveal delay={2} className="tp-approach__focus" aria-live="polite">
-              <p className="tp-approach__focus-label">
-                <Icon name="compass" size={16} />
-                Now focusing
-              </p>
               <p className="tp-approach__focus-stage">{current.stage}</p>
               {isMeaningful(current.action) && (
                 <p className="tp-approach__focus-action">{current.action}</p>
@@ -71,9 +66,6 @@ export function PitchApproach({ data }: { data: ApproachSection }) {
           </div>
 
           <Reveal delay={1} className="tp-approach__funnel-wrap">
-            <div className="tp-approach__funnel-head">
-              <span className="tp-approach__hint">Hover to explore</span>
-            </div>
             <ol className="tp-approach__funnel">
               {stages.map((s, i) => {
                 const indent = stages.length > 1 ? (i / (stages.length - 1)) * 26 : 0;

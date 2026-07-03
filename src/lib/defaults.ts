@@ -393,7 +393,7 @@ export const defaultSiteData: SiteData = {
       headline: {
         parts: [
           { text: "Aligned with your " },
-          { text: "business goals.", highlight: true },
+          { text: "business goals", highlight: true },
         ],
       },
       paragraphs: [

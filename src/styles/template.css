@@ -3990,10 +3990,7 @@
 .template-sailgp-pitch .tp-approach__focus-action { color: var(--tp-color-text); font-weight: 600; }
 .template-sailgp-pitch .tp-approach__focus-desc { margin-top: 4px; }
 .template-sailgp-pitch .tp-approach__funnel-wrap {
-  border: 1px solid var(--tp-color-border);
-  border-radius: 18px;
-  padding: clamp(20px, 2.4vw, 30px);
-  background: rgba(13, 23, 43, 0.4);
+  padding: 0;
 }
 .template-sailgp-pitch .tp-approach__funnel-head {
   display: flex;
