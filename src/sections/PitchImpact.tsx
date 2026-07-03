@@ -1,9 +1,12 @@
+"use client";
+
 import type { ImpactSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
 import { Headline } from "@/components/Headline";
 import { Reveal } from "@/components/Reveal";
 import { MobileEyebrow } from "@/components/MobileEyebrow";
 import { isMeaningful, filterMeaningful, splitParagraphs } from "@/lib/render-utils";
+import { useReveal } from "@/lib/animations";
 
 /** Brief Section 4 "Impact" — co-creation beyond sport (Deutsche Bank et al). */
 export function PitchImpact({ data }: { data: ImpactSection }) {
@@ -13,11 +16,16 @@ export function PitchImpact({ data }: { data: ImpactSection }) {
   const initiatives = filterMeaningful(tenant.initiatives).filter((it) =>
     isMeaningful(it.title)
   );
+  const { ref, visible } = useReveal<HTMLElement>({
+    threshold: 0.05,
+    rootMargin: "0px 0px -10% 0px",
+  });
 
   return (
     <section
+      ref={ref}
       id={SectionId.impact}
-      className="tp-section tp-impact"
+      className={`tp-section tp-impact tp-impact--grow ${visible ? "is-visible" : ""}`.trim()}
       aria-label={label}
     >
       <div className="tp-container">

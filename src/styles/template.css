@@ -3945,6 +3945,24 @@
 }
 
 /* ---------- Impact — stacked initiative list ---------- */
+.template-sailgp-pitch .tp-impact--grow {
+  transform: scale(0.55);
+  opacity: 0;
+  transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+.template-sailgp-pitch .tp-impact--grow.is-visible {
+  transform: scale(1);
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .template-sailgp-pitch .tp-impact--grow {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}
 .template-sailgp-pitch .tp-impact .tp-container {
   max-width: 1000px;
   margin-inline: auto;
@@ -3959,9 +3977,12 @@
 .template-sailgp-pitch .tp-impact__body { display: flex; flex-direction: column; gap: 14px; max-width: 68ch; margin: 0 auto; }
 .template-sailgp-pitch .tp-impact__grid {
   list-style: none;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: clamp(14px, 1.6vw, 20px);
+}
+@media (max-width: 600px) {
+  .template-sailgp-pitch .tp-impact__grid { grid-template-columns: 1fr; }
 }
 .template-sailgp-pitch .tp-impact__card {
   display: flex;
@@ -3971,15 +3992,23 @@
   border: 1px solid var(--tp-color-border);
   border-radius: var(--tp-radius-card);
   background: var(--tp-color-surface-strong);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.template-sailgp-pitch .tp-impact__card:hover {
+  border-color: var(--tp-color-border-strong);
+  transform: translateY(-4px);
 }
 .template-sailgp-pitch .tp-impact__card-head { display: flex; align-items: center; gap: 10px; }
 .template-sailgp-pitch .tp-impact__statement-wrap {
-  margin-top: clamp(16px, 2vw, 28px);
+  margin-top: clamp(4px, 0.6vw, 12px);
   padding-top: clamp(28px, 3vw, 44px);
   border-top: 1px solid var(--tp-color-border);
   max-width: 44ch;
   margin-inline: auto;
   text-align: center;
+}
+.template-sailgp-pitch .tp-impact__statement {
+  color: var(--tp-color-text);
 }
 .template-sailgp-pitch .tp-impact__card-title {
   font-family: var(--tp-font-display);
