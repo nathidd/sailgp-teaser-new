@@ -53,15 +53,12 @@ export function PitchOpportunities({ data }: { data: OpportunitiesSection }) {
         <div className="tp-opportunities__head">
           {editable.headline && (
             <Reveal delay={1}>
-              <Headline data={editable.headline} className="tp-display tp-display--lg" />
+              <Headline
+                data={editable.headline}
+                className="tp-display tp-display--lg tp-opportunities__title"
+              />
             </Reveal>
           )}
-          <Reveal delay={1}>
-            <p className="tp-opportunities__hint">
-              <Icon name="compass" size={16} />
-              Tap to build your course.
-            </p>
-          </Reveal>
         </div>
 
         {items.length > 0 && (

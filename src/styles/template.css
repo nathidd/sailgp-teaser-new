@@ -4104,7 +4104,11 @@
   flex-wrap: wrap;
   margin-bottom: clamp(28px, 3.5vw, 52px);
 }
-.template-sailgp-pitch .tp-opportunities__head .tp-display { max-width: 16ch; }
+.template-sailgp-pitch .tp-opportunities__head .tp-display { max-width: none; }
+@media (min-width: 701px) {
+  /* Keep the headline on a single line on tablet/desktop. */
+  .template-sailgp-pitch .tp-opportunities__title { white-space: nowrap !important; }
+}
 .template-sailgp-pitch .tp-opportunities__hint {
   display: inline-flex;
   align-items: center;
@@ -4117,7 +4121,7 @@
   list-style: none;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: clamp(12px, 1.4vw, 18px);
+  gap: clamp(6px, 0.7vw, 10px);
 }
 .template-sailgp-pitch .tp-course-card-wrap { display: flex; }
 .template-sailgp-pitch .tp-course-card {
@@ -4127,8 +4131,8 @@
   flex-direction: column;
   gap: 12px;
   padding: clamp(20px, 2vw, 28px);
-  border: 1px solid var(--tp-color-border);
-  border-radius: 16px;
+  border: none;
+  border-radius: 8px;
   background: var(--tp-color-surface);
   color: var(--tp-color-text);
   cursor: pointer;
@@ -4188,7 +4192,7 @@
   padding: clamp(16px, 1.8vw, 22px) clamp(20px, 2.4vw, 30px);
   border: 1px solid var(--tp-color-border-strong);
   border-radius: 16px;
-  background: var(--tp-color-surface-strong);
+  background: var(--tp-color-surface);
 }
 .template-sailgp-pitch .tp-course-builder__label {
   font-size: 11px;
@@ -4205,7 +4209,7 @@
   background: rgba(255, 255, 255, 0.14);
   transition: background 0.25s ease;
 }
-.template-sailgp-pitch .tp-course-builder__pip.is-on { background: rgba(255, 255, 255, 0.85); }
+.template-sailgp-pitch .tp-course-builder__pip.is-on { background: var(--tp-color-accent); }
 .template-sailgp-pitch .tp-course-builder__value {
   flex: 1;
   min-width: 200px;
