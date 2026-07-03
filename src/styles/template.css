@@ -3965,41 +3965,54 @@
   }
 }
 .template-sailgp-pitch .tp-impact .tp-container {
-  max-width: 1000px;
+  max-width: 900px;
   margin-inline: auto;
 }
 .template-sailgp-pitch .tp-impact__inner {
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0 auto;
   text-align: center;
 }
-.template-sailgp-pitch .tp-impact__card-head { justify-content: center; }
 .template-sailgp-pitch .tp-impact__content { display: flex; flex-direction: column; gap: clamp(18px, 2.2vw, 26px); }
 .template-sailgp-pitch .tp-impact__body { display: flex; flex-direction: column; gap: 14px; max-width: 68ch; margin: 0 auto; }
-.template-sailgp-pitch .tp-impact__grid {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: clamp(14px, 1.6vw, 20px);
+/* Keyword marquee — green banner with the initiative titles scrolling past
+   in an infinite loop. The track is duplicated 2x; animating it -50% loops
+   seamlessly since the second half mirrors the first. */
+.template-sailgp-pitch .tp-impact__banner {
+  overflow: hidden;
+  width: 100%;
+  background: var(--tp-color-accent);
+  padding-block: clamp(10px, 1.2vw, 14px);
+  margin-bottom: clamp(28px, 4vw, 56px);
 }
-@media (max-width: 600px) {
-  .template-sailgp-pitch .tp-impact__grid { grid-template-columns: 1fr; }
-}
-.template-sailgp-pitch .tp-impact__card {
+.template-sailgp-pitch .tp-impact__banner-track {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: clamp(18px, 2vw, 26px);
-  border: 1px solid var(--tp-color-border);
-  border-radius: var(--tp-radius-card);
-  background: var(--tp-color-surface-strong);
-  transition: border-color 0.3s ease, transform 0.3s ease;
+  width: max-content;
+  animation: tp-impact-marquee 18s linear infinite;
 }
-.template-sailgp-pitch .tp-impact__card:hover {
-  border-color: var(--tp-color-border-strong);
-  transform: translateY(-4px);
+.template-sailgp-pitch .tp-impact__banner-item {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--tp-font-display);
+  font-weight: 700;
+  font-size: clamp(11px, 0.9vw, 13px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tp-color-bg);
+  white-space: nowrap;
 }
-.template-sailgp-pitch .tp-impact__card-head { display: flex; align-items: center; gap: 10px; }
+.template-sailgp-pitch .tp-impact__banner-item::after {
+  content: "•";
+  margin: 0 20px;
+  opacity: 0.45;
+}
+@keyframes tp-impact-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .template-sailgp-pitch .tp-impact__banner-track { animation: none; }
+}
 .template-sailgp-pitch .tp-impact__statement-wrap {
   margin-top: clamp(4px, 0.6vw, 12px);
   padding-top: clamp(28px, 3vw, 44px);
@@ -4010,13 +4023,6 @@
 }
 .template-sailgp-pitch .tp-impact__statement {
   color: var(--tp-color-text);
-}
-.template-sailgp-pitch .tp-impact__card-title {
-  font-family: var(--tp-font-display);
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
 }
 
 /* ---------- Approach — 2-col, focus card + stair-step funnel ---------- */
@@ -4039,6 +4045,11 @@
     flex-direction: column;
     justify-content: center;
     scroll-margin-top: -92px;
+  }
+  /* Impact is a short, text-driven section — don't stretch it to a full
+     viewport height, or the empty space below the copy grows huge. */
+  .template-sailgp-pitch .tp-impact {
+    min-height: 0;
   }
 }
 /* Per-stage backdrop images cross-fade behind the funnel on hover. */

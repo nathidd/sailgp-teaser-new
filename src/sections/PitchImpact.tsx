@@ -28,6 +28,22 @@ export function PitchImpact({ data }: { data: ImpactSection }) {
       className={`tp-section tp-impact tp-impact--grow ${visible ? "is-visible" : ""}`.trim()}
       aria-label={label}
     >
+      {initiatives.length > 0 && (
+        <Reveal className="tp-impact__banner">
+          <div className="tp-impact__banner-track">
+            {[...initiatives, ...initiatives].map((it, i) => (
+              <span
+                key={`${it._key ?? it.title}-${i}`}
+                className="tp-impact__banner-item"
+                aria-hidden={i >= initiatives.length}
+              >
+                {it.title}
+              </span>
+            ))}
+          </div>
+        </Reveal>
+      )}
+
       <div className="tp-container">
         <div className="tp-impact__inner">
           <div className="tp-impact__content">
@@ -45,25 +61,6 @@ export function PitchImpact({ data }: { data: ImpactSection }) {
                   </p>
                 ))}
               </Reveal>
-            )}
-
-            {initiatives.length > 0 && (
-              <ul className="tp-impact__grid">
-                {initiatives.map((it, i) => (
-                  <Reveal
-                    key={it._key ?? it.title}
-                    delay={(Math.min(i + 1, 4) as 1 | 2 | 3 | 4)}
-                    className="tp-impact__card"
-                  >
-                    <span className="tp-impact__card-head">
-                      <span className="tp-impact__card-title">{it.title}</span>
-                    </span>
-                    {isMeaningful(it.description) && (
-                      <p className="tp-body tp-body--muted">{it.description}</p>
-                    )}
-                  </Reveal>
-                ))}
-              </ul>
             )}
           </div>
         </div>
