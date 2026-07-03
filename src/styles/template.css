@@ -4624,6 +4624,14 @@
   opacity: 0;
   pointer-events: none;
 }
+/* Stack the outgoing + incoming tab copy in one grid cell so they cross-fade
+   in place (no "wait" gap, no layout jump between tabs). */
+.template-sailgp-pitch .tp-pillars__textstack {
+  display: grid;
+}
+.template-sailgp-pitch .tp-pillars__textstack > .tp-pillars__textblock {
+  grid-area: 1 / 1;
+}
 .template-sailgp-pitch .tp-pillars__textblock {
   display: flex;
   flex-direction: column;

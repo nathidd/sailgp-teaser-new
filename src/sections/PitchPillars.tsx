@@ -146,14 +146,15 @@ export function PitchPillars({ data }: { data: PillarsSection }) {
               )}
             </div>
 
-            <AnimatePresence mode="wait">
+            <div className="tp-pillars__textstack">
+            <AnimatePresence initial={false}>
               <motion.div
                 key={current._key ?? active}
                 className="tp-pillars__textblock"
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -18 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
               >
                 {(isMeaningful(current.subtitle) || isMeaningful(current.caption)) && (
                   <div className="tp-pillars__head">
@@ -184,6 +185,7 @@ export function PitchPillars({ data }: { data: PillarsSection }) {
                 )}
               </motion.div>
             </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>
