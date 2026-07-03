@@ -220,8 +220,6 @@ export type PositioningMarker = {
   /** e.g. "Data", "Training", "Operations". */
   label: string;
   description?: string;
-  /** Icon name (see Icon.tsx), e.g. "gauge". */
-  icon?: string;
 };
 
 export type PositioningSection = {
