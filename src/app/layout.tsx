@@ -9,9 +9,23 @@ const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
 });
 
+const SITE_TITLE = "SailGP x hansgrohe Teaser";
+const SITE_DESCRIPTION = "An exclusive partnership teaser — SailGP Germany.";
+
 export const metadata: Metadata = {
-  title: "SailGP Teaser",
-  description: "Partnership teaser for SailGP Germany.",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    siteName: SITE_TITLE,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
 };
 
 export default function RootLayout({
