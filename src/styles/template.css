@@ -3980,7 +3980,7 @@
   padding-top: 0;
 }
 .template-sailgp-pitch .tp-impact--grow {
-  transform: scale(0.55);
+  transform: scale(0.9);
   opacity: 0;
   transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1),
     opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1);
@@ -4016,7 +4016,7 @@
   width: 100%;
   background: var(--tp-color-accent);
   padding-block: clamp(10px, 1.2vw, 14px);
-  margin-bottom: clamp(28px, 4vw, 56px);
+  margin-bottom: clamp(44px, 6.5vw, 96px);
 }
 .template-sailgp-pitch .tp-impact__banner-track {
   display: flex;

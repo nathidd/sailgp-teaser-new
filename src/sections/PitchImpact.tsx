@@ -30,16 +30,20 @@ export function PitchImpact({ data }: { data: ImpactSection }) {
     >
       {initiatives.length > 0 && (
         <Reveal className="tp-impact__banner">
+          {/* Track = 8 repeats (two identical 4-repeat halves) so the -50%
+              marquee always fills the viewport and loops with no gap. */}
           <div className="tp-impact__banner-track">
-            {[...initiatives, ...initiatives].map((it, i) => (
-              <span
-                key={`${it._key ?? it.title}-${i}`}
-                className="tp-impact__banner-item"
-                aria-hidden={i >= initiatives.length}
-              >
-                {it.title}
-              </span>
-            ))}
+            {Array.from({ length: 8 }).flatMap((_, rep) =>
+              initiatives.map((it, i) => (
+                <span
+                  key={`${rep}-${it._key ?? it.title}-${i}`}
+                  className="tp-impact__banner-item"
+                  aria-hidden={rep > 0}
+                >
+                  {it.title}
+                </span>
+              ))
+            )}
           </div>
         </Reveal>
       )}
@@ -69,7 +73,7 @@ export function PitchImpact({ data }: { data: ImpactSection }) {
       {isMeaningful(editable.statement) && (
         <div className="tp-container">
           <Reveal className="tp-impact__statement-wrap">
-            <p className="tp-display tp-display--md tp-impact__statement">
+            <p className="tp-quote tp-quote--highlight">
               {editable.statement}
             </p>
           </Reveal>

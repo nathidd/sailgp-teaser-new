@@ -305,7 +305,7 @@ export const defaultSiteData: SiteData = {
         "Our way of thinking goes far beyond sport. Together with our partners and their expertise, we turn performance into measurable impact.",
         "Together with partners like Deutsche Bank, we are already building measurable initiatives, from eDNA programmes to structured pathways that put more women on the water.",
       ],
-      statement: "This is a system still evolving, built to shape what comes next.",
+      statement: "This is a system still evolving,\nbuilt to shape what comes next.",
     },
   },
 
