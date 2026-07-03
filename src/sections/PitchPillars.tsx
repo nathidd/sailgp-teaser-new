@@ -4,8 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { PillarsSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
-import { RaceGlobe } from "@/components/RaceGlobe";
-import { MomentumCurve } from "@/components/MomentumCurve";
+import { PillarGlobe } from "@/components/PillarGlobe";
 import { isMeaningful, filterMeaningful } from "@/lib/render-utils";
 
 /**
@@ -47,6 +46,18 @@ export function PitchPillars({ data }: { data: PillarsSection }) {
   const stats = filterMeaningful(current.stats).filter(
     (s) => isMeaningful(s.value) && isMeaningful(s.label)
   );
+
+  // One persistent globe across the globe pillars (Global Scale + Momentum).
+  const globeItem = items.find((p) => (p.destinations?.length ?? 0) > 0);
+  const globeDestinations = (globeItem?.destinations ?? []).map((d, i) => ({
+    id: d._key ?? `${d.city}-${i}`,
+    city: d.city,
+    date: d.date,
+    lat: d.lat,
+    lng: d.lng,
+  }));
+  const usesGlobe = !!(current.destinations?.length || current.broadcast);
+  const globeMode = current.broadcast ? "broadcast" : "destinations";
 
   // Clicking a tab scrolls to the start of that pillar's scroll band.
   const jumpTo = (i: number) => {
@@ -91,103 +102,89 @@ export function PitchPillars({ data }: { data: PillarsSection }) {
             />
           </div>
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={current._key ?? active}
-              className="tp-pillars__content"
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -18 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {current.destinations && current.destinations.length > 0 && (
-                <div className="tp-pillars__viz">
-                  <RaceGlobe
-                    destinations={current.destinations.map((d, i) => ({
-                      id: d._key ?? `${d.city}-${i}`,
-                      city: d.city,
-                      date: d.date,
-                      lat: d.lat,
-                      lng: d.lng,
-                    }))}
+          <div className="tp-pillars__content">
+            {/* Persistent viz: one globe (mode morphs) across globe pillars,
+                plus the crowd image for image pillars. */}
+            <div className="tp-pillars__viz">
+              <div className={`tp-pillars__globe-wrap${usesGlobe ? "" : " is-hidden"}`}>
+                <PillarGlobe mode={globeMode} destinations={globeDestinations} />
+              </div>
+              {isMeaningful(current.image?.src) && (current.spots?.length ?? 0) > 0 && (
+                <div className="tp-pillars__crowd">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={current.image!.src}
+                    alt={current.image!.alt ?? ""}
+                    className="tp-pillars__crowd-img"
                   />
+                  <div className="tp-pillars__crowd-scrim" aria-hidden="true" />
+                  {current.spots!.map((sp, i) => {
+                    const tag = stats[i]?.tag;
+                    const dim = hoveredSpot !== null && hoveredSpot !== i;
+                    return (
+                      <button
+                        key={i}
+                        type="button"
+                        className={`tp-pillars__spot${dim ? " is-dim" : ""}`}
+                        style={{ left: `${sp.x}%`, top: `${sp.y}%` }}
+                        onMouseEnter={() => setHoveredSpot(i)}
+                        onMouseLeave={() => setHoveredSpot(null)}
+                        onFocus={() => setHoveredSpot(i)}
+                        onBlur={() => setHoveredSpot(null)}
+                        aria-label={tag}
+                      >
+                        <span className="tp-pillars__spot-pulse" />
+                        <span className="tp-pillars__spot-pulse tp-pillars__spot-pulse--2" />
+                        <span className="tp-pillars__spot-dot" />
+                        {isMeaningful(tag) && (
+                          <span className="tp-pillars__spot-label">{tag}</span>
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
-              {!current.destinations?.length &&
-                !isMeaningful(current.image?.src) &&
-                (current.series?.length ?? 0) > 1 && (
-                  <div className="tp-pillars__viz">
-                    <MomentumCurve series={current.series!} />
+            </div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current._key ?? active}
+                className="tp-pillars__textblock"
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -18 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {(isMeaningful(current.subtitle) || isMeaningful(current.caption)) && (
+                  <div className="tp-pillars__head">
+                    {isMeaningful(current.subtitle) && (
+                      <h3 className="tp-display tp-display--lg tp-pillars__title">
+                        {current.subtitle}
+                      </h3>
+                    )}
+                    {isMeaningful(current.caption) && (
+                      <p className="tp-pillars__caption">{current.caption}</p>
+                    )}
                   </div>
                 )}
-              {!current.destinations?.length &&
-                isMeaningful(current.image?.src) &&
-                (current.spots?.length ?? 0) > 0 && (
-                  <div className="tp-pillars__viz">
-                    <div className="tp-pillars__crowd">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={current.image!.src}
-                        alt={current.image!.alt ?? ""}
-                        className="tp-pillars__crowd-img"
-                      />
-                      <div className="tp-pillars__crowd-scrim" aria-hidden="true" />
-                      {current.spots!.map((sp, i) => {
-                        const tag = stats[i]?.tag;
-                        const dim = hoveredSpot !== null && hoveredSpot !== i;
-                        return (
-                          <button
-                            key={i}
-                            type="button"
-                            className={`tp-pillars__spot${dim ? " is-dim" : ""}`}
-                            style={{ left: `${sp.x}%`, top: `${sp.y}%` }}
-                            onMouseEnter={() => setHoveredSpot(i)}
-                            onMouseLeave={() => setHoveredSpot(null)}
-                            onFocus={() => setHoveredSpot(i)}
-                            onBlur={() => setHoveredSpot(null)}
-                            aria-label={tag}
-                          >
-                            <span className="tp-pillars__spot-pulse" />
-                            <span className="tp-pillars__spot-pulse tp-pillars__spot-pulse--2" />
-                            <span className="tp-pillars__spot-dot" />
-                            {isMeaningful(tag) && (
-                              <span className="tp-pillars__spot-label">{tag}</span>
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
+                {stats.length > 0 && (
+                  <ul className="tp-pillars__stats">
+                    {stats.map((s, i) => (
+                      <li
+                        key={s._key ?? s.label}
+                        className={`tp-pillars__stat${
+                          hoveredSpot !== null && hoveredSpot !== i ? " is-dim" : ""
+                        }`}
+                      >
+                        <span className="tp-pillars__value">{s.value}</span>
+                        <span className="tp-pillars__label">{s.label}</span>
+                      </li>
+                    ))}
+                  </ul>
                 )}
-              {(isMeaningful(current.subtitle) || isMeaningful(current.caption)) && (
-                <div className="tp-pillars__head">
-                  {isMeaningful(current.subtitle) && (
-                    <h3 className="tp-display tp-display--lg tp-pillars__title">
-                      {current.subtitle}
-                    </h3>
-                  )}
-                  {isMeaningful(current.caption) && (
-                    <p className="tp-pillars__caption">{current.caption}</p>
-                  )}
-                </div>
-              )}
-              {stats.length > 0 && (
-                <ul className="tp-pillars__stats">
-                  {stats.map((s, i) => (
-                    <li
-                      key={s._key ?? s.label}
-                      className={`tp-pillars__stat${
-                        hoveredSpot !== null && hoveredSpot !== i ? " is-dim" : ""
-                      }`}
-                    >
-                      <span className="tp-pillars__value">{s.value}</span>
-                      <span className="tp-pillars__label">{s.label}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </motion.div>
-          </AnimatePresence>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>

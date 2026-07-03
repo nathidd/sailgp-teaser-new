@@ -174,6 +174,8 @@ export type PillarItem = {
   spots?: { x: number; y: number }[];
   /** Optional growth series, rendered as an animated momentum curve. */
   series?: SeriesPoint[];
+  /** Render the globe in "broadcast" mode (world dots lighting up green). */
+  broadcast?: boolean;
 };
 
 export type PillarsSection = {
