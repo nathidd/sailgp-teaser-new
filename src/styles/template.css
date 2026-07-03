@@ -3183,10 +3183,11 @@
   color: rgba(255, 255, 255, 0.86);
 }
 .template-sailgp-pitch .tp-invitation__signature-img {
-  height: 52px;
+  height: 64px;
   width: auto;
-  margin-top: 4px;
-  filter: invert(1) brightness(1.4);
+  margin: 4px 0 8px;
+  /* Flatten any opaque ink to white (transparency stays transparent). */
+  filter: brightness(0) invert(1);
 }
 .template-sailgp-pitch .tp-invitation__contact {
   display: flex;
