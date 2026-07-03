@@ -261,7 +261,7 @@ export const defaultSiteData: SiteData = {
         "Through our way of working, we have already introduced innovations in data, training and operations that were later adopted as league standards.",
       ],
       caption: "What we build becomes standard.",
-      statement: "When others race what you built, you've already changed the sport.",
+      statement: "When others race what you built,\nyou've already changed the sport.",
     },
   },
 
@@ -397,8 +397,7 @@ export const defaultSiteData: SiteData = {
         ],
       },
       paragraphs: [
-        "We operate partnerships as performance systems, built to evolve, innovate and set new standards across sport and business.",
-        "Every partnership is built to deliver measurable, KPI-driven value, enabled by the flexibility and creative freedom of a young property.",
+        "We operate partnerships as performance systems, built to evolve, innovate and set new standards across sport and business. Every partnership is built to deliver measurable, KPI-driven value, enabled by the flexibility and creative freedom of a young property.",
       ],
     },
   },

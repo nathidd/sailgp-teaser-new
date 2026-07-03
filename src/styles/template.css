@@ -3583,6 +3583,7 @@
   color: var(--tp-color-accent);
   font-weight: 600;
   font-size: clamp(16px, 1.2vw, 19px);
+  white-space: pre-line;
 }
 
 /* ---------- Compete — sticky parallax race gallery with centred copy ------- */
