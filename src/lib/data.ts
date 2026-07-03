@@ -256,7 +256,6 @@ export type ImpactSection = {
     /** Co-creation example, e.g. Deutsche Bank. */
     partnerExample?: { name: string; logo?: Asset };
     initiatives: ImpactInitiative[];
-    backgroundImage?: Asset;
   };
   editable: {
     label?: string;

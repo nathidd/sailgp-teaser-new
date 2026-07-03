@@ -13,8 +13,6 @@ export function PitchImpact({ data }: { data: ImpactSection }) {
   const initiatives = filterMeaningful(tenant.initiatives).filter((it) =>
     isMeaningful(it.title)
   );
-  const imgSrc = tenant.backgroundImage?.src;
-  const hasImage = isMeaningful(imgSrc);
 
   return (
     <section
@@ -24,13 +22,6 @@ export function PitchImpact({ data }: { data: ImpactSection }) {
     >
       <div className="tp-container">
         <div className="tp-impact__inner">
-          {hasImage && (
-            <Reveal className="tp-impact__media">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={imgSrc} alt={tenant.backgroundImage?.alt ?? ""} />
-            </Reveal>
-          )}
-
           <div className="tp-impact__content">
             {editable.headline && (
               <Reveal delay={1}>

@@ -291,7 +291,6 @@ export const defaultSiteData: SiteData = {
           description: "First sport to disclose to CDP, with full transparency.",
         },
       ],
-      backgroundImage: { src: "/assets/images/Frauen Gruppenfoto.webp", alt: "Women SailGP sailors" },
     },
     editable: {
       label: "How we impact",

@@ -2712,89 +2712,6 @@
 }
 
 /* ============================================================
- * Section 4 — Impact
- * ============================================================ */
-.template-sailgp-pitch .tp-impact__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: clamp(32px, 5vw, 72px);
-  align-items: start;
-}
-.template-sailgp-pitch .tp-impact__lead {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(14px, 1.8vw, 22px);
-  position: sticky;
-  top: 120px;
-}
-.template-sailgp-pitch .tp-impact__body {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  max-width: 48ch;
-}
-.template-sailgp-pitch .tp-impact__partner {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 8px;
-}
-.template-sailgp-pitch .tp-impact__partner-label {
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--tp-color-text-muted);
-}
-.template-sailgp-pitch .tp-impact__partner-name {
-  font-family: var(--tp-font-display);
-  font-weight: 700;
-  font-size: clamp(20px, 2.4vw, 28px);
-  letter-spacing: -0.02em;
-}
-.template-sailgp-pitch .tp-impact__partner-logo {
-  height: 34px;
-  width: auto;
-  object-fit: contain;
-}
-.template-sailgp-pitch .tp-impact__grid {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: clamp(16px, 2vw, 24px);
-}
-.template-sailgp-pitch .tp-impact__card {
-  display: flex;
-  flex-direction: column;
-  background: var(--tp-color-surface-strong);
-  border: 1px solid var(--tp-color-border);
-  border-radius: var(--tp-radius-card);
-  overflow: hidden;
-  transition: border-color 0.3s ease, transform 0.3s ease;
-}
-.template-sailgp-pitch .tp-impact__card:hover {
-  border-color: var(--tp-color-border-strong);
-  transform: translateY(-4px);
-}
-.template-sailgp-pitch .tp-impact__card-img {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  display: block;
-}
-.template-sailgp-pitch .tp-impact__card-body {
-  padding: clamp(20px, 2.2vw, 28px);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.template-sailgp-pitch .tp-impact__statement-wrap {
-  margin-top: clamp(40px, 5vw, 72px);
-  padding-top: clamp(28px, 3vw, 44px);
-  border-top: 1px solid var(--tp-color-border);
-  max-width: 44ch;
-}
-
-/* ============================================================
  * Section 5 — Network (business network map)
  * ============================================================ */
 .template-sailgp-pitch .tp-network { position: relative; overflow: hidden; }
@@ -3312,16 +3229,12 @@
   /* Extra ancestor class raises specificity above the base 2-col rules, which
      are declared later in the file and would otherwise win at this width. */
   .template-sailgp-pitch .tp-team .tp-team__inner,
-  .template-sailgp-pitch .tp-impact .tp-impact__inner,
   .template-sailgp-pitch .tp-network .tp-network__inner {
     grid-template-columns: 1fr;
   }
   /* Text (headline + copy) first, founder photos below it. */
   .template-sailgp-pitch .tp-team .tp-team__text { order: 1; }
   .template-sailgp-pitch .tp-team .tp-team__photos { order: 2; }
-  .template-sailgp-pitch .tp-impact__lead {
-    position: static;
-  }
   .template-sailgp-pitch .tp-network__map {
     order: -1;
     max-width: 420px;
@@ -4031,28 +3944,23 @@
           backdrop-filter: blur(6px);
 }
 
-/* ---------- Impact — image-left + 2x2 initiative grid ---------- */
+/* ---------- Impact — stacked initiative list ---------- */
+.template-sailgp-pitch .tp-impact .tp-container {
+  max-width: 1000px;
+  margin-inline: auto;
+}
 .template-sailgp-pitch .tp-impact__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-  gap: clamp(32px, 5vw, 64px);
-  align-items: start;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
 }
-.template-sailgp-pitch .tp-impact__media {
-  border-radius: var(--tp-radius-card);
-  overflow: hidden;
-  border: 1px solid var(--tp-color-border);
-  aspect-ratio: 1 / 1;
-  position: sticky;
-  top: 110px;
-}
-.template-sailgp-pitch .tp-impact__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.template-sailgp-pitch .tp-impact__card-head { justify-content: center; }
 .template-sailgp-pitch .tp-impact__content { display: flex; flex-direction: column; gap: clamp(18px, 2.2vw, 26px); }
-.template-sailgp-pitch .tp-impact__body { display: flex; flex-direction: column; gap: 14px; max-width: 52ch; }
+.template-sailgp-pitch .tp-impact__body { display: flex; flex-direction: column; gap: 14px; max-width: 68ch; margin: 0 auto; }
 .template-sailgp-pitch .tp-impact__grid {
   list-style: none;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: clamp(14px, 1.6vw, 20px);
 }
 .template-sailgp-pitch .tp-impact__card {
@@ -4065,6 +3973,14 @@
   background: var(--tp-color-surface-strong);
 }
 .template-sailgp-pitch .tp-impact__card-head { display: flex; align-items: center; gap: 10px; }
+.template-sailgp-pitch .tp-impact__statement-wrap {
+  margin-top: clamp(16px, 2vw, 28px);
+  padding-top: clamp(28px, 3vw, 44px);
+  border-top: 1px solid var(--tp-color-border);
+  max-width: 44ch;
+  margin-inline: auto;
+  text-align: center;
+}
 .template-sailgp-pitch .tp-impact__card-title {
   font-family: var(--tp-font-display);
   font-weight: 700;
@@ -4420,11 +4336,9 @@
 @media (max-width: 980px) {
   .template-sailgp-pitch .tp-pillars__layout,
   .template-sailgp-pitch .tp-positioning__inner,
-  .template-sailgp-pitch .tp-impact__inner,
   .template-sailgp-pitch .tp-approach__inner {
     grid-template-columns: 1fr;
   }
-  .template-sailgp-pitch .tp-impact__media { position: static; }
 }
 @media (max-width: 760px) {
   .template-sailgp-pitch .tp-innovation__row { grid-template-columns: auto 1fr; row-gap: 8px; }
@@ -4434,7 +4348,6 @@
   .template-sailgp-pitch .tp-funnel-bar__action { margin-left: 0; width: 100%; text-align: left; }
 }
 @media (max-width: 560px) {
-  .template-sailgp-pitch .tp-impact__grid { grid-template-columns: 1fr; }
   /* Keep the two founder portraits side by side (a matched pair) rather than
      stacking into two oversized images; tighten the gap and credit text. */
   .template-sailgp-pitch .tp-team__photos { gap: 10px; }
