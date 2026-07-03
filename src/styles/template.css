@@ -3956,10 +3956,41 @@
 /* ---------- Approach — 2-col, focus card + stair-step funnel ---------- */
 /* Vertically centre the section content in the viewport. */
 .template-sailgp-pitch .tp-approach {
+  position: relative;
+  overflow: hidden;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+/* Per-stage backdrop images cross-fade behind the funnel on hover. */
+.template-sailgp-pitch .tp-approach__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.template-sailgp-pitch .tp-approach__bg.is-active {
+  opacity: 1;
+}
+.template-sailgp-pitch .tp-approach__bg-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(3, 5, 15, 0.88) 0%,
+    rgba(3, 5, 15, 0.5) 50%,
+    rgba(3, 5, 15, 0.88) 100%
+  );
+}
+.template-sailgp-pitch .tp-approach .tp-container {
+  position: relative;
+  z-index: 1;
 }
 .template-sailgp-pitch .tp-approach__inner {
   display: flex;

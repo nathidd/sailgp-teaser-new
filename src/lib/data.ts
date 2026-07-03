@@ -306,6 +306,8 @@ export type FunnelStage = {
   description?: string;
   /** Flags the stage this pitch is currently focused on ("Now focusing"). */
   current?: boolean;
+  /** Background image shown when this stage is hovered. */
+  image?: Asset;
 };
 
 export type ApproachSection = {

@@ -36,8 +36,17 @@ export function PitchApproach({ data }: { data: ApproachSection }) {
   const paragraphs = (editable.paragraphs ?? []).flatMap(splitParagraphs);
   const stages = filterMeaningful(tenant.stages).filter((s) => isMeaningful(s.stage));
   const isMobile = useMediaQuery("(max-width: 600px)");
+  const [hovered, setHovered] = useState<number | null>(null);
 
   if (stages.length === 0) return null;
+
+  // Emotional backdrop: each stage carries an image that fades in behind the
+  // section when its funnel segment is hovered; a default stage shows at rest.
+  const defaultIndex = Math.max(
+    stages.findIndex((s) => s.current),
+    0
+  );
+  const activeImage = hovered ?? defaultIndex;
 
   // The funnel is a qualitative journey (Awareness → Sales), so we drive the
   // chart's taper with descending synthetic weights rather than real metrics.
@@ -58,6 +67,20 @@ export function PitchApproach({ data }: { data: ApproachSection }) {
       className="tp-section tp-approach"
       aria-label={label}
     >
+      {stages.map((s, i) =>
+        isMeaningful(s.image?.src) ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={s._key ?? i}
+            className={`tp-approach__bg${i === activeImage ? " is-active" : ""}`}
+            src={s.image!.src}
+            alt=""
+            aria-hidden="true"
+          />
+        ) : null
+      )}
+      <div className="tp-approach__bg-scrim" aria-hidden="true" />
+
       <div className="tp-container">
         <div className="tp-approach__inner">
           {editable.headline && (
@@ -86,6 +109,8 @@ export function PitchApproach({ data }: { data: ApproachSection }) {
               labelLayout="grouped"
               labelAlign="center"
               labelOrientation="vertical"
+              hoveredIndex={hovered}
+              onHoverChange={setHovered}
               style={{ aspectRatio: isMobile ? "1 / 1.2" : "2.8 / 1" }}
             />
           </Reveal>
