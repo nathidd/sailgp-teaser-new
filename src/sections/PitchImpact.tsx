@@ -3,6 +3,7 @@ import { SectionId } from "@/lib/data";
 import { Headline } from "@/components/Headline";
 import { Reveal } from "@/components/Reveal";
 import { Icon } from "@/components/Icon";
+import { MobileEyebrow } from "@/components/MobileEyebrow";
 import { isMeaningful, filterMeaningful, splitParagraphs } from "@/lib/render-utils";
 
 /** Brief Section 4 "Impact" — co-creation beyond sport (Deutsche Bank et al). */
@@ -34,6 +35,7 @@ export function PitchImpact({ data }: { data: ImpactSection }) {
           <div className="tp-impact__content">
             {editable.headline && (
               <Reveal delay={1}>
+                <MobileEyebrow label="How we impact" />
                 <Headline data={editable.headline} className="tp-display tp-display--lg" />
               </Reveal>
             )}

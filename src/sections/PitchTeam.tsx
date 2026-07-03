@@ -2,6 +2,7 @@ import type { TeamSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
 import { Headline } from "@/components/Headline";
 import { Reveal } from "@/components/Reveal";
+import { MobileEyebrow } from "@/components/MobileEyebrow";
 import { isMeaningful, filterMeaningful, splitParagraphs } from "@/lib/render-utils";
 
 /** Brief Section 2 "Team" — founders + human-performance system. */
@@ -44,6 +45,7 @@ export function PitchTeam({ data }: { data: TeamSection }) {
           <div className="tp-team__text">
             {editable.headline && (
               <Reveal delay={1}>
+                <MobileEyebrow label="Who we are" />
                 <Headline data={editable.headline} className="tp-display tp-display--lg" />
               </Reveal>
             )}

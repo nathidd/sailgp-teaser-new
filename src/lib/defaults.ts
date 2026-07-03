@@ -215,7 +215,7 @@ export const defaultSiteData: SiteData = {
       headline: {
         parts: [
           { text: "Team-engineered performance " },
-          { text: "in motion.", highlight: true },
+          { text: "in motion", highlight: true },
         ],
       },
       paragraphs: [
@@ -253,7 +253,7 @@ export const defaultSiteData: SiteData = {
       headline: {
         parts: [
           { text: "Learning speed " },
-          { text: "creates the edge.", highlight: true },
+          { text: "creates the edge", highlight: true },
         ],
       },
       paragraphs: [
@@ -302,7 +302,7 @@ export const defaultSiteData: SiteData = {
       headline: {
         parts: [
           { text: "Built for impact " },
-          { text: "beyond sport.", highlight: true },
+          { text: "beyond sport", highlight: true },
         ],
       },
       paragraphs: [

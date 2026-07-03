@@ -6,6 +6,7 @@ import { SectionId } from "@/lib/data";
 import { Headline } from "@/components/Headline";
 import { Reveal } from "@/components/Reveal";
 import { Icon } from "@/components/Icon";
+import { MobileEyebrow } from "@/components/MobileEyebrow";
 import { isMeaningful, filterMeaningful } from "@/lib/render-utils";
 
 /** Join selected phrases into a sentence: "a", "a and b", "a, b and c". */
@@ -53,6 +54,7 @@ export function PitchOpportunities({ data }: { data: OpportunitiesSection }) {
         <div className="tp-opportunities__head">
           {editable.headline && (
             <Reveal delay={1}>
+              <MobileEyebrow label="Your course" />
               <Headline
                 data={editable.headline}
                 className="tp-display tp-display--lg tp-opportunities__title"

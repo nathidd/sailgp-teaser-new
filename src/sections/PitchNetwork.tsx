@@ -4,6 +4,7 @@ import { Headline } from "@/components/Headline";
 import { Reveal } from "@/components/Reveal";
 import { Icon } from "@/components/Icon";
 import { NetworkPulse } from "@/components/NetworkPulse";
+import { MobileEyebrow } from "@/components/MobileEyebrow";
 import { isMeaningful, filterMeaningful, splitParagraphs } from "@/lib/render-utils";
 
 /**
@@ -45,6 +46,7 @@ export function PitchNetwork({ data }: { data: NetworkSection }) {
           <div className="tp-section-head">
             {editable.headline && (
               <Reveal delay={1}>
+                <MobileEyebrow label="Who we connect" />
                 <Headline data={editable.headline} className="tp-display tp-display--lg" />
               </Reveal>
             )}

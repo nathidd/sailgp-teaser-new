@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { InvitationSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
 import { Headline } from "@/components/Headline";
+import { MobileEyebrow } from "@/components/MobileEyebrow";
 import {
   isMeaningful,
   splitParagraphs,
@@ -51,10 +52,13 @@ export function PitchInvitation({ data }: { data: InvitationSection }) {
 
       <div className="tp-container tp-invitation__inner">
         {editable.headline && (
-          <Headline
-            data={editable.headline}
-            className="tp-display tp-display--lg tp-invitation__heading"
-          />
+          <>
+            <MobileEyebrow label="Invitation" />
+            <Headline
+              data={editable.headline}
+              className="tp-display tp-display--lg tp-invitation__heading"
+            />
+          </>
         )}
         {introParas.length > 0 && (
           <div className="tp-invitation__intro">

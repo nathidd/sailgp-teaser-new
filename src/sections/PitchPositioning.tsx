@@ -2,6 +2,7 @@ import type { PositioningSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
 import { Headline } from "@/components/Headline";
 import { Reveal } from "@/components/Reveal";
+import { MobileEyebrow } from "@/components/MobileEyebrow";
 import { isMeaningful, filterMeaningful, splitParagraphs } from "@/lib/render-utils";
 
 /** Brief Section 3 "Positioning" — learning speed / what we build becomes standard. */
@@ -24,6 +25,7 @@ export function PitchPositioning({ data }: { data: PositioningSection }) {
           <div className="tp-positioning__text">
             {editable.headline && (
               <Reveal delay={1}>
+                <MobileEyebrow label="How we compete" />
                 <Headline data={editable.headline} className="tp-display tp-display--lg" />
               </Reveal>
             )}

@@ -120,6 +120,23 @@
 }
 
 /* ---------- Typographic primitives ---------- */
+/* Mobile-only section eyebrow — plain green capitals above each headline. */
+.template-sailgp-pitch .tp-mobile-eyebrow {
+  display: none;
+}
+@media (max-width: 700px) {
+  .template-sailgp-pitch .tp-mobile-eyebrow {
+    display: block;
+    margin-bottom: 10px;
+    font-family: var(--tp-font-body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tp-color-accent);
+  }
+}
+
 .template-sailgp-pitch .tp-eyebrow {
   font-family: var(--tp-font-body);
   font-weight: 500;

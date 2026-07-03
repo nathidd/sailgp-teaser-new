@@ -6,6 +6,7 @@ import { SectionId } from "@/lib/data";
 import { Headline } from "@/components/Headline";
 import { Reveal } from "@/components/Reveal";
 import { FunnelChart } from "@/components/funnel-chart/funnel-chart";
+import { MobileEyebrow } from "@/components/MobileEyebrow";
 import { isMeaningful, filterMeaningful, splitParagraphs } from "@/lib/render-utils";
 
 /** Tracks whether the referenced element is in view; toggles on every crossing. */
@@ -106,6 +107,7 @@ export function PitchApproach({ data }: { data: ApproachSection }) {
         <div className="tp-approach__inner">
           {editable.headline && (
             <Reveal delay={1}>
+              <MobileEyebrow label="How we partner" />
               <Headline data={editable.headline} className="tp-display tp-display--lg" />
             </Reveal>
           )}
