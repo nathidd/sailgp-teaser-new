@@ -113,6 +113,16 @@ export const defaultSiteData: SiteData = {
             },
             { _key: "mo3", value: "+18%", label: "Broadcast growth (Season 4 → 5)" },
           ],
+          // Directional S1–S5 audience trajectory landing on today's scale;
+          // the S4→S5 step is the real +18% broadcast growth. Swap for
+          // audited per-season figures when available.
+          series: [
+            { label: "S1", value: 118 },
+            { label: "S2", value: 152 },
+            { label: "S3", value: 181 },
+            { label: "S4", value: 203 },
+            { label: "S5", value: 240 },
+          ],
         },
         {
           _key: "pillar-audience",

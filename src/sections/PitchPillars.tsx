@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { PillarsSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
 import { RaceGlobe } from "@/components/RaceGlobe";
+import { MomentumCurve } from "@/components/MomentumCurve";
 import { isMeaningful, filterMeaningful } from "@/lib/render-utils";
 
 /**
@@ -112,6 +113,13 @@ export function PitchPillars({ data }: { data: PillarsSection }) {
                   />
                 </div>
               )}
+              {!current.destinations?.length &&
+                !isMeaningful(current.image?.src) &&
+                (current.series?.length ?? 0) > 1 && (
+                  <div className="tp-pillars__viz">
+                    <MomentumCurve series={current.series!} />
+                  </div>
+                )}
               {!current.destinations?.length &&
                 isMeaningful(current.image?.src) &&
                 (current.spots?.length ?? 0) > 0 && (
