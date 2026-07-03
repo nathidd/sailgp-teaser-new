@@ -3284,11 +3284,16 @@
  * Responsive — narrative sections
  * ============================================================ */
 @media (max-width: 900px) {
-  .template-sailgp-pitch .tp-team__inner,
-  .template-sailgp-pitch .tp-impact__inner,
-  .template-sailgp-pitch .tp-network__inner {
+  /* Extra ancestor class raises specificity above the base 2-col rules, which
+     are declared later in the file and would otherwise win at this width. */
+  .template-sailgp-pitch .tp-team .tp-team__inner,
+  .template-sailgp-pitch .tp-impact .tp-impact__inner,
+  .template-sailgp-pitch .tp-network .tp-network__inner {
     grid-template-columns: 1fr;
   }
+  /* Text (headline + copy) first, founder photos below it. */
+  .template-sailgp-pitch .tp-team .tp-team__text { order: 1; }
+  .template-sailgp-pitch .tp-team .tp-team__photos { order: 2; }
   .template-sailgp-pitch .tp-impact__lead {
     position: static;
   }
@@ -4306,9 +4311,12 @@
 }
 @media (max-width: 560px) {
   .template-sailgp-pitch .tp-impact__grid { grid-template-columns: 1fr; }
-  .template-sailgp-pitch .tp-team__photos { grid-template-columns: 1fr; }
-  .template-sailgp-pitch .tp-team__credits { flex-direction: column; }
-  .template-sailgp-pitch .tp-team__credit:last-child { text-align: left; align-items: flex-start; }
+  /* Keep the two founder portraits side by side (a matched pair) rather than
+     stacking into two oversized images; tighten the gap and credit text. */
+  .template-sailgp-pitch .tp-team__photos { gap: 10px; }
+  .template-sailgp-pitch .tp-team__photo-credit { padding: 12px; }
+  .template-sailgp-pitch .tp-team__photo-credit strong { font-size: 12px; letter-spacing: 0.04em; }
+  .template-sailgp-pitch .tp-team__photo-credit span { font-size: 10px; }
   .template-sailgp-pitch .tp-course-builder { flex-direction: column; align-items: stretch; }
   .template-sailgp-pitch .tp-course-builder__cta { justify-content: center; }
 }
