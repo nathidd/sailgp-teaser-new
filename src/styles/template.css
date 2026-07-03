@@ -3583,6 +3583,7 @@
   color: var(--tp-color-accent);
   font-weight: 600;
   font-size: clamp(16px, 1.2vw, 19px);
+  white-space: pre-line;
 }
 
 /* ---------- Compete — sticky parallax race gallery with centred copy ------- */
@@ -4036,6 +4037,7 @@
    the centred content ends up viewport-centred rather than pushed 92px down.
    Mobile keeps normal top-aligned flow so tall content isn't clipped. */
 @media (min-width: 701px) {
+  .template-sailgp-pitch .tp-team,
   .template-sailgp-pitch .tp-approach,
   .template-sailgp-pitch .tp-opportunities,
   .template-sailgp-pitch .tp-impact,

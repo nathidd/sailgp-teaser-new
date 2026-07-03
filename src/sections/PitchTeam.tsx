@@ -60,7 +60,7 @@ export function PitchTeam({ data }: { data: TeamSection }) {
             )}
             {isMeaningful(editable.statement) && (
               <Reveal delay={3}>
-                <p className="tp-quote">{editable.statement}</p>
+                <p className="tp-quote tp-quote--highlight">{editable.statement}</p>
               </Reveal>
             )}
           </div>
