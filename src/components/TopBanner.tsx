@@ -20,7 +20,12 @@ export function TopBanner({ data }: { data: HeroSection }) {
   const { tenant, prospect, editable } = data;
 
   const showConfidential = isMeaningful(editable.confidentialLabel);
-  const showCenter = isMeaningful(editable.bannerCenterLabel);
+  // `{partner}` in the center label is replaced with the prospect name.
+  const centerLabel = (editable.bannerCenterLabel ?? "")
+    .replace("{partner}", prospect.partnerName ?? "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+  const showCenter = isMeaningful(centerLabel);
   const showCta = editable.cta && isMeaningful(editable.cta.label);
   const showPrepared =
     isMeaningful(editable.partnerLabel) && isMeaningful(prospect.partnerName);
@@ -57,7 +62,7 @@ export function TopBanner({ data }: { data: HeroSection }) {
             )}
           </a>
           {showCenter && (
-            <p className="tp-top-banner__center">{editable.bannerCenterLabel}</p>
+            <p className="tp-top-banner__center">{centerLabel}</p>
           )}
           {showCta && (
             <a
