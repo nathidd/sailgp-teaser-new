@@ -11,7 +11,11 @@ export function Headline({ data, className, as = "h2" }: Props) {
   return (
     <Tag className={className} style={{ whiteSpace: "pre-line" }}>
       {data.parts.map((part, i) =>
-        part.highlight ? (
+        part.shimmer ? (
+          <span key={i} className="tp-shimmer-text">
+            {part.text}
+          </span>
+        ) : part.highlight ? (
           <span key={i} className="tp-highlight">
             {part.text}
           </span>

@@ -236,6 +236,32 @@
 .template-sailgp-pitch .tp-display .tp-highlight {
   color: var(--tp-color-text);
 }
+/* Continuously-animated gradient sweep through the text itself, for a
+   single standout word (e.g. "impact"). Always running, unlike the
+   hover/enter-triggered shimmers used elsewhere in the deck. */
+.template-sailgp-pitch .tp-shimmer-text {
+  background-image: linear-gradient(
+    100deg,
+    var(--tp-color-text) 30%,
+    var(--tp-color-accent) 50%,
+    var(--tp-color-text) 70%
+  );
+  background-size: 250% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: tp-shimmer-text 3.5s linear infinite;
+}
+@keyframes tp-shimmer-text {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .template-sailgp-pitch .tp-shimmer-text {
+    animation: none;
+    background-position: 0 0;
+  }
+}
 
 /* ---------- Buttons ---------- */
 .template-sailgp-pitch .tp-btn {
@@ -3947,6 +3973,12 @@
 }
 
 /* ---------- Impact — stacked initiative list ---------- */
+/* The keyword banner sits flush against the section above — no top
+   padding before it (the base .tp-section padding-block still applies
+   to the bottom via the banner's own margin-bottom spacing below it). */
+.template-sailgp-pitch .tp-impact {
+  padding-top: 0;
+}
 .template-sailgp-pitch .tp-impact--grow {
   transform: scale(0.55);
   opacity: 0;

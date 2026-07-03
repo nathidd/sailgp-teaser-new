@@ -45,6 +45,8 @@
 export type HeadlineSpan = {
   text: string;
   highlight?: boolean;
+  /** Continuously-animated gradient shimmer, e.g. for a single standout word. */
+  shimmer?: boolean;
 };
 
 /** Lightweight rich-text shape; at most one highlighted span per headline. */

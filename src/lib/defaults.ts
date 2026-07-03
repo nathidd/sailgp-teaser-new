@@ -296,7 +296,8 @@ export const defaultSiteData: SiteData = {
       label: "How we impact",
       headline: {
         parts: [
-          { text: "Built for impact " },
+          { text: "Built for " },
+          { text: "impact\n", shimmer: true },
           { text: "beyond sport", highlight: true },
         ],
       },
