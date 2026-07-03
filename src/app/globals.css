@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* shadcn-style semantic colour tokens — register the `foreground` /
+   `background` / `muted` utilities used by the vendored FunnelChart labels. */
+@theme {
+  --color-foreground: #ffffff;
+  --color-background: #03050f;
+  --color-muted-foreground: rgba(255, 255, 255, 0.55);
+  --color-muted: rgba(255, 255, 255, 0.05);
+}
+
 html {
   background: #080808;
   color-scheme: dark;

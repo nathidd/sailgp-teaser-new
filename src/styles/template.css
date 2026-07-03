@@ -3954,14 +3954,27 @@
 }
 
 /* ---------- Approach — 2-col, focus card + stair-step funnel ---------- */
+/* Vertically centre the section content in the viewport. */
+.template-sailgp-pitch .tp-approach {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .template-sailgp-pitch .tp-approach__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-  gap: clamp(32px, 5vw, 64px);
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 4vw, 48px);
 }
 .template-sailgp-pitch .tp-approach__text { display: flex; flex-direction: column; gap: clamp(18px, 2.2vw, 26px); }
-.template-sailgp-pitch .tp-approach__body { display: flex; flex-direction: column; gap: 14px; max-width: 48ch; }
+.template-sailgp-pitch .tp-approach__body { display: flex; flex-direction: column; gap: 14px; max-width: none; }
+.template-sailgp-pitch .tp-approach__funnel-wrap {
+  width: 100%;
+  /* Funnel labels sit inside the bright-green segments — override the
+     shadcn colour tokens locally so the text reads dark for contrast. */
+  --color-foreground: #03050f;
+  --color-muted-foreground: rgba(3, 5, 15, 0.72);
+}
 .template-sailgp-pitch .tp-approach__focus {
   padding: clamp(20px, 2.4vw, 30px);
   border: 1px solid var(--tp-color-border-strong);
