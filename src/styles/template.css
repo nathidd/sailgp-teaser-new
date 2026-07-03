@@ -3662,6 +3662,88 @@
   color: var(--tp-color-text-muted);
   font-size: clamp(15px, 1.05vw, 17px);
 }
+/* Highlighted statement — accent green, no rule, slightly emphasised. */
+.template-sailgp-pitch .tp-quote--highlight {
+  border-left: none;
+  padding-left: 0;
+  color: var(--tp-color-accent);
+  font-weight: 600;
+  font-size: clamp(16px, 1.2vw, 19px);
+}
+
+/* ---------- Compete — sticky parallax race gallery with centred copy ------- */
+.template-sailgp-pitch .tp-compete {
+  position: relative;
+  height: 220vh;
+  padding: 0;
+  background: var(--tp-color-bg);
+  /* Tall sticky section: land an anchor jump pinned (like pillars). */
+  scroll-margin-top: -100px;
+}
+.template-sailgp-pitch .tp-compete__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr minmax(300px, 460px) 1fr;
+  /* Pin the row to the viewport so the tall image columns don't stretch it
+     (which would push the centred copy far below the visible sticky window). */
+  grid-template-rows: 100%;
+  align-items: center;
+  gap: clamp(16px, 3vw, 48px);
+  padding: 0 clamp(20px, 4vw, 56px);
+}
+.template-sailgp-pitch .tp-compete__col {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.2vw, 18px);
+  align-self: stretch;
+  min-height: 0;
+  will-change: transform;
+}
+.template-sailgp-pitch .tp-compete__img {
+  width: 100%;
+  /* Tall images so three per column overflow the viewport, leaving room for a
+     fast, gap-free parallax drift. */
+  height: 52vh;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--tp-radius-card);
+}
+.template-sailgp-pitch .tp-compete__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(16px, 2vw, 24px);
+  z-index: 2;
+}
+.template-sailgp-pitch .tp-compete__body { display: flex; flex-direction: column; gap: 14px; }
+@media (max-width: 900px) {
+  /* Copy on top, images as a static 2-column grid below (no parallax). */
+  .template-sailgp-pitch .tp-compete {
+    height: auto;
+    scroll-margin-top: 92px;
+  }
+  .template-sailgp-pitch .tp-compete__sticky {
+    position: static;
+    height: auto;
+    overflow: visible;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: clamp(10px, 2vw, 16px);
+    padding: clamp(72px, 12vw, 110px) clamp(16px, 5vw, 24px);
+  }
+  .template-sailgp-pitch .tp-compete__text {
+    grid-column: 1 / -1;
+    order: -1;
+    margin-bottom: clamp(32px, 9vw, 60px);
+  }
+  .template-sailgp-pitch .tp-compete__col { align-self: start; }
+  .template-sailgp-pitch .tp-compete__img { height: auto; aspect-ratio: 3 / 4; }
+}
 
 /* ---------- Hero — left-aligned editorial ---------- */
 .template-sailgp-pitch .tp-hero__inner {
@@ -3884,14 +3966,20 @@
 
 /* ---------- Positioning — 2-col text + innovation table + image tag ---------- */
 .template-sailgp-pitch .tp-positioning__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: clamp(32px, 5vw, 64px);
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
   position: relative;
   z-index: 2;
 }
-.template-sailgp-pitch .tp-positioning__text { display: flex; flex-direction: column; gap: clamp(16px, 2vw, 24px); }
+.template-sailgp-pitch .tp-positioning__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(16px, 2vw, 24px);
+  max-width: 62ch;
+}
 .template-sailgp-pitch .tp-positioning__body { display: flex; flex-direction: column; gap: 14px; }
 .template-sailgp-pitch .tp-innovation__list {
   list-style: none;
@@ -3999,7 +4087,6 @@
   .template-sailgp-pitch .tp-approach,
   .template-sailgp-pitch .tp-opportunities,
   .template-sailgp-pitch .tp-impact,
-  .template-sailgp-pitch .tp-positioning,
   .template-sailgp-pitch .tp-network {
     min-height: 100svh;
     display: flex;
