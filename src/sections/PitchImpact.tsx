@@ -2,7 +2,6 @@ import type { ImpactSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
 import { Headline } from "@/components/Headline";
 import { Reveal } from "@/components/Reveal";
-import { Icon } from "@/components/Icon";
 import { MobileEyebrow } from "@/components/MobileEyebrow";
 import { isMeaningful, filterMeaningful, splitParagraphs } from "@/lib/render-utils";
 
@@ -58,7 +57,6 @@ export function PitchImpact({ data }: { data: ImpactSection }) {
                     className="tp-impact__card"
                   >
                     <span className="tp-impact__card-head">
-                      <Icon name={it.icon} size={18} className="tp-impact__card-icon" />
                       <span className="tp-impact__card-title">{it.title}</span>
                     </span>
                     {isMeaningful(it.description) && (

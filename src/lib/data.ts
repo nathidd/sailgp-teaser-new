@@ -249,8 +249,6 @@ export type ImpactInitiative = {
   title: string;
   description: string;
   image?: Asset;
-  /** Icon name (see Icon.tsx), e.g. "leaf". */
-  icon?: string;
 };
 
 export type ImpactSection = {

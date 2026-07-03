@@ -3977,7 +3977,6 @@
   background: var(--tp-color-surface-strong);
 }
 .template-sailgp-pitch .tp-impact__card-head { display: flex; align-items: center; gap: 10px; }
-.template-sailgp-pitch .tp-impact__card-icon { color: rgba(255, 255, 255, 0.5); flex-shrink: 0; }
 .template-sailgp-pitch .tp-impact__card-title {
   font-family: var(--tp-font-display);
   font-weight: 700;
