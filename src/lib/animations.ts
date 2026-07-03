@@ -64,32 +64,77 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(
  */
 export function useScrollProgress() {
   const [progress, setProgress] = useState(0);
+  const rafRef = useRef<number | null>(null);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
+    
     const onScroll = () => {
-      const doc = document.documentElement;
-      const max = doc.scrollHeight - doc.clientHeight;
-      setProgress(max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0);
+      if (rafRef.current !== null) return;
+      
+      rafRef.current = requestAnimationFrame(() => {
+        const doc = document.documentElement;
+        const max = doc.scrollHeight - doc.clientHeight;
+        setProgress(max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0);
+        rafRef.current = null;
+      });
     };
+
+    const onResize = () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+      
+      rafRef.current = requestAnimationFrame(() => {
+        const doc = document.documentElement;
+        const max = doc.scrollHeight - doc.clientHeight;
+        setProgress(max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0);
+        rafRef.current = null;
+      });
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
+
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
     };
   }, []);
+
   return progress;
 }
 
 export function useScrolledPast(thresholdPx: number) {
   const [past, setPast] = useState(false);
+  const rafRef = useRef<number | null>(null);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const onScroll = () => setPast(window.scrollY > thresholdPx);
+
+    const onScroll = () => {
+      if (rafRef.current !== null) return;
+
+      rafRef.current = requestAnimationFrame(() => {
+        setPast(window.scrollY > thresholdPx);
+        rafRef.current = null;
+      });
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
   }, [thresholdPx]);
+
   return past;
 }
