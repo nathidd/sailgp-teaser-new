@@ -460,7 +460,7 @@ export const defaultSiteData: SiteData = {
       headline: {
         parts: [
           { text: "Five ways your brand " },
-          { text: "sets sail.", highlight: true },
+          { text: "sets sail", highlight: true },
         ],
       },
       paragraphs: [

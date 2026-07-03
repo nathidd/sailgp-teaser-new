@@ -41,6 +41,9 @@
   --tp-color-border-strong: rgba(255, 255, 255, 0.2);
   --tp-gradient: linear-gradient(90deg, #E7FF00, #F4FF7A);
 
+  /* Single corner radius for all card / media / panel containers. */
+  --tp-radius-card: 8px;
+
   /* Original token names retained for component back-compat.
      All now hold the SailGP acid-yellow — nothing renders pink/purple/blue. */
   --tp-color-blue: #E7FF00;
@@ -914,7 +917,7 @@
 .template-sailgp-pitch .tp-calendar__card {
   background: var(--tp-color-surface);
   border: 1px solid var(--tp-color-border);
-  border-radius: 12px;
+  border-radius: var(--tp-radius-card);
   padding: clamp(20px, 2.4vw, 28px);
   display: flex;
   flex-direction: column;
@@ -972,7 +975,7 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
+  border-radius: var(--tp-radius-card);
   overflow: hidden;
   margin-bottom: clamp(40px, 5vw, 64px);
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), 0 1px 0 rgba(255, 255, 255, 0.06) inset;
@@ -985,7 +988,7 @@
   }
   to {
     margin-inline: 0px;
-    border-radius: 20px;
+    border-radius: var(--tp-radius-card);
   }
 }
 
@@ -1631,7 +1634,7 @@
   top: 50%;
   margin-left: calc(clamp(220px, 18vw, 280px) / -2);
   margin-top: calc(clamp(290px, 24vw, 370px) / -2);
-  border-radius: 14px;
+  border-radius: var(--tp-radius-card);
   overflow: hidden;
   background: var(--tp-color-surface-strong);
   border: 1px solid var(--tp-color-border);
@@ -1717,7 +1720,7 @@
 }
 .template-sailgp-pitch .tp-visibility__card {
   border: 1px solid var(--tp-color-border);
-  border-radius: 12px;
+  border-radius: var(--tp-radius-card);
   padding: clamp(22px, 2.4vw, 32px);
   background: var(--tp-color-surface-strong);
   display: flex;
@@ -1928,7 +1931,7 @@
   gap: clamp(14px, 1.6vw, 20px);
   background: var(--tp-color-surface-strong);
   border: 1px solid var(--tp-color-border);
-  border-radius: 14px;
+  border-radius: var(--tp-radius-card);
   padding: clamp(20px, 2.4vw, 30px);
   width: 100%;
 }
@@ -2252,7 +2255,7 @@
   position: relative;
   background: var(--tp-color-surface);
   border: 1px solid var(--tp-color-border-strong);
-  border-radius: 16px;
+  border-radius: var(--tp-radius-card);
   padding: clamp(28px, 4vw, 48px);
   max-width: 680px;
   width: 100%;
@@ -2429,7 +2432,7 @@
   padding: clamp(24px, 2.6vw, 38px);
   background: var(--tp-color-surface-strong);
   border: 1px solid var(--tp-color-border);
-  border-radius: 20px;
+  border-radius: var(--tp-radius-card);
   position: relative;
   overflow: hidden;
 }
@@ -2546,7 +2549,7 @@
   color: var(--tp-color-text-muted);
 }
 .template-sailgp-pitch .tp-team__media {
-  border-radius: 20px;
+  border-radius: var(--tp-radius-card);
   overflow: hidden;
   border: 1px solid var(--tp-color-border);
   position: relative;
@@ -2588,7 +2591,7 @@
 .template-sailgp-pitch .tp-team__crew-item {
   width: clamp(88px, 12vw, 128px);
   aspect-ratio: 3 / 4;
-  border-radius: 14px;
+  border-radius: var(--tp-radius-card);
   overflow: hidden;
   border: 1px solid var(--tp-color-border);
   filter: grayscale(1) contrast(1.05);
@@ -2658,7 +2661,7 @@
   padding: clamp(20px, 2.2vw, 30px);
   background: rgba(13, 23, 43, 0.6);
   border: 1px solid var(--tp-color-border);
-  border-radius: 16px;
+  border-radius: var(--tp-radius-card);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
 }
@@ -2741,7 +2744,7 @@
   flex-direction: column;
   background: var(--tp-color-surface-strong);
   border: 1px solid var(--tp-color-border);
-  border-radius: 18px;
+  border-radius: var(--tp-radius-card);
   overflow: hidden;
   transition: border-color 0.3s ease, transform 0.3s ease;
 }
@@ -2960,7 +2963,7 @@
   align-items: center;
   gap: 4px;
   text-align: center;
-  border-radius: 14px;
+  border-radius: var(--tp-radius-card);
   background: linear-gradient(180deg, rgba(231, 255, 0, 0.16), rgba(13, 23, 43, 0.9));
   border: 1px solid var(--tp-color-border);
   transition: border-color 0.3s ease, transform 0.3s ease;
@@ -2998,7 +3001,7 @@
   margin-bottom: clamp(40px, 5vw, 72px);
   padding: clamp(20px, 2.4vw, 32px);
   border: 1px solid var(--tp-color-border);
-  border-radius: 20px;
+  border-radius: var(--tp-radius-card);
   background: var(--tp-color-surface-strong);
 }
 .template-sailgp-pitch .tp-course__vessel {
@@ -3009,7 +3012,7 @@
   min-width: 96px;
   height: 56px;
   padding: 8px 16px;
-  border-radius: 12px;
+  border-radius: var(--tp-radius-card);
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--tp-color-border-strong);
   margin-top: -4px;
@@ -3086,7 +3089,7 @@
   gap: 10px;
   padding: clamp(24px, 2.6vw, 34px);
   border: 1px solid var(--tp-color-border);
-  border-radius: 18px;
+  border-radius: var(--tp-radius-card);
   background: var(--tp-color-surface);
   transition: border-color 0.3s ease, transform 0.3s ease;
 }
@@ -3204,7 +3207,7 @@
   text-align: left;
   background: var(--tp-color-surface-strong);
   border: 1px solid var(--tp-color-border-strong);
-  border-radius: 20px;
+  border-radius: var(--tp-radius-card);
   box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.8);
 }
 .template-sailgp-pitch .tp-invitation__card-close {
@@ -3546,7 +3549,7 @@
   margin-top: clamp(28px, 3.5vw, 48px);
   padding: clamp(20px, 2.4vw, 30px) clamp(22px, 2.8vw, 36px);
   border: 1px solid var(--tp-color-border-strong);
-  border-radius: 18px;
+  border-radius: var(--tp-radius-card);
   background: var(--tp-color-surface-strong);
 }
 .template-sailgp-pitch .tp-course-builder__summary {
@@ -3666,7 +3669,7 @@
   gap: 16px;
   padding: clamp(16px, 1.6vw, 22px);
   border: 1px solid var(--tp-color-border);
-  border-radius: 14px;
+  border-radius: var(--tp-radius-card);
   background: var(--tp-color-surface-strong);
   color: var(--tp-color-text);
   cursor: pointer;
@@ -3702,7 +3705,7 @@
 .template-sailgp-pitch .tp-pillars__panel {
   padding: clamp(28px, 3vw, 48px);
   border: 1px solid var(--tp-color-border);
-  border-radius: 18px;
+  border-radius: var(--tp-radius-card);
   background: rgba(13, 23, 43, 0.5);
   display: flex;
   flex-direction: column;
@@ -3752,7 +3755,7 @@
 }
 .template-sailgp-pitch .tp-team__media {
   position: relative;
-  border-radius: 18px;
+  border-radius: var(--tp-radius-card);
   overflow: hidden;
   border: 1px solid var(--tp-color-border);
   aspect-ratio: 4 / 3;
@@ -3796,7 +3799,7 @@
 }
 .template-sailgp-pitch .tp-team__photo {
   position: relative;
-  border-radius: 18px;
+  border-radius: var(--tp-radius-card);
   overflow: hidden;
   border: 1px solid var(--tp-color-border);
   aspect-ratio: 3 / 4;
@@ -3863,7 +3866,7 @@
 .template-sailgp-pitch .tp-innovation__list {
   list-style: none;
   border: 1px solid var(--tp-color-border);
-  border-radius: 16px;
+  border-radius: var(--tp-radius-card);
   overflow: hidden;
   background: var(--tp-color-surface-strong);
 }
@@ -3886,7 +3889,7 @@
 .template-sailgp-pitch .tp-innovation__desc { font-size: 14px; color: var(--tp-color-text-muted); }
 .template-sailgp-pitch .tp-positioning__media {
   position: relative;
-  border-radius: 18px;
+  border-radius: var(--tp-radius-card);
   overflow: hidden;
   border: 1px solid var(--tp-color-border);
   aspect-ratio: 4 / 3;
@@ -3918,7 +3921,7 @@
   align-items: start;
 }
 .template-sailgp-pitch .tp-impact__media {
-  border-radius: 18px;
+  border-radius: var(--tp-radius-card);
   overflow: hidden;
   border: 1px solid var(--tp-color-border);
   aspect-ratio: 1 / 1;
@@ -3940,7 +3943,7 @@
   gap: 10px;
   padding: clamp(18px, 2vw, 26px);
   border: 1px solid var(--tp-color-border);
-  border-radius: 14px;
+  border-radius: var(--tp-radius-card);
   background: var(--tp-color-surface-strong);
 }
 .template-sailgp-pitch .tp-impact__card-head { display: flex; align-items: center; gap: 10px; }
@@ -4019,7 +4022,7 @@
 .template-sailgp-pitch .tp-approach__focus {
   padding: clamp(20px, 2.4vw, 30px);
   border: 1px solid var(--tp-color-border-strong);
-  border-radius: 16px;
+  border-radius: var(--tp-radius-card);
   background: rgba(255, 255, 255, 0.04);
   display: flex;
   flex-direction: column;
@@ -4073,7 +4076,7 @@
   gap: 14px;
   padding: clamp(14px, 1.6vw, 20px) clamp(16px, 1.8vw, 22px);
   border: 1px solid var(--tp-color-border);
-  border-radius: 12px;
+  border-radius: var(--tp-radius-card);
   background: var(--tp-color-surface-strong);
   color: var(--tp-color-text);
   cursor: pointer;
@@ -4105,9 +4108,11 @@
   margin-bottom: clamp(28px, 3.5vw, 52px);
 }
 .template-sailgp-pitch .tp-opportunities__head .tp-display { max-width: none; }
-@media (min-width: 701px) {
-  /* Keep the headline on a single line on tablet/desktop. */
-  .template-sailgp-pitch .tp-opportunities__title { white-space: nowrap !important; }
+/* Keep the headline on a single line at every width — the font scales with
+   the viewport so it fits on one line down to small phones. */
+.template-sailgp-pitch .tp-opportunities__head .tp-opportunities__title {
+  white-space: nowrap !important;
+  font-size: clamp(15px, 4.2vw, 44px);
 }
 .template-sailgp-pitch .tp-opportunities__hint {
   display: inline-flex;
@@ -4132,7 +4137,7 @@
   gap: 12px;
   padding: clamp(20px, 2vw, 28px);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--tp-radius-card);
   background: var(--tp-color-surface);
   color: var(--tp-color-text);
   cursor: pointer;
@@ -4144,7 +4149,7 @@
 .template-sailgp-pitch .tp-course-card:hover { border-color: var(--tp-color-border-strong); transform: translateY(-3px); }
 .template-sailgp-pitch .tp-course-card:focus-visible { outline: 2px solid var(--tp-color-accent); outline-offset: 3px; }
 .template-sailgp-pitch .tp-course-card__top { display: flex; align-items: center; justify-content: space-between; }
-.template-sailgp-pitch .tp-course-card__icon { color: rgba(255, 255, 255, 0.5); }
+.template-sailgp-pitch .tp-course-card__icon { color: rgba(255, 255, 255, 0.5); flex-shrink: 0; }
 .template-sailgp-pitch .tp-course-card__toggle {
   width: 28px;
   height: 28px;
@@ -4183,6 +4188,32 @@
   color: var(--tp-color-bg);
   border-color: var(--tp-color-accent);
 }
+/* Mobile only: reflow the card into a compact two-row grid — icon + title +
+   toggle across the top, description below, route hidden. Desktop keeps the
+   original stacked design (icon above title, route numbering at the bottom).
+   Placed after the base card rules so it wins at ≤700px. */
+@media (max-width: 700px) {
+  .template-sailgp-pitch .tp-course-card {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "icon title toggle"
+      "desc desc  desc";
+    align-items: center;
+    gap: 6px 12px;
+    padding: 14px 16px;
+  }
+  .template-sailgp-pitch .tp-course-card__top { display: contents; }
+  .template-sailgp-pitch .tp-course-card__icon { grid-area: icon; }
+  .template-sailgp-pitch .tp-course-card__title { grid-area: title; }
+  .template-sailgp-pitch .tp-course-card__desc { grid-area: desc; }
+  .template-sailgp-pitch .tp-course-card__toggle {
+    grid-area: toggle;
+    justify-self: end;
+  }
+  .template-sailgp-pitch .tp-course-card__route { display: none; }
+}
 .template-sailgp-pitch .tp-course-builder {
   display: flex;
   align-items: center;
@@ -4191,8 +4222,8 @@
   margin-top: clamp(20px, 2.4vw, 32px);
   padding: clamp(16px, 1.8vw, 22px) clamp(20px, 2.4vw, 30px);
   border: 1px solid var(--tp-color-border-strong);
-  border-radius: 16px;
-  background: var(--tp-color-surface);
+  border-radius: var(--tp-radius-card);
+  background: var(--tp-color-surface-strong);
 }
 .template-sailgp-pitch .tp-course-builder__label {
   font-size: 11px;
@@ -4217,7 +4248,44 @@
   color: var(--tp-color-text);
 }
 .template-sailgp-pitch .tp-course-builder__placeholder { color: var(--tp-color-text-muted); }
-.template-sailgp-pitch .tp-course-builder__cta { flex-shrink: 0; }
+.template-sailgp-pitch .tp-course-builder__cta {
+  flex-shrink: 0;
+  margin-left: clamp(16px, 2.5vw, 36px);
+}
+
+/* On mobile the summary bar floats at the bottom of the viewport while you
+   tap through the routes, so the live selection (pips + summary) stays in
+   view instead of being lost below a long stack of cards. */
+@media (max-width: 700px) {
+  .template-sailgp-pitch .tp-course-builder {
+    position: sticky;
+    bottom: 12px;
+    z-index: 5;
+    gap: 8px 12px;
+    box-shadow: 0 14px 36px -12px rgba(0, 0, 0, 0.85);
+  }
+  .template-sailgp-pitch .tp-course-builder__value {
+    flex-basis: 100%;
+    min-width: 0;
+    font-size: 13px;
+  }
+  .template-sailgp-pitch .tp-course-builder__cta {
+    flex-basis: 100%;
+    justify-content: center;
+    margin-left: 0;
+    margin-top: 8px;
+  }
+  /* Route pips span the full card width — each stretches to fill. */
+  .template-sailgp-pitch .tp-course-builder__pips {
+    display: flex;
+    flex-basis: 100%;
+    width: 100%;
+  }
+  .template-sailgp-pitch .tp-course-builder__pip {
+    flex: 1;
+    width: auto;
+  }
+}
 
 /* ---------- Responsive — reworked sections ---------- */
 @media (max-width: 980px) {
@@ -4515,7 +4583,7 @@
 .template-sailgp-pitch .tp-pillars__crowd {
   position: absolute;
   inset: 0;
-  border-radius: 18px;
+  border-radius: var(--tp-radius-card);
   overflow: hidden;
   border: 1px solid var(--tp-color-border);
 }
@@ -4590,7 +4658,7 @@
   width: 100%;
   height: 100%;
   border: 1px solid var(--tp-color-border);
-  border-radius: 18px;
+  border-radius: var(--tp-radius-card);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
 }
 .template-sailgp-pitch .tp-momentum__svg {
