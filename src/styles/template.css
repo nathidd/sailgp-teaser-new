@@ -3587,7 +3587,7 @@
   border-left: none;
   padding-left: 0;
   color: var(--tp-color-text-muted);
-  font-size: clamp(17px, 1.5vw, 21px);
+  font-size: clamp(15px, 1.05vw, 17px);
 }
 
 /* ---------- Hero — left-aligned editorial ---------- */
@@ -3760,8 +3760,30 @@
   overflow: hidden;
   border: 1px solid var(--tp-color-border);
   aspect-ratio: 3 / 4;
+  transition: transform 0.35s ease, border-color 0.35s ease;
+  will-change: transform;
+}
+.template-sailgp-pitch .tp-team__photo:hover,
+.template-sailgp-pitch .tp-team__photo:focus-visible {
+  border-color: var(--tp-color-border-strong);
+}
+.template-sailgp-pitch .tp-team__photo:nth-child(odd):hover {
+  transform: translateY(-10px) rotate(-1.75deg);
+}
+.template-sailgp-pitch .tp-team__photo:nth-child(even):hover {
+  transform: translateY(-10px) rotate(1.75deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .template-sailgp-pitch .tp-team__photo { transition: none; }
+  .template-sailgp-pitch .tp-team__photo:nth-child(odd):hover,
+  .template-sailgp-pitch .tp-team__photo:nth-child(even):hover {
+    transform: none;
+  }
 }
 .template-sailgp-pitch .tp-team__photo-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Source photo is landscape with Sebastian off-center right; shift the
+   crop window right so he isn't cut off in the 3:4 card. */
+.template-sailgp-pitch .tp-team__photo-img[alt="Sebastian Vettel"] { object-position: 80% center; }
 .template-sailgp-pitch .tp-team__photo-scrim {
   position: absolute;
   inset: 0;
@@ -3807,7 +3829,7 @@
 }
 .template-sailgp-pitch .tp-innovation__row {
   display: grid;
-  grid-template-columns: auto minmax(84px, auto) 1fr auto;
+  grid-template-columns: auto minmax(84px, auto) 1fr;
   align-items: center;
   gap: 16px;
   padding: clamp(16px, 1.8vw, 22px) clamp(18px, 2vw, 26px);
@@ -3822,7 +3844,6 @@
   text-transform: uppercase;
 }
 .template-sailgp-pitch .tp-innovation__desc { font-size: 14px; color: var(--tp-color-text-muted); }
-.template-sailgp-pitch .tp-innovation__icon { color: rgba(255, 255, 255, 0.5); justify-self: end; }
 .template-sailgp-pitch .tp-positioning__media {
   position: relative;
   border-radius: 18px;
@@ -4114,7 +4135,7 @@
   .template-sailgp-pitch .tp-impact__media { position: static; }
 }
 @media (max-width: 760px) {
-  .template-sailgp-pitch .tp-innovation__row { grid-template-columns: auto 1fr auto; row-gap: 8px; }
+  .template-sailgp-pitch .tp-innovation__row { grid-template-columns: auto 1fr; row-gap: 8px; }
   .template-sailgp-pitch .tp-innovation__desc { grid-column: 1 / -1; }
   .template-sailgp-pitch .tp-funnel-bar { margin-left: 0 !important; width: 100% !important; }
   .template-sailgp-pitch .tp-funnel-bar { flex-wrap: wrap; }

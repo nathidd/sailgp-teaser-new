@@ -2,7 +2,6 @@ import type { PositioningSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
 import { Headline } from "@/components/Headline";
 import { Reveal } from "@/components/Reveal";
-import { Icon } from "@/components/Icon";
 import { isMeaningful, filterMeaningful, splitParagraphs } from "@/lib/render-utils";
 
 /** Brief Section 3 "Positioning" — learning speed / what we build becomes standard. */
@@ -55,7 +54,6 @@ export function PitchPositioning({ data }: { data: PositioningSection }) {
                       {isMeaningful(m.description) && (
                         <span className="tp-innovation__desc">{m.description}</span>
                       )}
-                      <Icon name={m.icon} className="tp-innovation__icon" size={20} />
                     </li>
                   ))}
                 </ol>
