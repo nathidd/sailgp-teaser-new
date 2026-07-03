@@ -4469,3 +4469,103 @@
   animation: tp-globe-pulse 2.4s ease-out infinite;
 }
 .template-sailgp-pitch .tp-pillars__spot-pulse--2 { animation-delay: 1.2s; }
+
+/* ---------- Momentum — animated growth curve ---------- */
+.template-sailgp-pitch .tp-momentum {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--tp-color-border);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+}
+.template-sailgp-pitch .tp-momentum__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.template-sailgp-pitch .tp-momentum__reveal {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: tp-momentum-reveal 1.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes tp-momentum-reveal {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.template-sailgp-pitch .tp-momentum__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.template-sailgp-pitch .tp-momentum__dot {
+  position: absolute;
+  opacity: 0;
+  animation: tp-momentum-dot-in 0.5s ease-out both;
+}
+@keyframes tp-momentum-dot-in {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+.template-sailgp-pitch .tp-momentum__pip,
+.template-sailgp-pitch .tp-momentum__pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.template-sailgp-pitch .tp-momentum__pip {
+  width: 9px;
+  height: 9px;
+  background: var(--tp-color-accent);
+  box-shadow: 0 0 0 3px rgba(3, 5, 15, 0.55), 0 0 10px 1px rgba(231, 255, 0, 0.6);
+}
+.template-sailgp-pitch .tp-momentum__dot.is-last .tp-momentum__pip {
+  width: 13px;
+  height: 13px;
+  box-shadow: 0 0 0 4px rgba(3, 5, 15, 0.6), 0 0 16px 2px rgba(231, 255, 0, 0.85);
+}
+.template-sailgp-pitch .tp-momentum__pulse {
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--tp-color-accent);
+  opacity: 0;
+  animation: tp-globe-pulse 2.4s ease-out infinite;
+}
+.template-sailgp-pitch .tp-momentum__pulse--2 { animation-delay: 1.2s; }
+.template-sailgp-pitch .tp-momentum__growth {
+  position: absolute;
+  transform: translate(-50%, -175%);
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: var(--tp-color-accent);
+  color: var(--tp-color-bg);
+  font-family: var(--tp-font-display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  animation: tp-momentum-dot-in 0.5s ease-out both;
+  animation-delay: 1.35s;
+}
+.template-sailgp-pitch .tp-momentum__xlabel {
+  position: absolute;
+  top: 86%;
+  transform: translateX(-50%);
+  font-family: var(--tp-font-display);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tp-color-text-muted);
+}
+@media (prefers-reduced-motion: reduce) {
+  .template-sailgp-pitch .tp-momentum__reveal { animation: none; }
+  .template-sailgp-pitch .tp-momentum__dot,
+  .template-sailgp-pitch .tp-momentum__growth { animation: none; opacity: 1; }
+  .template-sailgp-pitch .tp-momentum__dot { transform: translate(-50%, -50%); }
+  .template-sailgp-pitch .tp-momentum__pulse { animation: none; }
+}

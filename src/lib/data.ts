@@ -146,6 +146,12 @@ export type Destination = {
   lng: number;
 };
 
+/** A point in a growth series (e.g. one season) for the momentum curve. */
+export type SeriesPoint = {
+  label: string;
+  value: number;
+};
+
 export type PillarItem = {
   _key?: string;
   /** Pillar name, e.g. "Global Scale". */
@@ -164,6 +170,8 @@ export type PillarItem = {
   image?: Asset;
   /** Pulsing-dot positions on `image`, as {x,y} percentages (0–100). */
   spots?: { x: number; y: number }[];
+  /** Optional growth series, rendered as an animated momentum curve. */
+  series?: SeriesPoint[];
 };
 
 export type PillarsSection = {
