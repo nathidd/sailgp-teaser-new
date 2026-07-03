@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { InvitationSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
@@ -19,6 +19,15 @@ import {
 export function PitchInvitation({ data }: { data: InvitationSection }) {
   const [open, setOpen] = useState(false);
   const { prospect, tenant, editable } = data;
+
+  // When the letter mounts (after the trigger exits), bring its top into view
+  // so the note is in focus rather than opening off-screen below the fold.
+  const scrollLetterIntoView = useCallback((node: HTMLDivElement | null) => {
+    if (!node) return;
+    requestAnimationFrame(() =>
+      node.scrollIntoView({ behavior: "smooth", block: "start" })
+    );
+  }, []);
 
   const introParas = (editable.paragraphs ?? []).flatMap(splitParagraphs);
   const noteParas = splitParagraphs(prospect.note);
@@ -100,6 +109,7 @@ export function PitchInvitation({ data }: { data: InvitationSection }) {
             ) : (
               <motion.div
                 key="card"
+                ref={scrollLetterIntoView}
                 className="tp-invitation__card"
                 initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}

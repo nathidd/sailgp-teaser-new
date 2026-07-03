@@ -3220,6 +3220,8 @@
   position: relative;
   width: min(640px, 100%);
   margin-top: 12px;
+  /* Clears the fixed top banner when the letter is scrolled into view. */
+  scroll-margin-top: 108px;
   padding: clamp(28px, 4vw, 48px);
   text-align: left;
   background: var(--tp-color-surface-strong);
