@@ -8,6 +8,22 @@ import { Reveal } from "@/components/Reveal";
 import { FunnelChart } from "@/components/funnel-chart/funnel-chart";
 import { isMeaningful, filterMeaningful, splitParagraphs } from "@/lib/render-utils";
 
+/** Tracks whether the referenced element is in view; toggles on every crossing. */
+function useInView() {
+  const [node, setNode] = useState<HTMLElement | null>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    if (!node) return;
+    const io = new IntersectionObserver(
+      (entries) => setInView(entries.some((e) => e.isIntersecting)),
+      { threshold: 0.15 }
+    );
+    io.observe(node);
+    return () => io.disconnect();
+  }, [node]);
+  return [setNode, inView] as const;
+}
+
 /** Tracks a media query; defaults to `false` on the server, resolves after mount. */
 function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = useState(false);
@@ -37,6 +53,11 @@ export function PitchApproach({ data }: { data: ApproachSection }) {
   const stages = filterMeaningful(tenant.stages).filter((s) => isMeaningful(s.stage));
   const isMobile = useMediaQuery("(max-width: 600px)");
   const [hovered, setHovered] = useState<number | null>(null);
+  const [funnelRef, funnelInView] = useInView();
+  // Mount the funnel only while it's in view (on every breakpoint). It unmounts
+  // when scrolled away and remounts on re-entry, so its staggered "one after
+  // another" entrance replays each time the section comes back into view.
+  const showFunnel = funnelInView;
 
   if (stages.length === 0) return null;
 
@@ -99,20 +120,27 @@ export function PitchApproach({ data }: { data: ApproachSection }) {
           )}
 
           <Reveal delay={2} className="tp-approach__funnel-wrap">
-            <FunnelChart
-              data={funnelData}
-              orientation={isMobile ? "vertical" : "horizontal"}
-              color="var(--tp-color-accent)"
-              layers={3}
-              edges="straight"
-              showPercentage={false}
-              labelLayout="grouped"
-              labelAlign="center"
-              labelOrientation="vertical"
-              hoveredIndex={hovered}
-              onHoverChange={setHovered}
+            <div
+              ref={funnelRef}
               style={{ aspectRatio: isMobile ? "1 / 1.2" : "2.8 / 1" }}
-            />
+            >
+              {showFunnel && (
+                <FunnelChart
+                  data={funnelData}
+                  orientation={isMobile ? "vertical" : "horizontal"}
+                  color="var(--tp-color-accent)"
+                  layers={3}
+                  edges="straight"
+                  showPercentage={false}
+                  labelLayout="grouped"
+                  labelAlign="center"
+                  labelOrientation="vertical"
+                  hoveredIndex={hovered}
+                  onHoverChange={setHovered}
+                  style={{ aspectRatio: "auto", width: "100%", height: "100%" }}
+                />
+              )}
+            </div>
           </Reveal>
         </div>
       </div>

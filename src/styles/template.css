@@ -3988,6 +3988,16 @@
     rgba(3, 5, 15, 0.88) 100%
   );
 }
+@media (max-width: 600px) {
+  .template-sailgp-pitch .tp-approach__bg-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(3, 5, 15, 0.94) 0%,
+      rgba(3, 5, 15, 0.78) 50%,
+      rgba(3, 5, 15, 0.94) 100%
+    );
+  }
+}
 .template-sailgp-pitch .tp-approach .tp-container {
   position: relative;
   z-index: 1;
