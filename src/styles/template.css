@@ -92,6 +92,14 @@
 .template-sailgp-pitch .tp-section {
   padding-block: var(--tp-section-y);
   position: relative;
+  /* Anchor jumps land below the fixed top banner. */
+  scroll-margin-top: 92px;
+}
+/* Full-viewport sections align to the very top (their own top padding
+   already clears the banner) — no extra offset. */
+.template-sailgp-pitch .tp-hero,
+.template-sailgp-pitch .tp-pillars {
+  scroll-margin-top: 0;
 }
 .template-sailgp-pitch .tp-section--surface {
   background: var(--tp-color-surface);
@@ -2763,7 +2771,29 @@
 /* ============================================================
  * Section 5 — Network (business network map)
  * ============================================================ */
+.template-sailgp-pitch .tp-network { position: relative; overflow: hidden; }
+.template-sailgp-pitch .tp-network__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.template-sailgp-pitch .tp-network__bg-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(3, 5, 15, 1) 0%,
+    rgba(3, 5, 15, 0.8) 50%,
+    rgba(3, 5, 15, 1) 100%
+  );
+}
 .template-sailgp-pitch .tp-network__inner {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
   gap: clamp(32px, 5vw, 72px);
@@ -2784,23 +2814,30 @@
 .template-sailgp-pitch .tp-network__datapoint {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding-left: 18px;
-  border-left: 2px solid var(--tp-color-border-strong);
+  gap: 8px;
+}
+.template-sailgp-pitch .tp-network__dp-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.template-sailgp-pitch .tp-network__dp-icon {
+  flex-shrink: 0;
+  color: var(--tp-color-text-muted);
 }
 .template-sailgp-pitch .tp-network__dp-value {
   font-family: var(--tp-font-display);
   font-weight: 700;
-  font-size: clamp(32px, 4vw, 52px);
+  font-size: clamp(26px, 3vw, 40px);
   letter-spacing: -0.045em;
   line-height: 1;
   color: var(--tp-color-text);
 }
 .template-sailgp-pitch .tp-network__dp-suffix { font-size: 0.55em; }
 .template-sailgp-pitch .tp-network__dp-label {
-  font-size: 14px;
+  font-size: clamp(15px, 1.05vw, 17px);
   color: var(--tp-color-text-muted);
-  line-height: 1.45;
+  line-height: 1.5;
 }
 .template-sailgp-pitch .tp-network__map {
   position: relative;
@@ -2817,27 +2854,32 @@
   overflow: visible;
 }
 .template-sailgp-pitch .tp-network__spoke {
-  stroke: rgba(255, 255, 255, 0.25);
+  stroke: rgba(255, 255, 255, 0.14);
   stroke-width: 0.5;
-  opacity: 0.6;
-  stroke-dasharray: 2 5;
-  animation: tp-network-flow 3.4s linear infinite;
 }
-@keyframes tp-network-flow {
-  from { stroke-dashoffset: 14; }
-  to   { stroke-dashoffset: 0; }
+/* One green light travelling node -> SailGP -> node (rendered by NetworkPulse,
+   which sequences one beam at a time with a pause between). */
+.template-sailgp-pitch .tp-network__beams {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  z-index: 1;
 }
-.template-sailgp-pitch .tp-network__hub-ring {
+.template-sailgp-pitch .tp-network__beam {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.3);
-  stroke-width: 0.4;
-  opacity: 0.5;
-  transform-origin: 50px 50px;
-  animation: tp-network-pulse 3s ease-in-out infinite;
+  stroke: var(--tp-color-accent);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 4 220;
+  filter: drop-shadow(0 0 3px rgba(231, 255, 0, 0.9));
+  animation: tp-network-beam 2.04s ease-in-out forwards;
 }
-@keyframes tp-network-pulse {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50%      { opacity: 0.15; transform: scale(1.35); }
+@keyframes tp-network-beam {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -84; }
 }
 .template-sailgp-pitch .tp-network__hub {
   position: absolute;
@@ -2848,19 +2890,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  width: clamp(96px, 24%, 128px);
-  height: clamp(96px, 24%, 128px);
+  width: clamp(92px, 24%, 124px);
+  height: clamp(92px, 24%, 124px);
   border-radius: 999px;
-  padding: 10px;
-  background: radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.12), rgba(13, 23, 43, 0.95));
-  border: 1px solid var(--tp-color-border-strong);
-  font-family: var(--tp-font-display);
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: -0.01em;
-  line-height: 1.15;
-  box-shadow: 0 0 40px -12px rgba(0, 0, 0, 0.6);
+  padding: clamp(16px, 4%, 22px);
+  background: rgba(3, 5, 15, 0.92);
+  box-shadow: 0 0 34px -6px rgba(231, 255, 0, 0.4);
+}
+.template-sailgp-pitch .tp-network__hub-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 .template-sailgp-pitch .tp-network__node {
   position: absolute;
@@ -2873,8 +2914,7 @@
   max-width: 42%;
   padding: 8px 14px;
   border-radius: 999px;
-  background: rgba(13, 23, 43, 0.92);
-  border: 1px solid var(--tp-color-border-strong);
+  background: rgba(3, 5, 15, 0.82);
   -webkit-backdrop-filter: blur(6px);
           backdrop-filter: blur(6px);
   font-size: 12px;
@@ -4547,4 +4587,52 @@
   .template-sailgp-pitch .tp-momentum__growth { animation: none; opacity: 1; }
   .template-sailgp-pitch .tp-momentum__dot { transform: translate(-50%, -50%); }
   .template-sailgp-pitch .tp-momentum__pulse { animation: none; }
+}
+
+/* ---------- Simple hover/focus tooltip ---------- */
+.template-sailgp-pitch .tp-tooltip {
+  position: relative;
+  cursor: default;
+  border-bottom: 1px dotted var(--tp-color-border-strong);
+}
+.template-sailgp-pitch .tp-tooltip__bubble {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  z-index: 5;
+  width: max-content;
+  max-width: 240px;
+  padding: 7px 11px;
+  border-radius: 8px;
+  background: var(--tp-color-bg);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.8);
+  color: var(--tp-color-text);
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.template-sailgp-pitch .tp-tooltip:hover .tp-tooltip__bubble,
+.template-sailgp-pitch .tp-tooltip:focus-visible .tp-tooltip__bubble {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Network — compact mobile (fit within viewport) ---------- */
+@media (max-width: 600px) {
+  .template-sailgp-pitch .tp-network { padding-block: 44px; }
+  .template-sailgp-pitch .tp-network .tp-section-head { margin-bottom: 14px; gap: 10px; }
+  .template-sailgp-pitch .tp-network__inner { gap: 18px; }
+  .template-sailgp-pitch .tp-network__map { max-width: min(66vw, 280px); }
+  .template-sailgp-pitch .tp-network__body { gap: 8px; }
+  .template-sailgp-pitch .tp-network__body p { font-size: 13px; line-height: 1.45; }
+  .template-sailgp-pitch .tp-network__datapoints {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .template-sailgp-pitch .tp-network__dp-value { font-size: 26px; }
+  .template-sailgp-pitch .tp-network__dp-label { font-size: 13px; }
 }

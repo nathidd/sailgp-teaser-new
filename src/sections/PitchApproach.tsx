@@ -32,7 +32,7 @@ export function PitchApproach({ data }: { data: ApproachSection }) {
   return (
     <section
       id={SectionId.approach}
-      className="tp-section tp-section--surface-strong tp-approach"
+      className="tp-section tp-approach"
       aria-label={label}
     >
       <div className="tp-container">

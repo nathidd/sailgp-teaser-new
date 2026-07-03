@@ -16,9 +16,24 @@ export type IconName =
   | "compass"
   | "arrow"
   | "check"
-  | "plus";
+  | "plus"
+  | "coin"
+  | "clock";
 
 const PATHS: Record<IconName, JSX.Element> = {
+  coin: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v10" />
+      <path d="M14.8 9.3c-.6-.9-1.7-1.3-2.8-1.3-1.6 0-2.8.8-2.8 2s1.2 2 2.8 2 2.8.8 2.8 2-1.2 2-2.8 2c-1.1 0-2.2-.4-2.8-1.3" />
+    </>
+  ),
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7.5V12l3 1.8" />
+    </>
+  ),
   globe: (
     <>
       <circle cx="12" cy="12" r="9" />

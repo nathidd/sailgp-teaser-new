@@ -2,6 +2,8 @@ import type { NetworkSection } from "@/lib/data";
 import { SectionId } from "@/lib/data";
 import { Headline } from "@/components/Headline";
 import { Reveal } from "@/components/Reveal";
+import { Icon } from "@/components/Icon";
+import { NetworkPulse } from "@/components/NetworkPulse";
 import { isMeaningful, filterMeaningful, splitParagraphs } from "@/lib/render-utils";
 
 /**
@@ -35,6 +37,9 @@ export function PitchNetwork({ data }: { data: NetworkSection }) {
       className="tp-section tp-network"
       aria-label={editable.label ?? "Who we connect"}
     >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="tp-network__bg" src="/assets/images/crowd 5.webp" alt="" aria-hidden="true" />
+      <div className="tp-network__bg-scrim" aria-hidden="true" />
       <div className="tp-container tp-network__inner">
         <div className="tp-network__text">
           <div className="tp-section-head">
@@ -68,7 +73,17 @@ export function PitchNetwork({ data }: { data: NetworkSection }) {
                       <span className="tp-network__dp-suffix">{d.suffix}</span>
                     )}
                   </span>
-                  <span className="tp-network__dp-label">{d.label}</span>
+                  <span className="tp-network__dp-label">
+                    <Icon name={d.icon} size={18} className="tp-network__dp-icon" />
+                    {isMeaningful(d.source) ? (
+                      <span className="tp-tooltip" tabIndex={0}>
+                        {d.label}
+                        <span className="tp-tooltip__bubble">{d.source}</span>
+                      </span>
+                    ) : (
+                      d.label
+                    )}
+                  </span>
                 </Reveal>
               ))}
             </ul>
@@ -83,22 +98,26 @@ export function PitchNetwork({ data }: { data: NetworkSection }) {
               preserveAspectRatio="xMidYMid meet"
               aria-hidden="true"
             >
+              {/* Static faint connections. */}
               {layout.map(({ x, y }, i) => (
-                <line
-                  key={i}
-                  className="tp-network__spoke"
-                  x1="50"
-                  y1="50"
-                  x2={x}
-                  y2={y}
-                  style={{ animationDelay: `${i * 0.35}s` }}
-                />
+                <line key={`s-${i}`} className="tp-network__spoke" x1="50" y1="50" x2={x} y2={y} />
               ))}
-              <circle className="tp-network__hub-ring" cx="50" cy="50" r="9" />
             </svg>
 
+            {/* One green light at a time: node → SailGP → another node. */}
+            <NetworkPulse points={layout.map(({ x, y }) => ({ x, y }))} />
+
             <span className="tp-network__hub">
-              {isMeaningful(tenant.centerLabel) ? tenant.centerLabel : "SailGP"}
+              {isMeaningful(tenant.logo?.src) ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={tenant.logo!.src}
+                  alt={tenant.logo!.alt ?? tenant.centerLabel ?? "SailGP"}
+                  className="tp-network__hub-logo"
+                />
+              ) : (
+                isMeaningful(tenant.centerLabel) ? tenant.centerLabel : "SailGP"
+              )}
             </span>
 
             {layout.map(({ node, x, y }, i) => (

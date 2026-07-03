@@ -4,6 +4,9 @@ html {
   background: #080808;
   color-scheme: dark;
   scroll-behavior: smooth;
+  /* Offset anchor jumps by the fixed top-banner height so sections don't
+     land underneath it. */
+  scroll-padding-top: 92px;
 }
 
 @media (prefers-reduced-motion: reduce) {

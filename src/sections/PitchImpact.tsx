@@ -19,7 +19,7 @@ export function PitchImpact({ data }: { data: ImpactSection }) {
   return (
     <section
       id={SectionId.impact}
-      className="tp-section tp-section--surface tp-impact"
+      className="tp-section tp-impact"
       aria-label={label}
     >
       <div className="tp-container">

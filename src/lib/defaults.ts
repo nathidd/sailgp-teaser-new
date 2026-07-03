@@ -328,6 +328,7 @@ export const defaultSiteData: SiteData = {
   network: {
     tenant: {
       centerLabel: "SailGP Germany",
+      logo: { src: "/assets/images/sailgp-logo.png", alt: "SailGP" },
       nodes: [
         { _key: "nd-finance", label: "Finance" },
         { _key: "nd-tech", label: "Technology" },
@@ -336,11 +337,13 @@ export const defaultSiteData: SiteData = {
         { _key: "nd-decision", label: "Decision Makers" },
       ],
       dataPoints: [
-        { _key: "dp-value", value: "218%", label: "Higher average deal value" },
+        { _key: "dp-value", value: "2.18x", icon: "coin", label: "Higher average deal value" },
         {
           _key: "dp-speed",
           value: "22%",
-          label: "Faster deal closure vs standard corporate events",
+          icon: "clock",
+          label: "Faster deal closure",
+          source: "vs. standard corporate events",
         },
       ],
     },

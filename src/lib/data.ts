@@ -86,6 +86,8 @@ export type StatPoint = {
   label: string;
   /** Optional short lead-in above the label, e.g. "Affluent". */
   tag?: string;
+  /** Optional icon name (see Icon.tsx). */
+  icon?: string;
   /** Optional finer-grained note/source. */
   source?: string;
 };
@@ -279,6 +281,8 @@ export type NetworkSection = {
   tenant: {
     /** Hub label at the center of the map, e.g. "SailGP Germany". */
     centerLabel?: string;
+    /** Hub logo shown at the center of the map (falls back to centerLabel). */
+    logo?: Asset;
     nodes: NetworkNode[];
     /** Reference count 2 — the headline proof points (218% / 22%). */
     dataPoints: StatPoint[];
